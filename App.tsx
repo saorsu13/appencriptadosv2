@@ -1,20 +1,32 @@
+// App.tsx
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ThemeProvider as RestyleProvider } from '@shopify/restyle';
+import AppNavigator from './src/navigation/AppNavigator';
+import { DarkModeProvider, useDarkModeTheme } from './src/context/theme';
+import { ThemeCustom } from './src/config/theme2';
+import { Provider } from 'react-redux';
+import { store } from './src/store'; 
 
-export default function App() {
+// Este componente interno lee el modo y aplica el theme correcto
+function Root() {
+  const { themeMode } = useDarkModeTheme();
+  const theme = ThemeCustom[themeMode];
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <RestyleProvider theme={theme}>
+      <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} />
+      <AppNavigator />
+    </RestyleProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <DarkModeProvider>
+      <Provider store={store}>
+        <Root />
+      </Provider>
+    </DarkModeProvider>
+  );
+}
