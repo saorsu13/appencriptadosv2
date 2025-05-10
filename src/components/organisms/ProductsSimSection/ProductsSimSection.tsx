@@ -21,6 +21,8 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@shopify/restyle';
 import { ThemeCustomType } from '@/config/theme2';
 import type { FAQItem } from '@/components/molecules/FAQAccordion/FAQAccordion';
+import { Product } from '@/features/product/types';
+
 
 export default function ProductsSimSection() {
   const dispatch = useAppDispatch();
@@ -34,18 +36,21 @@ export default function ProductsSimSection() {
     staleTime: 0,
   });
 
-  const faqItems: FAQItem[] = faqs
-    ? faqs.map(question => ({
-        title: question,        
-        content: '',            
-      }))
-    : [];
+const faqItems: FAQItem[] = Array.isArray(faqs)
+  ? faqs.map(question => ({
+      title: typeof question === 'string' ? question : 'Pregunta desconocida', 
+      content: t('pages.home-tab.defaultAnswer') || 'Pronto añadiremos respuesta.', // <-- 👈
+    }))
+  : [];
 
-  const { data: productsSim, isFetching } = useQuery<string[]>({
-    queryKey: ['productsSim'],
+
+
+  const { data: productsSim, isFetching } = useQuery<Product[]>({
+    queryKey: ['productsSim', currentLanguage],
     queryFn: () => getProducts('sim', currentLanguage),
     staleTime: 0,
   });
+
 
   // Banner images
   const BannerWelcome = require('@/assets/img/comunicate-banner.png');
@@ -120,13 +125,28 @@ export default function ProductsSimSection() {
       <View>
         {isFetching ? (
           <View style={{ flex: 1, alignSelf: 'center' }}>
-            <SkeletonGrid heightImage={300} widthImage={200} borderRadius={5} gap={12} columns={2} rows={2} boneColor="rgba(255,255,255,0.25)" />
+            <SkeletonGrid
+              heightImage={300}
+              widthImage={200}
+              borderRadius={5}
+              gap={12}
+              columns={2}
+              rows={2}
+              boneColor="rgba(255,255,255,0.25)"
+            />
           </View>
         ) : (
-          Array.isArray(productsSim) && productsSim.length > 0 && (
-            <ListOfProductCards heightImage={70} widthImage={70} list={productsSim as []} type="product" />
+          productsSim && productsSim.length > 0 && (
+            <ListOfProductCards
+              heightImage={70}
+              widthImage={70}
+              list={productsSim} // ✅ Directo, sin `as []`
+              type="product"
+            />
           )
         )}
+
+
       </View>
 
       <View style={styles.container}>

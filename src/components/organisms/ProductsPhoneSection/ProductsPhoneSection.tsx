@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@shopify/restyle';
 import type { ThemeCustomType } from '@/config/theme2';
-import type { Product } from '@/components/molecules/ListOfProductCards/ListOfProductCards';
+import { Product } from '@/features/product/types';
 
 import ListOfProductCards from '@/components/molecules/ListOfProductCards/ListOfProductCards';
 import SkeletonGrid from '@/components/molecules/SkeletonContent/SkeletonGrid';
