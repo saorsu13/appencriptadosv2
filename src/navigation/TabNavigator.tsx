@@ -17,7 +17,6 @@ const iconMapping: Record<keyof RootTabParamList, string> = {
 
 export default function TabNavigator() {
   console.log('🛑 [TabNavigator] children count:', Tab.Screen.length);
-export default function TabNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="Home"

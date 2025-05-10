@@ -5,11 +5,11 @@ import React from "react";
 import { ImageBackground, StyleSheet, View, Text } from "react-native";
 
 const PlanBannerHome = () => {
-  const CardBanner = require("@/assets/images/background-split-home2.png");
+  const CardBanner = require("@/assets/img/background-split-home2.png");
 
-  const CardDarkBanner = require("@/assets/images/background-split-home2-dark.png");
+  const CardDarkBanner = require("@/assets/img/background-split-home2-dark.png");
 
-  const CellPhoneImage = require("@/assets/images/cellphonebanner.png");
+  const CellPhoneImage = require("@/assets/img/cellphonebanner.png");
 
   const { themeMode } = useDarkModeTheme();
   return (

@@ -21,9 +21,9 @@ import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootTabParamList, ProductTabParamList } from "@/navigation/types";
 
-const DarkBanner = require("@/assets/images/background-split-home.png");
-const LightBanner = require("@/assets/images/background-splite-home-light.png");
-const SimImage = require("@/assets/images/card-encriptados.png");
+const DarkBanner = require("@/assets/img/background-split-home.png");
+const LightBanner = require("@/assets/img/background-splite-home-light.png");
+const SimImage = require("@/assets/img/card-encriptados.png");
 
 type OfferNavProp = CompositeNavigationProp<
   BottomTabNavigationProp<RootTabParamList, "Home">,
