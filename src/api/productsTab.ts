@@ -1,5 +1,6 @@
 // src/api/productsTab.ts
 import api from './index';
+import { Product } from '@/features/product/types';
 
 export type ProductCategory = 'app' | 'sim' | 'mobile';
 
@@ -15,11 +16,12 @@ export const getFaqs = (lang: string): Promise<string[]> =>
 export const getProducts = (
   category: ProductCategory,
   lang = 'es',
-): Promise<string[]> =>
+): Promise<Product[]> =>
   api.get(`shop/getProducts?category=${category}&language=${lang}`);
 
 /**
  * Obtiene los detalles de un producto por su ID.
  */
-export const getProductsById = (id: string | number): Promise<string[]> =>
+export const getProductsById = (id: string | number): Promise<Product> =>
   api.get(`shop/getProducts?id=${id}`);
+

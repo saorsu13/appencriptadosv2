@@ -5,7 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { ProductTabParamList } from '@/navigation/ProductTabsNavigator';
 import { useTheme } from '@shopify/restyle';
 import { ThemeCustomType } from '@/config/theme2';
-import { t } from 'react-i18next';
+import { t } from 'i18next';
 
 // Props tipadas para la pantalla ProductInfo
 type Props = NativeStackScreenProps<ProductTabParamList, 'ProductInfo'>;
@@ -16,6 +16,7 @@ export default function ProductInfoScreen({ route }: Props) {
 
   // TODO: usar getProductsById o hook para obtener datos del producto
 
+  console.log('🛑 [productScreen] render');
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>      
       <Text style={[styles.title, { color: colors.primaryText }]}>        

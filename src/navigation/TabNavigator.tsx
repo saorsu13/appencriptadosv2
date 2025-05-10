@@ -16,24 +16,28 @@ const iconMapping: Record<keyof RootTabParamList, string> = {
 };
 
 export default function TabNavigator() {
+  console.log('🛑 [TabNavigator] children count:', Tab.Screen.length);
+export default function TabNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={({ route }) => ({
-        headerShown: false,
-        tabBarLabel: route.name,
-        tabBarIcon: ({ color, size }) => {
-          const iconName = iconMapping[route.name] ?? "circle";
-          return <IconSvg name={iconName} width={size} height={size} fill={color} />;
-        },
-        tabBarActiveTintColor: "#007AFF",
-        tabBarInactiveTintColor: "#8e8e93",
-        tabBarStyle: { backgroundColor: "#000" },
-      })}
+      screenOptions={({ route }) => {
+        console.log('⭑ TabNavigator route:', route.name);
+        return {
+          headerShown: false,
+          tabBarLabel: route.name,
+          tabBarIcon: ({ color, size }) => {
+            const iconName = iconMapping[route.name] ?? "circle";
+            return <IconSvg name={iconName} width={size} height={size} fill={color} />;
+          },
+          tabBarActiveTintColor: "#007AFF",
+          tabBarInactiveTintColor: "#8e8e93",
+          tabBarStyle: { backgroundColor: "#000" },
+        };
+      }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Store" component={ProductTabsNavigator} />
-      {/* …otras pestañas… */}
     </Tab.Navigator>
   );
 }
