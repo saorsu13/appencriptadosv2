@@ -1,8 +1,11 @@
 // src/store/index.ts
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
+import { menuCurrentProductReducer } from '@/features/menuCurrentProduct/menuCurrentProductSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import simReducer from '@/features/sims/simSlice';
+import settingsReducer from './settingsSlice';
+
 // import {
 //   settingsReducer,
 //   modalResetStateReducer
@@ -12,6 +15,8 @@ import simReducer from '@/features/sims/simSlice';
 
 const rootReducer = combineReducers({
   sims: simReducer,
+  settings: settingsReducer,
+  menuCurrentProduct: menuCurrentProductReducer,
   // settings:        settingsReducer,
   // modalReset:      modalResetStateReducer,
   // activePasswordRequired: activePasswordRequiredReducer,
