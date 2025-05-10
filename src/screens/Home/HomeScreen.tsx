@@ -5,12 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import { HomeStyles } from '../../styles/Home/HomeStyles';
 
 // Componentes que iremos montando:
-import HeaderEncrypted from '../../components/molecules/HeaderEncrypted/HeaderEncrypted';
-import IconSvg from '../../components/molecules/IconSvg/IconSvg';
-import WelcomeBanner from '../../components/organisms/HomeTab/WelcomeBanner/WelcomeBanner';
-// import OfferBannerHome from '../../components/organisms/HomeTab/OfferBannerHome/OfferBannerHome';
-// import PlanBannerHome from '../../components/organisms/HomeTab/PlanBannerHome/PlanBannerHome';
-// import DistributorsHome from '../../components/organisms/HomeTab/DistributorsHome/DistributorsHome';
+import HeaderEncrypted from '@/components/molecules/HeaderEncrypted/HeaderEncrypted';
+import IconSvg from '@/components/molecules/IconSvg/IconSvg';
+import WelcomeBanner from '@/components/organisms/HomeTab/WelcomeBanner/WelcomeBanner';
+import OfferBannerHome from '@/components/organisms/HomeTab/OfferBannerHome/OfferBannerHome';
+import PlanBannerHome from '@/components/organisms/HomeTab/PlanBannerHome/PlanBannerHome';
+import DistributorsHome from '../../components/organisms/HomeTab/DistributorsHome/DistributorsHome';
 // import BlogEncriptados from '../../components/organisms/HomeTab/BlogEncriptados/BlogEncriptados';
 // import AboutUsHome from '../../components/organisms/HomeTab/AboutUsHome/AboutUsHome';
 // import PaymentsHome from '../../components/organisms/HomeTab/PaymentsHome/PaymentsHome';
@@ -29,13 +29,13 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={HomeStyles.scrollContent}>
         <IconSvg name="menu" onPress={() => navigation.toggleDrawer()} />
         <WelcomeBanner theme={theme} />
-        {/* <OfferBannerHome />
+        <OfferBannerHome />
         <PlanBannerHome />
-        <DistributorsHome />
-        <BlogEncriptados />
-        <AboutUsHome />
-        <PaymentsHome />
-        <SocialNetworks /> */}
+        {/* // <DistributorsHome />
+        // <BlogEncriptados />
+        // <AboutUsHome />
+        // <PaymentsHome />
+        // <SocialNetworks /> */}
       </ScrollView>
     </View>
   );
