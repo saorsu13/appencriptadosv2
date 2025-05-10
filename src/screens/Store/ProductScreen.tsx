@@ -16,6 +16,7 @@ export default function ProductInfoScreen({ route }: Props) {
 
   // TODO: usar getProductsById o hook para obtener datos del producto
 
+  console.log('🛑 [productScreen] render');
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>      
       <Text style={[styles.title, { color: colors.primaryText }]}>        

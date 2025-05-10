@@ -3,16 +3,8 @@ import React from 'react';
 import { View } from 'react-native';
 import CardProductItem, { TypeOfProduct } from '@/components/molecules/CardProductItem/CardProductItem';
 import { styles } from './ListOfProductCardsStyles';
+import { Product } from '@/features/product/types';
 
-export interface Product {
-  id: string;
-  title: string;
-  price: number;
-  currency: string;
-  image: string;
-  description: string;
-  category: string;
-}
 
 export interface ListOfProductCardsProps {
   list: Product[];
@@ -33,8 +25,8 @@ const ListOfProductCards: React.FC<ListOfProductCardsProps> = ({
   return (
     <View style={[styles.gridContainer, type === 'phone' && styles.phoneGrid]}>      
       {updatedList.map((product, index) => (
-        <CardProductItem
-          key={product.id}
+       <CardProductItem
+          key={product.id.toString()}
           widthImage={widthImage}
           heightImage={heightImage}
           type={type}

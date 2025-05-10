@@ -23,6 +23,7 @@ export default function HomeScreen() {
   const { themeMode } = useDarkModeTheme();
   const theme = ThemeCustom[themeMode];
 
+   console.log('🛑 [HomeScreen] render');
   return (
     <View style={HomeStyles.container}>
       <HeaderEncrypted />

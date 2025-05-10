@@ -10,12 +10,14 @@ import { useTranslation } from 'react-i18next';
 import HeaderEncrypted from '@/components/molecules/HeaderEncrypted/HeaderEncrypted';
 import FilterMenu from '@/components/molecules/FilterMenu/FilterMenu';
 import ProductsSimSection from '@/components/organisms/ProductsSimSection/ProductsSimSection';
-// import ProductsAplicationSection from '@/components/organisms/ProductsAplicationSection/ProductsAplicationSection';
-// import ProductsPhoneSection from '@/components/organisms/ProductsPhoneSection/ProductsPhoneSection';
+import ProductsAplicationSection from '@/components/organisms/ProductsApplicationSection/ProductsApplicationSection';
+import ProductsPhoneSection from '@/components/organisms/ProductsPhoneSection/ProductsPhoneSection';
 import { useAppSelector } from '@/hooks/hooksStoreRedux';
 import { SECTIONS } from '@/features/menuCurrentProduct/menuCurrentProductSlice';
 
 export default function StoreScreen() {
+  console.log('🛑 [StoreScreen] Start render');
+
   const navigation = useNavigation();
   const { themeMode } = useDarkModeTheme();
     const isDark = themeMode === ThemeMode.Dark;
@@ -25,24 +27,31 @@ export default function StoreScreen() {
 
   // Obtiene la sección actual
   const currentSection = useAppSelector(state => state.menuCurrentProduct.currentProduct);
+  console.log('🛑 [StoreScreen] currentSection:', currentSection);
 
   // Configura título en cabecera
   useLayoutEffect(() => {
+    console.log('🛑 [StoreScreen] useLayoutEffect set title');
     navigation.setOptions({
       title: t('pages.home-tab.ourProducts'),
     });
   }, [navigation, t]);
 
   // Elige componente según sección
-  let SectionComponent = null;
+   let SectionComponent = null;
   if (currentSection === SECTIONS.SIM) {
+    console.log('🛑 [StoreScreen] Showing ProductsSimSection');
     SectionComponent = <ProductsSimSection />;
   } else if (currentSection === SECTIONS.APPLICATION) {
-    // SectionComponent = <ProductsAplicationSection />;
+    console.log('🛑 [StoreScreen] Showing ProductsAplicationSection');
+    SectionComponent = <ProductsAplicationSection />;
   } else if (currentSection === SECTIONS.PHONE) {
-    // SectionComponent = <ProductsPhoneSection />;
+    console.log('🛑 [StoreScreen] Showing ProductsPhoneSection');
+    SectionComponent = <ProductsPhoneSection />;
+  } else {
+    console.log('🛑 [StoreScreen] No Section matched');
   }
-
+  
   return (
     <ScrollView
       nestedScrollEnabled

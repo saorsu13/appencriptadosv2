@@ -1,4 +1,5 @@
 // App.tsx
+import 'src/config/i18n/i18n';
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider as RestyleProvider } from '@shopify/restyle';
@@ -7,17 +8,23 @@ import { DarkModeProvider, useDarkModeTheme } from './src/context/theme';
 import { ThemeCustom } from './src/config/theme2';
 import { Provider } from 'react-redux';
 import { store } from './src/store'; 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 
 // Este componente interno lee el modo y aplica el theme correcto
 function Root() {
   const { themeMode } = useDarkModeTheme();
   const theme = ThemeCustom[themeMode];
 
+  const queryClient = React.useMemo(() => new QueryClient(), []);
+
   return (
-    <RestyleProvider theme={theme}>
-      <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} />
-      <AppNavigator />
-    </RestyleProvider>
+    <QueryClientProvider client={queryClient}>
+      <RestyleProvider theme={theme}>
+        <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} />
+        <AppNavigator />
+      </RestyleProvider>
+    </QueryClientProvider>
   );
 }
 

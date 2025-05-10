@@ -9,10 +9,13 @@ import IconSvg from '../components/molecules/IconSvg/IconSvg';
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+  console.log('🛑 [TabNavigator] children count:', Tab.Screen.length);
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={({ route }) => ({
+      screenOptions={({ route }) => {
+        console.log('⭑ TabNavigator rendering route:', route.name, route);
+        return {
         headerShown: false,
         tabBarLabel: route.name,
         tabBarIcon: ({ color, size }) => {
@@ -22,7 +25,8 @@ export default function TabNavigator() {
         tabBarActiveTintColor: '#007AFF',
         tabBarInactiveTintColor: '#8e8e93',
         tabBarStyle: { backgroundColor: '#000' },
-      })}
+        };
+      }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Store" component={StoreScreen} />

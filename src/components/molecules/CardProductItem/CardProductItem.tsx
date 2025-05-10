@@ -11,7 +11,7 @@ import type { ProductTabParamList } from '@/navigation/ProductTabsNavigator';
 import Button from '@/components/atoms/Button/Button';
 import IconSvg from '@/components/molecules/IconSvg/IconSvg';
 import { useDarkModeTheme } from '@/hooks/useDarkModeTheme';
-import { t } from 'react-i18next';
+import { t } from 'i18next';
 import { Product } from '@/components/molecules/ListOfProductCards/ListOfProductCards';
 import { styles } from './CardProductItemStyles';
 
