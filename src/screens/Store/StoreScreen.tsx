@@ -20,9 +20,9 @@ export default function StoreScreen() {
 
   const navigation = useNavigation();
   const { themeMode } = useDarkModeTheme();
-    const isDark = themeMode === ThemeMode.Dark;
-    const theme = ThemeCustom[themeMode];
-    const { colors } = theme;
+  const isDark = themeMode === ThemeMode.Dark;
+  const theme = ThemeCustom[themeMode];
+  const { colors } = theme;
   const { t } = useTranslation();
 
   // Obtiene la sección actual
