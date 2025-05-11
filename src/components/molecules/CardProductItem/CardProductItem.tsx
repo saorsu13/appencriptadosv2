@@ -7,12 +7,12 @@ import { ThemeCustomType } from '@/config/theme2';
 import { useModalPayment } from '@/context/modalpayment';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { ProductTabParamList } from '@/navigation/ProductTabsNavigator';
+import type { ProductTabParamList } from '@/navigation/types';
 import Button from '@/components/atoms/Button/Button';
 import IconSvg from '@/components/molecules/IconSvg/IconSvg';
 import { useDarkModeTheme } from '@/hooks/useDarkModeTheme';
 import { t } from 'i18next';
-import { Product } from '@/components/molecules/ListOfProductCards/ListOfProductCards';
+import { Product } from '@/features/product/types';
 import { styles } from './CardProductItemStyles';
 
 export type TypeOfProduct = 'phone' | 'product' | 'offers';
@@ -81,9 +81,12 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
 
           <View style={styles.offerButtonWrapper}>
             <TouchableOpacity
-              style={[styles.offerButton, { backgroundColor: colors.primaryColor }]}
-              onPress={() => openModalWithParams(product.id, themeMode, 'es')}
-            >
+            style={[styles.offerButton, { backgroundColor: colors.primaryColor }]}
+            onPress={() => {
+              console.log('🛒 Botón Comprar (Offer) presionado', product.id);
+              openModalWithParams(product.id.toString(), themeMode, 'es');
+            }}
+          >
               <Text allowFontScaling={false} style={styles.buttonText}>
                 {t('pages.home-tab.buy')}
               </Text>
@@ -126,16 +129,21 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
         >
           <Button
             size="small"
-            onClick={() => openModalWithParams(product.id, themeMode, 'es')}
+            onClick={() => {
+              console.log('🛒 PRESIONADO');
+              openModalWithParams(product.id.toString(), themeMode, 'es');
+            }}
             variant="primary"
+            style={{ backgroundColor: 'red', zIndex: 9999 }}
           >
             {t('pages.home-tab.buy')}
           </Button>
+
         </View>
 
         <View style={styles.infoContainer}>
           <TouchableOpacity
-            onPress={() => nav.navigate('ProductInfo', { id: product.id })}
+            onPress={() => nav.navigate('ProductInfo', { id: product.id.toString() })}
           >
             <Text
               allowFontScaling={false}
