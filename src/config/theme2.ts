@@ -27,7 +27,6 @@ export const palette = {
 export const lightTheme = createTheme({
   colors: {
     primaryColor: palette.primary,
-
     secondaryColor: palette.secondary,
     primaryText: palette.primaryTextLight,
     secondaryText: palette.secondaryTextLight,
@@ -60,6 +59,7 @@ export const darkTheme = {
     ...lightTheme.colors,
     primaryColor: palette.primary,
     secondaryColor: palette.secondary,
+    white: palette.white,
     primaryText: palette.primaryTextDark,
     secondaryText: palette.secondaryTextDark,
     background: palette.backgroundDark,

@@ -1,42 +1,63 @@
-// src/navigation/TabNavigator.tsx
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import type { RootTabParamList } from "./types";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTheme } from "@shopify/restyle";
+import type { RootTabParamList } from "./types"; 
+import { ThemeCustomType } from '@/config/theme2';
 import HomeScreen from "../screens/Home/HomeScreen";
-// IMPORTA el navigator de productos, NO la StoreScreen simple:
 import ProductTabsNavigator from "./ProductTabsNavigator";
-import IconSvg from "../components/molecules/IconSvg/IconSvg";
+import ActivityIcon from "@assets/icons/HomeIconMenu";
+import ShopIconMenu from "@assets/icons/ShopIconMenu";
+import TabBarButton from "@/components/TabBarButton";
+import styles from "../styles/TabNavigatorStyles";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
-const iconMapping: Record<keyof RootTabParamList, string> = {
-  Home: "home-icon-name",
-  Store: "store-icon-name",
-  // Si tienes más tabs, aquí las agregas...
-};
-
 export default function TabNavigator() {
-  console.log('🛑 [TabNavigator] children count:', Tab.Screen.length);
+  const insets = useSafeAreaInsets();
+  const { colors } = useTheme<ThemeCustomType>();
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      screenOptions={({ route }) => {
-        console.log('⭑ TabNavigator route:', route.name);
-        return {
-          headerShown: false,
-          tabBarLabel: route.name,
-          tabBarIcon: ({ color, size }) => {
-            const iconName = iconMapping[route.name] ?? "circle";
-            return <IconSvg name={iconName} width={size} height={size} fill={color} />;
-          },
-          tabBarActiveTintColor: "#007AFF",
-          tabBarInactiveTintColor: "#8e8e93",
-          tabBarStyle: { backgroundColor: "#000" },
-        };
-      }}
+      screenOptions={{
+    headerShown: false,
+    tabBarActiveTintColor: colors.white,
+    tabBarInactiveTintColor: colors.secondaryText,
+    tabBarActiveBackgroundColor: colors.strokeBorder,
+    tabBarInactiveBackgroundColor: "transparent",
+
+    tabBarStyle: {
+      ...styles.tabBar,
+      height: styles.tabBar.height + insets.bottom,
+      paddingBottom: insets.bottom + 10,
+    },
+    tabBarItemStyle: styles.tabBarItem,
+    tabBarLabelStyle: styles.tabBarLabel,
+    tabBarIconStyle: styles.tabBarIcon,
+  }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Store" component={ProductTabsNavigator} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: "Inicio",
+          tabBarIcon: ({ color, size }) => (
+            <ActivityIcon width={size} height={size} color={color} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="Store"
+        component={ProductTabsNavigator}
+        options={{
+          tabBarLabel: "Comprar",
+          tabBarIcon: ({ color, size }) => (
+            <ShopIconMenu width={size} height={size} color={color} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }

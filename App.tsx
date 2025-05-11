@@ -9,6 +9,7 @@ import { ThemeCustom } from './src/config/theme2';
 import { Provider } from 'react-redux';
 import { store } from './src/store'; 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
 // Este componente interno lee el modo y aplica el theme correcto
@@ -30,10 +31,12 @@ function Root() {
 
 export default function App() {
   return (
-    <DarkModeProvider>
-      <Provider store={store}>
-        <Root />
-      </Provider>
-    </DarkModeProvider>
+     <SafeAreaProvider>
+      <DarkModeProvider>
+        <Provider store={store}>
+          <Root />
+        </Provider>
+      </DarkModeProvider>
+    </SafeAreaProvider>
   );
 }
