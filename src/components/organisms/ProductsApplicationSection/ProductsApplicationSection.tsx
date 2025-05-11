@@ -16,7 +16,6 @@ import { Product } from '@/features/product/types';
  * Sección de Productos de Aplicación
  */
 export default function ProductsApplicationSection() {
-  console.log('🛑 [ProductsApplicationSection] render');
 
   const { colors } = useTheme<ThemeCustomType>();
   const { t, i18n } = useTranslation();
@@ -29,9 +28,6 @@ export default function ProductsApplicationSection() {
     staleTime: 0,
   });
 
-
-  console.log('🛑 [ProductsApplicationSection] isFetching:', isFetching);
-  console.log('🛑 [ProductsApplicationSection] productsApp:', productsApp);
   // Banner de aplicaciones
   const AppBanner = require('@/assets/img/appban.png');
 
@@ -44,8 +40,6 @@ export default function ProductsApplicationSection() {
     description: product.description ?? '',
     category: product.category ?? 'app',
   })) ?? [];
-
-  console.log('🛑 [ProductsApplicationSection] listFormatted:', listFormatted);
 
   return (
     <>
