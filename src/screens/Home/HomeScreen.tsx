@@ -22,10 +22,11 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   const { themeMode } = useDarkModeTheme();
   const theme = ThemeCustom[themeMode];
+  const backgroundColor = theme.colors.background;
 
    console.log('🛑 [HomeScreen] render');
   return (
-    <View style={HomeStyles.container}>
+    <View style={[HomeStyles.container, { backgroundColor }]}>
       <HeaderEncrypted />
       <ScrollView contentContainerStyle={HomeStyles.scrollContent}>
         <IconSvg name="menu" onPress={() => navigation.toggleDrawer()} />
