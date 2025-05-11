@@ -2,8 +2,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import type { RootTabParamList } from "./types";
-import HomeScreen from "../screens/Home/HomeScreen";
-// IMPORTA el navigator de productos, NO la StoreScreen simple:
+
+import HomeTabsNavigator from "./HomeTabsNavigator";
 import ProductTabsNavigator from "./ProductTabsNavigator";
 import IconSvg from "../components/molecules/IconSvg/IconSvg";
 
@@ -35,7 +35,7 @@ export default function TabNavigator() {
         };
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeTabsNavigator} />
       <Tab.Screen name="Store" component={ProductTabsNavigator} />
     </Tab.Navigator>
   );

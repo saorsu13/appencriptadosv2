@@ -18,7 +18,7 @@ export type ProductTabParamList = {
  * Rutas raíz de tu TabNavigator
  */
 export type RootTabParamList = {
-  Home: undefined;                                 // pantalla Home
+  Home: NavigatorScreenParams<HomeTabParamList>;                             // pantalla Home
   Store: NavigatorScreenParams<ProductTabParamList>; // anida ProductTabParamList
   // ... otras tabs si las tienes
 };
