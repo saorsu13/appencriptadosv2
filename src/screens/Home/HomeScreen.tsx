@@ -10,7 +10,7 @@ import IconSvg from '@/components/molecules/IconSvg/IconSvg';
 import WelcomeBanner from '@/components/organisms/HomeTab/WelcomeBanner/WelcomeBanner';
 import OfferBannerHome from '@/components/organisms/HomeTab/OfferBannerHome/OfferBannerHome';
 import PlanBannerHome from '@/components/organisms/HomeTab/PlanBannerHome/PlanBannerHome';
-// import DistributorsHome from '../../components/organisms/HomeTab/DistributorsHome/DistributorsHome';
+import DistributorsHome from '../../components/organisms/HomeTab/DistributorsHome/DistributorsHome';
 import BlogEncriptados from '../../components/organisms/HomeTab/BlogEncriptados/BlogEncriptados';
 // import AboutUsHome from '../../components/organisms/HomeTab/AboutUsHome/AboutUsHome';
 // import PaymentsHome from '../../components/organisms/HomeTab/PaymentsHome/PaymentsHome';
@@ -32,7 +32,7 @@ export default function HomeScreen() {
         <WelcomeBanner theme={theme} />
         <OfferBannerHome />
         <PlanBannerHome />
-        {/* <DistributorsHome /> */}
+        <DistributorsHome />
         <BlogEncriptados />
          {/* <AboutUsHome />
          <PaymentsHome />

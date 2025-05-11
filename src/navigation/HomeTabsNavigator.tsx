@@ -5,7 +5,8 @@ import { useTranslation } from "react-i18next";
 
 import { ThemeCustomType } from "@/config/theme2";
 import HomeScreen from "@/screens/Home/HomeScreen";
-import BlogDetailScreen from "@/components/organisms/HomeTab/BlogEncriptados/BlogEncriptados"; 
+import BlogDetailScreen from "@/screens/Home/BlogDetailScreen"; 
+import DistributorsScreen from "@/screens/Home/DistributorsScreen";
 import { HomeTabParamList } from "./types";
 
 const Stack = createNativeStackNavigator<HomeTabParamList>();
@@ -31,6 +32,16 @@ export default function HomeTabsNavigator() {
         component={BlogDetailScreen}
         options={{ title: t("pages.home-tab.blogDetail") }}
       />
+      <Stack.Screen
+        name="DistributorsScreen"
+        component={DistributorsScreen}
+        options={{ title: t("pages.home-tab.distributors-title") }}
+      />
+      {/* <Stack.Screen
+        name="SignUpDistributorScreen"
+        component={SignUpDistributorScreen}
+        options={{ title: "Inscribirme como distribuidor" }}
+      /> */}
     </Stack.Navigator>
   );
 }

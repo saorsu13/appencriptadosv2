@@ -5,6 +5,8 @@ import type { NavigatorScreenParams } from "@react-navigation/native";
 export type HomeTabParamList = {
   HomeMain: undefined;
   BlogDetailScreen: { postId: number };
+  DistributorsScreen: undefined;
+  SignUpDistributorScreen: undefined;
 };
 /**
  * Rutas internas de la pestaña Store (antes Products)
