@@ -12,11 +12,12 @@ import OfferBannerHome from '@/components/organisms/HomeTab/OfferBannerHome/Offe
 import PlanBannerHome from '@/components/organisms/HomeTab/PlanBannerHome/PlanBannerHome';
 import DistributorsHome from '../../components/organisms/HomeTab/DistributorsHome/DistributorsHome';
 import BlogEncriptados from '../../components/organisms/HomeTab/BlogEncriptados/BlogEncriptados';
-// import AboutUsHome from '../../components/organisms/HomeTab/AboutUsHome/AboutUsHome';
-// import PaymentsHome from '../../components/organisms/HomeTab/PaymentsHome/PaymentsHome';
-// import SocialNetworks from '../../components/organisms/HomeTab/SocialNetworks/SocialNetworks';
+import AboutUsHome from '../../components/organisms/HomeTab/AboutUsHome/AboutUsHome';
+import PaymentsHome from '../../components/organisms/HomeTab/PaymentsHome/PaymentsHome';
+import SocialNetworks from '../../components/organisms/HomeTab/SocialNetworks/SocialNetworks';
 import { useDarkModeTheme, ThemeMode } from '@/context/theme';
 import { ThemeCustom } from '@/config/theme2';
+import { t } from "i18next";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -30,14 +31,18 @@ export default function HomeScreen() {
       <HeaderEncrypted />
       <ScrollView contentContainerStyle={HomeStyles.scrollContent}>
         <IconSvg name="menu" onPress={() => navigation.toggleDrawer()} />
-        <WelcomeBanner theme={theme} />
+        <WelcomeBanner
+          title={t("pages.home-tab.welcomebanner-title")}
+          description={t("pages.home-tab.welcomebanner-description")}
+          buttonText={t("pages.home-tab.goToStore")}
+        />
         <OfferBannerHome />
         <PlanBannerHome />
         <DistributorsHome />
         <BlogEncriptados />
-         {/* <AboutUsHome />
-         <PaymentsHome />
-         <SocialNetworks /> */}
+         <AboutUsHome />
+        <PaymentsHome />
+        <SocialNetworks />
       </ScrollView>
     </View>
   );
