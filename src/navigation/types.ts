@@ -12,6 +12,7 @@ export type HomeTabParamList = {
  * Rutas internas de la pestaña Store (antes Products)
  */
 export type ProductTabParamList = {
+  StoreMain: undefined;
   ProductsList: undefined;             // listado de productos
   ProductInfo: { id: string };         // detalle de un producto
 };

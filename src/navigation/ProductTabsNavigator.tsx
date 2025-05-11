@@ -2,6 +2,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { ProductTabParamList } from "./types";
+import StoreScreen from "../screens/Store/StoreScreen";
 import ProductsSimSection from "@/components/organisms/ProductsSimSection/ProductsSimSection";
 import ProductInfoScreen from "@/screens/Store/ProductScreen";
 import { useTranslation } from "react-i18next";
@@ -21,6 +22,11 @@ export default function ProductTabsNavigator() {
         headerTintColor: colors.primaryText,
       }}
     >
+      <Stack.Screen
+        name="StoreMain"
+        component={StoreScreen}
+        options={{ title: t ("pages.home-tab.store")}}
+      />
       <Stack.Screen
         name="ProductsList"
         component={ProductsSimSection}

@@ -40,7 +40,7 @@ export default function TabNavigator() {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeTabsNavigator}
         options={{
           tabBarLabel: "Inicio",
           tabBarIcon: ({ color, size }) => (
