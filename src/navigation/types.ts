@@ -1,6 +1,11 @@
 // src/navigation/types.ts
 import type { NavigatorScreenParams } from "@react-navigation/native";
 
+
+export type HomeTabParamList = {
+  HomeMain: undefined;
+  BlogDetailScreen: { postId: number };
+};
 /**
  * Rutas internas de la pestaña Store (antes Products)
  */
@@ -13,7 +18,7 @@ export type ProductTabParamList = {
  * Rutas raíz de tu TabNavigator
  */
 export type RootTabParamList = {
-  Home: undefined;                                 // pantalla Home
+  Home: NavigatorScreenParams<HomeTabParamList>;                             // pantalla Home
   Store: NavigatorScreenParams<ProductTabParamList>; // anida ProductTabParamList
   // ... otras tabs si las tienes
 };

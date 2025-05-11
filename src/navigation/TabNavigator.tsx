@@ -2,13 +2,14 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@shopify/restyle";
-import type { RootTabParamList } from "./types"; 
+import type { RootTabParamList } from "./types";
 import { ThemeCustomType } from '@/config/theme2';
 import HomeScreen from "../screens/Home/HomeScreen";
+
+import HomeTabsNavigator from "./HomeTabsNavigator";
 import ProductTabsNavigator from "./ProductTabsNavigator";
 import ActivityIcon from "@assets/icons/HomeIconMenu";
 import ShopIconMenu from "@assets/icons/ShopIconMenu";
-import TabBarButton from "@/components/TabBarButton";
 import styles from "../styles/TabNavigatorStyles";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -21,21 +22,21 @@ export default function TabNavigator() {
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
-    headerShown: false,
-    tabBarActiveTintColor: colors.white,
-    tabBarInactiveTintColor: colors.secondaryText,
-    tabBarActiveBackgroundColor: colors.strokeBorder,
-    tabBarInactiveBackgroundColor: "transparent",
+        headerShown: false,
+        tabBarActiveTintColor: colors.white,
+        tabBarInactiveTintColor: colors.secondaryText,
+        tabBarActiveBackgroundColor: colors.strokeBorder,
+        tabBarInactiveBackgroundColor: "transparent",
 
-    tabBarStyle: {
-      ...styles.tabBar,
-      height: styles.tabBar.height + insets.bottom,
-      paddingBottom: insets.bottom + 10,
-    },
-    tabBarItemStyle: styles.tabBarItem,
-    tabBarLabelStyle: styles.tabBarLabel,
-    tabBarIconStyle: styles.tabBarIcon,
-  }}
+        tabBarStyle: {
+          ...styles.tabBar,
+          height: styles.tabBar.height + insets.bottom,
+          paddingBottom: insets.bottom + 10,
+        },
+        tabBarItemStyle: styles.tabBarItem,
+        tabBarLabelStyle: styles.tabBarLabel,
+        tabBarIconStyle: styles.tabBarIcon,
+      }}
     >
       <Tab.Screen
         name="Home"
