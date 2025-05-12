@@ -7,9 +7,12 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useDarkModeTheme, ThemeMode } from '@/context/theme';
 import { ThemeCustom } from '@/config/theme2';
+import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { HomeTabParamList, RootTabParamList } from '@/navigation/types';
 
 const bannerImage = require('../../../../assets/img/bannerencriptados.png');
 
@@ -20,16 +23,22 @@ interface WelcomeBannerProps {
   icon?: React.ReactNode;
 }
 
+type WelcomeBannerNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<HomeTabParamList>,
+  BottomTabNavigationProp<RootTabParamList>
+>;
+
 export default function WelcomeBanner({
   title,
   description,
   buttonText,
   icon,
 }: WelcomeBannerProps) {
-  const navigation = useNavigation();
   const { themeMode } = useDarkModeTheme();
   const theme = ThemeCustom[themeMode];
   const { colors } = theme;
+
+  const navigation = useNavigation<WelcomeBannerNavigationProp>();
 
   return (
     <ImageBackground
@@ -46,7 +55,13 @@ export default function WelcomeBanner({
           {description}
         </Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Products')}
+          onPress={() =>
+            navigation.navigate('Store', {
+              screen: 'StoreMain',
+              params: undefined,
+            })
+          }
+
           style={[styles.button, { borderColor: colors.primaryColor }]}
         >
           <Text style={[styles.buttonText, { color: colors.primaryColor }]}>

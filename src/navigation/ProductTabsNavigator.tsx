@@ -19,6 +19,7 @@ export default function ProductTabsNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: { backgroundColor: colors.backgroundSecondary },
+        headerShown: false,
         headerTintColor: colors.primaryText,
       }}
     >

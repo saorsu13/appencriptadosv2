@@ -5,6 +5,7 @@ import React, {
   ReactNode,
   Dispatch,
 } from "react";
+import { Modal, View, Text, Button } from 'react-native';
 
 interface Params {
   languageCode: string;
@@ -66,16 +67,10 @@ const ModalPaymentContext = createContext<ModalPaymentContextType>({
   setParams: () => {},
 });
 
-export const ModalPaymentProvider = ({
-  children,
-}: ModalPaymentProviderProps) => {
+export const ModalPaymentProvider = ({ children }: ModalPaymentProviderProps) => {
   const [state, dispatch] = useReducer(modalPaymentReducer, initialState);
 
-  const openModalWithParams = (
-    id: string,
-    theme: string,
-    languageCode: string
-  ) => {
+  const openModalWithParams = (id: string, theme: string, languageCode: string) => {
     dispatch({
       type: "OPEN_MODAL",
       params: { productid: id, theme, languageCode },
@@ -100,6 +95,7 @@ export const ModalPaymentProvider = ({
       }}
     >
       {children}
+      
     </ModalPaymentContext.Provider>
   );
 };

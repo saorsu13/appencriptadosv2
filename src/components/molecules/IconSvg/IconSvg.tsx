@@ -50,6 +50,7 @@ import Money from "@/assets/icons/Money";
 import CheckStepper from "@/assets/icons/CheckStepper";
 import ShopStepper from "@/assets/icons/ShopStepper";
 import Edit from "@/assets/icons/Edit";
+
 import ConfirmGreen from "@/assets/icons/ConfirmGreen";
 
 interface IconSvgProps {
@@ -104,7 +105,8 @@ interface IconSvgProps {
     | "shopstepper"
     | "x"
     | "confirmgreen"
-    | "edit";
+    | "edit"
+    | "menu";
 
   height?: number;
   width?: number;
@@ -259,6 +261,9 @@ const IconSvg: React.FC<IconSvgProps> = ({ type, height, width, color }) => {
 
     case "shopstepper":
       return <ShopStepper color={color} height={height} width={width} />;
+
+    case "menu":
+      return <HomeIconMenu height={height} width={width} />;
 
     default:
       return null;

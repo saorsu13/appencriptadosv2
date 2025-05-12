@@ -1,4 +1,6 @@
 // src/features/product/types.ts
+import type { FAQItem } from '@/components/molecules/FAQAccordion/FAQAccordion';
+
 
 export interface Product {
   id: number;
@@ -13,4 +15,6 @@ export interface Product {
   advantages?: any[];
   generaldescription?: string;
   generaltitle?: string;
+  faqs?: FAQItem[];
+
 }

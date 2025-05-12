@@ -10,7 +10,8 @@ import { Provider } from 'react-redux';
 import { store } from './src/store'; 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import { ModalPaymentProvider } from '@/context/modalpayment';
+import ModalPaymentController from '@/components/molecules/ModalPayment/ModalPaymentController';
 
 // Este componente interno lee el modo y aplica el theme correcto
 function Root() {
@@ -22,8 +23,9 @@ function Root() {
   return (
     <QueryClientProvider client={queryClient}>
       <RestyleProvider theme={theme}>
-        <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} />
-        <AppNavigator />
+          <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} />
+          <AppNavigator />
+          <ModalPaymentController />
       </RestyleProvider>
     </QueryClientProvider>
   );
@@ -34,7 +36,9 @@ export default function App() {
      <SafeAreaProvider>
       <DarkModeProvider>
         <Provider store={store}>
-          <Root />
+          <ModalPaymentProvider> 
+            <Root />
+          </ModalPaymentProvider>
         </Provider>
       </DarkModeProvider>
     </SafeAreaProvider>
