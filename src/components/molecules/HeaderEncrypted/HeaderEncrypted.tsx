@@ -117,7 +117,7 @@ export default function HeaderEncrypted({
   const buttonBg = themeMode === ThemeMode.Dark ? '#3E3E3E' : '#10B4E7';
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.container, { paddingTop: insets.top, backgroundColor: colors.backgroundSecondary }]}>
       <TouchableOpacity
         style={[styles.iconButton, { backgroundColor: buttonBg }]}
         onPress={iconBack && iconBack !== 'none' ? handleBack : handleSettings}
