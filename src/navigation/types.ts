@@ -16,7 +16,6 @@ export type ProductTabParamList = {
   ProductsList: undefined;             // listado de productos
   ProductInfo: { id: string };         // detalle de un producto
 };
-
 /**
  * Rutas raíz de tu TabNavigator
  */

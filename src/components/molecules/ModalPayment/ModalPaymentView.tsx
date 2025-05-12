@@ -10,18 +10,17 @@ import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { useModalPayment } from "@/context/modalpayment";
 import IconSvg from "../IconSvg/IconSvg";
-// import CardMethodIcon from "./icons/CardMethodIcon";
-// import ATMIcon from "./icons/ATMIcon";
-// import BancolombiaMethodIcon from "./icons/BancolombiaMethodIcon";
-// import CryptoIcon from "./icons/CryptoIcon";
-// import OrderDetails from "./OrderDetails";
+import CardMethodIcon from "./icons/CardMethodIcon";
+import ATMIcon from "./icons/ATMIcon";
+import BancolombiaMethodIcon from "./icons/BancolombiaMethodIcon";
+import CryptoIcon from "./icons/CryptoIcon";
+import OrderDetails from "./OrderDetails";
 import FormPaymentInput from "./FormPaymentInput";
 import PaymentOption from "./PaymentOption";
 import DividerSection from "./DividerSection";
-// import PayWithCreditCard from "./PaymentMethodsView/PayWithCreditCard/PayWithCreditCard";
-// import PayWithAtm from "./PaymentMethodsView/PayWithAtm/PayWithAtm";
-// import PayWithBancolombia from "./PaymentMethodsView/PayWithBancolombia/PayWithBancolombia";
-// import { useMenu } from "@/context/menuprovider";
+import PayWithCreditCard from "./PaymentMethodsView/PayWithCreditCard";
+import PayWithAtm from "./PaymentMethodsView/PayWithAtm";
+import PayWithBancolombia from "./PaymentMethodsView/PayWithBancolombia";
 
 export interface FormValuesPayment {
   email: string;
@@ -60,37 +59,37 @@ const ModalPaymentView = () => {
     CRYPTO: "pay_crypto",
   };
 
-  // const paymentOptions = [
-  //   {
-  //     label: "Paga con tarjeta de crédito",
-  //     icon: <CardMethodIcon />,
-  //     value: PAYMENTS_METHODS.CREDIT_CARD,
-  //   },
-  //   { label: "Pagar con ATM", icon: <ATMIcon />, value: PAYMENTS_METHODS.ATM },
-  //   {
-  //     label: "Paga con Bancolombia",
-  //     icon: <BancolombiaMethodIcon />,
-  //     value: PAYMENTS_METHODS.BANCOLOMBIA_PAY,
-  //   },
-  //   {
-  //     label: "Paga con Criptomonedas",
-  //     icon: <CryptoIcon />,
-  //     value: PAYMENTS_METHODS.CRYPTO,
-  //   },
-  // ];
+  const paymentOptions = [
+    {
+      label: "Paga con tarjeta de crédito",
+      icon: <CardMethodIcon />,
+      value: PAYMENTS_METHODS.CREDIT_CARD,
+    },
+    { label: "Pagar con ATM", icon: <ATMIcon />, value: PAYMENTS_METHODS.ATM },
+    {
+      label: "Paga con Bancolombia",
+      icon: <BancolombiaMethodIcon />,
+      value: PAYMENTS_METHODS.BANCOLOMBIA_PAY,
+    },
+    {
+      label: "Paga con Criptomonedas",
+      icon: <CryptoIcon />,
+      value: PAYMENTS_METHODS.CRYPTO,
+    },
+  ];
 
   let component;
 
   switch (activePaymentOption) {
-    // case PAYMENTS_METHODS.CREDIT_CARD:
-    //   component = <PayWithCreditCard />;
-    //   break;
-    // case PAYMENTS_METHODS.ATM:
-    //   component = <PayWithAtm />;
-    //   break;
-    // case PAYMENTS_METHODS.BANCOLOMBIA_PAY:
-    //   component = <PayWithBancolombia />;
-    //   break;
+    case PAYMENTS_METHODS.CREDIT_CARD:
+      component = <PayWithCreditCard />;
+      break;
+    case PAYMENTS_METHODS.ATM:
+      component = <PayWithAtm />;
+      break;
+    case PAYMENTS_METHODS.BANCOLOMBIA_PAY:
+      component = <PayWithBancolombia />;
+      break;
 
     case PAYMENTS_METHODS.CRYPTO:
       component = (
@@ -143,7 +142,7 @@ const ModalPaymentView = () => {
                   <IconSvg type="closeicon" />
                 </TouchableOpacity>
               </View>
-              {/* <OrderDetails /> */}
+              <OrderDetails />
               {activePaymentOption === PAYMENTS_METHODS.ATM ||
               activePaymentOption ===
                 PAYMENTS_METHODS.BANCOLOMBIA_PAY ? null : (
@@ -228,7 +227,7 @@ const ModalPaymentView = () => {
                 component
               )}
               <View style={styles.paymentOptionsContainer}>
-                {/* {activePaymentOption === null
+                {activePaymentOption === null
                   ? paymentOptions.map((option, index) => (
                       <PaymentOption
                         key={index}
@@ -237,7 +236,7 @@ const ModalPaymentView = () => {
                         setActiveOption={setPaymentActiveOption}
                       />
                     ))
-                  : null} */}
+                  : null}
               </View>
             </View>
           )}
