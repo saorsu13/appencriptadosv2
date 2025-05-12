@@ -15,7 +15,7 @@ import BlogEncriptados from '../../components/organisms/HomeTab/BlogEncriptados/
 // import AboutUsHome from '../../components/organisms/HomeTab/AboutUsHome/AboutUsHome';
 // import PaymentsHome from '../../components/organisms/HomeTab/PaymentsHome/PaymentsHome';
 // import SocialNetworks from '../../components/organisms/HomeTab/SocialNetworks/SocialNetworks';
-import { useDarkModeTheme, ThemeMode } from '@/context/theme';
+import { useDarkModeTheme } from '@/context/theme';
 import { ThemeCustom } from '@/config/theme2';
 
 export default function HomeScreen() {
@@ -27,7 +27,7 @@ export default function HomeScreen() {
    console.log('🛑 [HomeScreen] render');
   return (
     <View style={[HomeStyles.container, { backgroundColor }]}>
-      <HeaderEncrypted />
+      <HeaderEncrypted settingsLink="SettingsMain"/>
       <ScrollView contentContainerStyle={HomeStyles.scrollContent}>
         <IconSvg name="menu" onPress={() => navigation.toggleDrawer()} />
         <WelcomeBanner theme={theme} />

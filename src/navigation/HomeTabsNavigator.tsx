@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { ThemeCustomType } from "@/config/theme2";
 import HomeScreen from "@/screens/Home/HomeScreen";
-import BlogDetailScreen from "@/screens/Home/BlogDetailScreen"; 
+import BlogDetailScreen from "@/screens/Home/BlogDetailScreen";
 import DistributorsScreen from "@/screens/Home/DistributorsScreen";
 import { HomeTabParamList } from "./types";
 

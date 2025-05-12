@@ -10,7 +10,7 @@ import settingsReducer from './settingsSlice';
 //   settingsReducer,
 //   modalResetStateReducer
 // } from '@/features/settingsSlice/settingsSlice';
-// import { activePasswordRequiredReducer } from '@/features/activePasswordRequired/activePasswordRequiredSlice'; 
+import { activePasswordRequiredReducer } from '@/features/activePasswordRequired/activePasswordRequiredSlice'; 
 
 
 const rootReducer = combineReducers({
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   menuCurrentProduct: menuCurrentProductReducer,
   // settings:        settingsReducer,
   // modalReset:      modalResetStateReducer,
-  // activePasswordRequired: activePasswordRequiredReducer,
+  activePasswordRequired: activePasswordRequiredReducer,
 
 });
 

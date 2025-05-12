@@ -25,16 +25,16 @@ const rawOwner =
 const { width: screenWidth } = Dimensions.get('window');
 
 type HeaderEncryptedProps = {
-  iconBack?: string;
+  iconBack?: string | (() => void);
   title?: string;
   settingsLink?: string;
   owner?: 'app-fantasma' | 'encriptados';
 };
 
 export default function HeaderEncrypted({
-  iconBack = '',
+  iconBack,
   title,
-  settingsLink = '',
+  settingsLink,
   owner,
 }: HeaderEncryptedProps) {
   const navigation = useNavigation<any>();
@@ -45,6 +45,9 @@ export default function HeaderEncrypted({
   const { colors } = theme;
   const currentSim = useAppSelector((s) => s.sims.currentSim);
   const insets = useSafeAreaInsets();
+
+  // Elegimos color de fondo según el modo
+  const buttonBg = themeMode === ThemeMode.Dark ? '#3E3E3E' : '#10B4E7';
 
   // Calculamos el ICCID resuelto...
   const simIdFromParams = route.params?.simId;
@@ -63,28 +66,6 @@ export default function HeaderEncrypted({
 
   const resolvedOwner = owner || rawOwner;
 
-  // Handler de navegación atrás
-  const handleBack = () => {
-    if (iconBack && iconBack !== 'none') {
-      navigation.replace(iconBack);
-      return;
-    }
-    if ((currentSim as any)?.provider === 'telco-vision' && resolvedSimId) {
-      navigation.replace('Balance', { simId: resolvedSimId });
-    } else {
-      navigation.replace('Home');
-    }
-  };
-
-  // Handler de settings
-  const handleSettings = () => {
-    if (!settingsLink) return;
-    navigation.navigate(
-      settingsLink,
-      resolvedSimId ? { simId: resolvedSimId } : {}
-    );
-  };
-
   // Logo dinámico
   const getLogo = () => {
     if (resolvedOwner === 'encriptados') {
@@ -101,43 +82,65 @@ export default function HeaderEncrypted({
         />
       );
     }
-    return (
-      <Image
-        source={
-          themeMode === ThemeMode.Dark
-            ? require('@/assets/img/logo-l.png')
-            : require('@/assets/img/logo-d.png')
-        }
-        style={{ width: 230, height: 35, resizeMode: 'contain' }}
-      />
-    );
   };
 
-  // Elegimos color de fondo según el modo
-  const buttonBg = themeMode === ThemeMode.Dark ? '#3E3E3E' : '#10B4E7';
+  // Handler de volver
+  const handleBack = () => {
+    if (typeof iconBack === 'function') {
+      iconBack();
+    } else if (typeof iconBack === 'string') {
+      navigation.navigate(iconBack);
+    } else {
+      navigation.goBack();
+    }
+  };
+
+  // Handler de settings
+  const handleSettings = () => {
+    if (settingsLink) {
+      navigation.navigate(settingsLink);
+    }
+  };
+
+  // Decidir qué botón mostrar y si mostrarlo
+  let LeftButton: React.ReactNode = null;
+  if (iconBack) {
+    // Si me pasaron iconBack
+    LeftButton = (
+      <TouchableOpacity
+        style={[styles.iconButton, { backgroundColor: buttonBg }]}
+        onPress={handleBack}
+        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+      >
+        <IconSvg type="arrowback" width={20} height={20} color={colors.white} />
+      </TouchableOpacity>
+    );
+  } else if (settingsLink) {
+    // Si solo me pasaron settingsLink
+    LeftButton = (
+      <TouchableOpacity
+        style={[styles.iconButton, { backgroundColor: buttonBg }]}
+        onPress={handleSettings}
+        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+      >
+        <IconSvg type="settings" width={25} height={25} color={colors.white} />
+      </TouchableOpacity>
+    );
+  }
+  // Si no hay iconBack ni settingsLink, LeftButton queda null
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      <TouchableOpacity
-        style={[styles.iconButton, { backgroundColor: buttonBg }]}
-        onPress={iconBack && iconBack !== 'none' ? handleBack : handleSettings}
-        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-      >
-        <IconSvg
-          type={iconBack && iconBack !== 'none' ? 'arrowback' : 'settings'}
-          height={iconBack && iconBack !== 'none' ? 20 : 25}
-          width={iconBack && iconBack !== 'none' ? 20 : 25}
-          color={colors.white}
-        />
-      </TouchableOpacity>
+      {LeftButton}
 
       <View style={styles.titleWrap}>
         {title ? (
           <Text
             style={[
               styles.titleText,
-              { color: isDark ? '#FFFFFF' : '#000000' },
-            ]}>
+              { color: isDark ? colors.white : colors.neutro },
+            ]}
+          >
             {title}
           </Text>
         ) : (

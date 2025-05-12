@@ -60,7 +60,7 @@ export default function StoreScreen() {
         { backgroundColor: colors.background }
       ]}
     >
-      <HeaderEncrypted settingsLink="" />
+      <HeaderEncrypted settingsLink="SettingsMain" />
 
       <View style={styles.titleWrap}>
         <Text style={[styles.titleText, { color: colors.primaryText }]}>  

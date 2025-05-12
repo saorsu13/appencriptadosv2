@@ -25,3 +25,12 @@ export type RootTabParamList = {
   Store: NavigatorScreenParams<ProductTabParamList>; // anida ProductTabParamList
   // ... otras tabs si las tienes
 };
+
+export type RootStackParamList = {
+  RootTabs: undefined;          // tu TabNavigator
+  SettingsMain: undefined;      // pantalla principal de Ajustes
+  AccessPassword: undefined;
+  CreateAccessPassword: undefined;
+  DeleteAccessPassword: undefined;
+  LanguageConf: undefined;
+};
