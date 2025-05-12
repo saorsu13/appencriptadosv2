@@ -1,11 +1,11 @@
-import React from "react";
+import React, { ComponentType } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 
 interface PaymentOptionProps {
   option: {
     label: string;
-    icon: React.ReactNode;
+    icon: ComponentType<any>;
     value: string;
   };
   activeOption: string | null;
@@ -20,7 +20,10 @@ const PaymentOption: React.FC<PaymentOptionProps> = ({ option, activeOption, set
       }}
       style={styles.optionContainer}
     >
-      <View style={styles.iconContainer}>{option.icon}</View>
+      <View style={styles.iconContainer}>
+        <option.icon />
+      </View>
+
       <Text
         style={{
           textAlign: "center",

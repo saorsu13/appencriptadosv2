@@ -37,7 +37,7 @@ const PayWithCreditCard: React.FC = () => {
         validationSchema={creditCardSchema}
         onSubmit={handleSubmit}
       >
-        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }: FormikProps<CreditCardFormValues>) => (
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue }: FormikProps<CreditCardFormValues>) => (
           <>
             <TextInput
               style={styles.input}

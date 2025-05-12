@@ -3,17 +3,14 @@ import {
   Text,
   View,
   ScrollView,
-  StyleSheet,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
+import styles from "./ModalPaymentViewStyles";
 import { Formik, FormikProps } from "formik"; 
 import * as Yup from "yup";
 import { useModalPayment } from "@/context/modalpayment";
 import IconSvg from "../IconSvg/IconSvg";
-import CardMethodIcon from "./icons/CardMethodIcon";
-import ATMIcon from "./icons/ATMIcon";
-import BancolombiaMethodIcon from "./icons/BancolombiaMethodIcon";
-import CryptoIcon from "./icons/CryptoIcon";
 import OrderDetails from "./OrderDetails";
 import FormPaymentInput from "./FormPaymentInput";
 import PaymentOption from "./PaymentOption";
@@ -21,63 +18,41 @@ import DividerSection from "./DividerSection";
 import PayWithCreditCard from "./PaymentMethodsView/PayWithCreditCard";
 import PayWithAtm from "./PaymentMethodsView/PayWithAtm";
 import PayWithBancolombia from "./PaymentMethodsView/PayWithBancolombia";
+import { useQuery } from "@tanstack/react-query";
+import { getProductsById } from "@/api/productsTab"; 
+import type { Product } from "@/features/product/types"; 
+import { PAYMENTS_METHODS, paymentOptions } from "@/constants/paymentOptions";
+import { paymentValidationSchema } from "@/validations/paymentValidation";
+import { initialFormValues } from "@/constants/initialFormValues"
+import EditableDividerSection from "./EditableDividerSection";
+
 
 export interface FormValuesPayment {
   email: string;
-  telegramId: string;
-  shippingName: string;
-  shippingAddress: string;
-  city: string;
-  country: string;
-  postalCode: string;
-  phone: string;
-  creditCardNumber?: string;
+  telegramId?: string;
+  termsAccepted: boolean;
 }
+
 
 const ModalPaymentView = () => {
   const { closeModal } = useModalPayment();
   const [activePaymentOption, setPaymentActiveOption] = useState<string | null>(
     null
   );
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Ingrese un email válido")
-      .required("Este campo es obligatorio"),
-    telegramId: Yup.string().required("Este campo es obligatorio"),
-    shippingName: Yup.string().required("Este campo es obligatorio"),
-    shippingAddress: Yup.string().required("Este campo es obligatorio"),
-    city: Yup.string().required("Este campo es obligatorio"),
-    country: Yup.string().required("Este campo es obligatorio"),
-    postalCode: Yup.string().required("Este campo es obligatorio"),
-    phone: Yup.string().required("Este campo es obligatorio"),
+  const { params } = useModalPayment();
+  const { productid } = params;
+
+  const { data: product, isLoading } = useQuery<Product>({
+    queryKey: ['productById', productid],
+    queryFn: () => getProductsById(productid),
+    enabled: !!productid,
   });
 
-  const PAYMENTS_METHODS = {
-    CREDIT_CARD: "pay_credit_card",
-    ATM: "pay_atm",
-    BANCOLOMBIA_PAY: "pay_bancolombia",
-    CRYPTO: "pay_crypto",
-  };
-
-  const paymentOptions = [
-    {
-      label: "Paga con tarjeta de crédito",
-      icon: <CardMethodIcon />,
-      value: PAYMENTS_METHODS.CREDIT_CARD,
-    },
-    { label: "Pagar con ATM", icon: <ATMIcon />, value: PAYMENTS_METHODS.ATM },
-    {
-      label: "Paga con Bancolombia",
-      icon: <BancolombiaMethodIcon />,
-      value: PAYMENTS_METHODS.BANCOLOMBIA_PAY,
-    },
-    {
-      label: "Paga con Criptomonedas",
-      icon: <CryptoIcon />,
-      value: PAYMENTS_METHODS.CRYPTO,
-    },
-  ];
-
+  const [quantity, setQuantity] = useState(1);
+  const totalPrice = (Number(product?.price) || 0) * quantity;
+  const [coupon, setCoupon] = useState("");
+  const [discount, setDiscount] = useState(0);
+ 
   let component;
 
   switch (activePaymentOption) {
@@ -107,21 +82,17 @@ const ModalPaymentView = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView scrollEnabled={!isLoading}>
       <View style={styles.container}>
+         {isLoading ? (
+        <View style={styles.loaderContainer}>
+          <Text style={styles.loaderText}>Cargando producto...</Text>
+          <ActivityIndicator size="large" color="#10B4E7" />
+        </View>
+      ) : (
         <Formik
-          initialValues={{
-            email: "",
-            telegramId: "",
-            shippingName: "",
-            shippingAddress: "",
-            city: "",
-            country: "",
-            postalCode: "",
-            phone: "",
-            creditCardNumber: "",
-          }}
-          validationSchema={validationSchema}
+          initialValues={initialFormValues}
+          validationSchema={paymentValidationSchema}
           onSubmit={(values: FormValuesPayment) => {
             closeModal();
           }}
@@ -132,6 +103,7 @@ const ModalPaymentView = () => {
             values,
             errors,
             touched,
+            setFieldValue,
           }: FormikProps<FormValuesPayment>) => (
             <View style={{ width: "100%" }}>
               <View style={styles.header}>
@@ -142,15 +114,66 @@ const ModalPaymentView = () => {
                   <IconSvg type="closeicon" />
                 </TouchableOpacity>
               </View>
-              <OrderDetails />
+              <OrderDetails
+                image={product?.image}
+                title={product?.title}
+                price={product?.price}
+              />
+              <View style={{ marginBottom: 10 }}>
+            </View>
+
               {activePaymentOption === PAYMENTS_METHODS.ATM ||
               activePaymentOption ===
                 PAYMENTS_METHODS.BANCOLOMBIA_PAY ? null : (
                 <View>
-                  <DividerSection label="Valor" value="10 USD" />
-                  <DividerSection label="Cantidad" value="1" />
-                  <DividerSection label="Envío" value="40 USD" />
-                  <DividerSection label="Total a pagar" value="50 USD" />
+                  <DividerSection label="Valor unidad" value={`${product?.price} USD`} />
+                  <EditableDividerSection label="Cantidad">
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <FormPaymentInput
+                      placeholder="Cantidad"
+                      handleChange={(text) => {
+                        const value = Number(text);
+                        if (!isNaN(value)) {
+                          setQuantity(value);
+                        }
+                      }}
+                      handleBlur={() => {}}
+                      value={quantity ? quantity.toString() : ""}
+                      width="80%"
+                    />
+                    </View>
+                  </EditableDividerSection>
+
+                  <EditableDividerSection label="Cupón">
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <FormPaymentInput
+                      placeholder="Código de cupón"
+                      handleChange={(text) => setCoupon(text)}
+                      handleBlur={() => {}}
+                      value={coupon}
+                      width="80%"
+                    />
+                    <TouchableOpacity
+                      onPress={() => {
+                        if (coupon.trim().toUpperCase() === "DESCUENTO5") {
+                          setDiscount(5);
+                        } else {
+                          setDiscount(0);
+                        }
+                      }}
+                      style={{ marginLeft: 10 }}
+                    >
+                      <Text allowFontScaling={false} style={{ color: "#10B4E7", textDecorationLine: "underline", fontSize: 14 }}>
+                        Aplicar
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </EditableDividerSection>
+
+
+                  <DividerSection label="Descuento" value={`-${discount} USD`} />
+                  <DividerSection label="Total a pagar" value={`${totalPrice} USD`} />
+
                 </View>
               )}
 
@@ -168,60 +191,40 @@ const ModalPaymentView = () => {
                       placeholder="ID Telegram"
                       handleChange={handleChange("telegramId")}
                       handleBlur={handleBlur("telegramId")}
-                      value={values.telegramId}
+                      value={values.telegramId ?? ""}
                       width="50%"
                     />
                   </View>
-                  <View style={{ marginBottom: 10 }}>
-                    <FormPaymentInput
-                      placeholder="Nombre de envío"
-                      handleChange={handleChange("shippingName")}
-                      handleBlur={handleBlur("shippingName")}
-                      value={values.shippingName}
-                      width="100%"
-                    />
+                   <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 10 }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setFieldValue("termsAccepted", !values.termsAccepted);
+                      }}
+                      style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: 4,
+                        borderWidth: 1,
+                        borderColor: "#959595",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginRight: 8,
+                      }}
+                    >
+                      {values.termsAccepted && (
+                        <Text style={{ color: "#FFFFFF", fontSize: 14 }}>✓</Text>
+                      )}
+                    </TouchableOpacity>
+                    <Text allowFontScaling={false} style={{ color: "#FFFFFF" }}>
+                      Acepto los términos y condiciones
+                    </Text>
                   </View>
-                  <View style={{ marginBottom: 10 }}>
-                    <FormPaymentInput
-                      placeholder="Dirección de envío"
-                      handleChange={handleChange("shippingAddress")}
-                      handleBlur={handleBlur("shippingAddress")}
-                      value={values.shippingAddress}
-                      width="100%"
-                    />
-                  </View>
-                  <View style={styles.inputContainer}>
-                    <FormPaymentInput
-                      placeholder="Ciudad"
-                      handleChange={handleChange("city")}
-                      handleBlur={handleBlur("city")}
-                      value={values.city}
-                      width="48%"
-                    />
-                    <FormPaymentInput
-                      placeholder="País"
-                      handleChange={handleChange("country")}
-                      handleBlur={handleBlur("country")}
-                      value={values.country}
-                      width="50%"
-                    />
-                  </View>
-                  <View style={styles.inputContainer}>
-                    <FormPaymentInput
-                      placeholder="Código Postal"
-                      handleChange={handleChange("postalCode")}
-                      handleBlur={handleBlur("postalCode")}
-                      value={values.postalCode}
-                      width="48%"
-                    />
-                    <FormPaymentInput
-                      placeholder="Teléfono"
-                      handleChange={handleChange("phone")}
-                      handleBlur={handleBlur("phone")}
-                      value={values.phone}
-                      width="50%"
-                    />
-                  </View>
+
+                  {errors.termsAccepted && touched.termsAccepted && (
+                    <Text style={{ color: "red", fontSize: 12, marginBottom: 8 }}>
+                      {errors.termsAccepted}
+                    </Text>
+                  )}
                 </View>
               ) : (
                 component
@@ -241,38 +244,10 @@ const ModalPaymentView = () => {
             </View>
           )}
         </Formik>
+        )}
       </View>
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 20,
-  },
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#959595",
-  },
-  inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
-  },
-  paymentOptionsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    marginTop: 5,
-  },
-});
 
 export default ModalPaymentView;

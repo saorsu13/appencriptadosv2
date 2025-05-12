@@ -31,7 +31,7 @@ const PayWithAtm: React.FC = () => {
         validationSchema={atmSchema}
         onSubmit={handleSubmit}
       >
-        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }: FormikProps<AtmFormValues>) => (
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue }: FormikProps<AtmFormValues>) => (
           <>
             <TextInput
               style={styles.input}

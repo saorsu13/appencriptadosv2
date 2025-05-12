@@ -25,6 +25,7 @@ function Root() {
       <RestyleProvider theme={theme}>
           <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} />
           <AppNavigator />
+          <ModalPaymentController />
       </RestyleProvider>
     </QueryClientProvider>
   );
@@ -37,7 +38,6 @@ export default function App() {
         <Provider store={store}>
           <ModalPaymentProvider> 
             <Root />
-            <ModalPaymentController /> 
           </ModalPaymentProvider>
         </Provider>
       </DarkModeProvider>

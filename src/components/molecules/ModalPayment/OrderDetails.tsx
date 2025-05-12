@@ -1,22 +1,34 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import CarouselMock from "../Carousel/CarouselMock";
 import { t } from "i18next";
 
-const OrderDetails = () => {
+interface OrderDetailsProps {
+  image?: string;
+  title?: string;
+  price?: number | string;
+}
+
+const OrderDetails: React.FC<OrderDetailsProps> = ({ image, title, price }) => {
   return (
     <View style={styles.detailsContainer}>
       <View style={styles.row}>
         <View style={styles.carouselContainer}>
           <View style={styles.carouselBackground}>
-            <CarouselMock />
+            {image ? (
+              <ImageBackground
+                source={{ uri: image }}
+                style={{ width: 50, height: 50 }}
+                resizeMode="contain"
+              />
+            ) : null}
           </View>
           <Text allowFontScaling={false} style={styles.productText}>
-            {t("pages.home-tab.encryptedSim")}
+            {title}
           </Text>
         </View>
         <Text allowFontScaling={false} style={styles.priceText}>
-          10 USD
+          {price} USD
         </Text>
       </View>
     </View>
