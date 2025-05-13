@@ -13,21 +13,21 @@ export type HomeTabParamList = {
  */
 export type ProductTabParamList = {
   StoreMain: undefined;
-  ProductsList: undefined;             // listado de productos
-  ProductInfo: { id: string };         // detalle de un producto
+  ProductsList: undefined;
+  ProductInfo: { id: string };
 };
 /**
  * Rutas raíz de tu TabNavigator
  */
 export type RootTabParamList = {
-  Home: NavigatorScreenParams<HomeTabParamList>;                             // pantalla Home
-  Store: NavigatorScreenParams<ProductTabParamList>; // anida ProductTabParamList
-  // ... otras tabs si las tienes
+  Home: NavigatorScreenParams<HomeTabParamList>;
+  Store: NavigatorScreenParams<ProductTabParamList>;
+  Sims: undefined;
 };
 
 export type RootStackParamList = {
-  RootTabs: undefined;          // tu TabNavigator
-  SettingsMain: undefined;      // pantalla principal de Ajustes
+  RootTabs: undefined;
+  SettingsMain: undefined;
   AccessPassword: undefined;
   CreateAccessPassword: undefined;
   DeleteAccessPassword: undefined;
