@@ -43,14 +43,7 @@ export default function ProductsApplicationSection() {
 
   return (
     <>
-      <View style={styles.bannerContainer}>
-        <Image
-          source={AppBanner}
-          resizeMode="cover"
-          style={styles.bannerImage}
-        />
-      </View>
-
+    
       <View>
         {isFetching ? (
           <View style={styles.loaderContainer}>

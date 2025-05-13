@@ -14,6 +14,7 @@ import { useDarkModeTheme } from '@/hooks/useDarkModeTheme';
 import { t } from 'i18next';
 import { Product } from '@/features/product/types';
 import { styles } from './CardProductItemStyles';
+import AddCart from '@/assets/icons/AddCart';
 
 export type TypeOfProduct = 'phone' | 'product' | 'offers';
 
@@ -63,8 +64,8 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
 
   if (type === 'offers') {
     return (
-      <View style={[styles.cardContainer, isFirstItem && styles.fullWidthCard]}>        
-        <View style={[styles.innerContainer, { backgroundColor: colors.white }]}>          
+      <View style={[styles.cardContainer, isFirstItem && styles.fullWidthCard]}>
+        <View style={[styles.innerContainer, { backgroundColor: colors.white }]}>
           <View style={{ marginTop: 20 }}>{renderImage()}</View>
 
           <Text allowFontScaling={false} style={styles.offerText}>
@@ -81,12 +82,12 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
 
           <View style={styles.offerButtonWrapper}>
             <TouchableOpacity
-            style={[styles.offerButton, { backgroundColor: colors.primaryColor }]}
-            onPress={() => {
-              console.log('🛒 Botón Comprar (Offer) presionado', product.id);
-              openModalWithParams(product.id.toString(), themeMode, 'es');
-            }}
-          >
+              style={[styles.offerButton, { backgroundColor: colors.primaryColor }]}
+              onPress={() => {
+                console.log('🛒 Botón Comprar (Offer) presionado', product.id);
+                openModalWithParams(product.id.toString(), themeMode, 'es');
+              }}
+            >
               <Text allowFontScaling={false} style={styles.buttonText}>
                 {t('pages.home-tab.buy')}
               </Text>
@@ -104,9 +105,9 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
         type === 'phone' && styles.phoneContainer,
         isFirstItem && styles.fullWidthCard,
       ]}
-    >      
-      <View style={[styles.innerContainer, { backgroundColor: colors.backgroundSecondary }]}>        
-        <View style={{ marginTop: 20 }}>{renderImage()}</View>
+    >
+      <View style={[styles.innerContainer, { backgroundColor: colors.backgroundSecondary }]}>
+        <View style={styles.imageWrapper}>{renderImage()}</View>
         <Text
           allowFontScaling={false}
           style={[styles.productNameText, { color: colors.primaryText }]}
@@ -120,25 +121,48 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
           {t('pages.home-tab.from')} ${product.price} {product.currency}
         </Text>
 
-        <View
-          style={
-            type === 'product'
-              ? styles.productButtonWrapper
-              : styles.defaultButtonWrapper
-          }
-        >
-          <Button
-            size="small"
-            onClick={() => {
-              console.log('🛒 PRESIONADO');
-              openModalWithParams(product.id.toString(), themeMode, 'es');
-            }}
-            variant="primary"
-            style={{ backgroundColor: 'red', zIndex: 9999 }}
-          >
-            {t('pages.home-tab.buy')}
-          </Button>
+        <View style={styles.separator} />
 
+        <View style={styles.productButtonWrapper}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={[
+              styles.buyButton,
+              {
+                paddingVertical: 10,
+                borderRadius: 10,
+                backgroundColor: colors.primaryColor,
+                alignItems: 'center',
+              },
+            ]}
+            onPress={() => openModalWithParams(product.id.toString(), themeMode, 'es')}
+          >
+            <Text style={[styles.buttonText]}>
+              {t('pages.home-tab.buy')}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={[
+              styles.cartButton,
+              {
+                flexDirection: 'row',      // para alinear icono + texto
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingVertical: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                backgroundColor: colors.white,
+              },
+            ]}
+            onPress={() => console.log('Añadir a carrito', product.id)}
+          >
+            <AddCart width={20} height={22} color={colors.background} />
+            <Text style={[styles.buttonText, { color: colors.background, marginLeft: 5 }]}>
+              Añadir a carrito
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.infoContainer}>
@@ -147,13 +171,11 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
           >
             <Text
               allowFontScaling={false}
-              style={[styles.moreInfoText, { color: colors.primaryText }]}
+              style={[styles.moreInfoText]}
             >
               {t('pages.home-tab.moreInfo')}
             </Text>
           </TouchableOpacity>
-
-          <IconSvg height={9} width={12} color={colors.primaryText} type="arrowright" />
         </View>
       </View>
     </View>

@@ -1,6 +1,6 @@
 // src/screens/Store/StoreScreen.tsx
-import React, { useLayoutEffect } from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDarkModeTheme, ThemeMode } from '@/context/theme';
 import { ThemeCustom } from '@/config/theme2';
@@ -14,6 +14,7 @@ import ProductsAplicationSection from '@/components/organisms/ProductsApplicatio
 import ProductsPhoneSection from '@/components/organisms/ProductsPhoneSection/ProductsPhoneSection';
 import { useAppSelector } from '@/hooks/hooksStoreRedux';
 import { SECTIONS } from '@/features/menuCurrentProduct/menuCurrentProductSlice';
+import SearchBar from '@/components/molecules/SearchBar/SearchBar';
 
 export default function StoreScreen() {
   console.log('🛑 [StoreScreen] Start render');
@@ -23,6 +24,7 @@ export default function StoreScreen() {
   const isDark = themeMode === ThemeMode.Dark;
   const theme = ThemeCustom[themeMode];
   const { colors } = theme;
+  const [query, setQuery] = useState('');
   const { t } = useTranslation();
 
   // Obtiene la sección actual
@@ -51,6 +53,11 @@ export default function StoreScreen() {
   } else {
     console.log('🛑 [StoreScreen] No Section matched');
   }
+
+  const handleSearch = () => {
+    // lanzar búsqueda o filtrado con `query`
+    console.log('Buscando:', query);
+  };
   
   return (
     <ScrollView
@@ -60,13 +67,13 @@ export default function StoreScreen() {
         { backgroundColor: colors.background }
       ]}
     >
-      <HeaderEncrypted settingsLink="SettingsMain" />
+      <HeaderEncrypted title={t('pages.home-tab.ourProducts')} settingsLink="SettingsMain" />
 
-      <View style={styles.titleWrap}>
-        <Text style={[styles.titleText, { color: colors.primaryText }]}>  
-          {t('pages.home-tab.ourProducts')}
-        </Text>
-      </View>
+      <SearchBar
+        value={query}
+        onChangeText={setQuery}
+        onSubmit={handleSearch}
+      />
 
       <View style={styles.filterWrap}>
         <FilterMenu />

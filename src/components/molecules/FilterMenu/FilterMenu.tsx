@@ -1,7 +1,6 @@
 // src/components/molecules/FilterMenu/FilterMenu.tsx
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useTheme } from '@shopify/restyle';
 import { useAppSelector, useAppDispatch } from '@/hooks/hooksStoreRedux';
 import { SECTIONS, setProduct } from '@features/menuCurrentProduct/menuCurrentProductSlice';
 import { useDarkModeTheme, ThemeMode } from '@/context/theme';
@@ -21,7 +20,7 @@ export default function FilterMenu() {
       <TouchableOpacity
         style={[
           styles.menuItem,
-          selectedValue === SECTIONS.APPLICATION && { backgroundColor: colors.backgroundSecondary },
+          selectedValue === SECTIONS.APPLICATION && { backgroundColor: colors.white },
         ]}
         onPress={() => dispatch(setProduct(SECTIONS.APPLICATION))}
       >
@@ -29,7 +28,9 @@ export default function FilterMenu() {
           allowFontScaling={false}
           style={[
             styles.menuText,
-            selectedValue === SECTIONS.APPLICATION && { color: colors.primaryText },
+            selectedValue === SECTIONS.APPLICATION
+              ? { color: '#000000' }
+              : { color: colors.secondaryText },
           ]}
         >
           Apps
@@ -39,7 +40,7 @@ export default function FilterMenu() {
       <TouchableOpacity
         style={[
           styles.menuItem,
-          selectedValue === SECTIONS.SIM && { backgroundColor: colors.backgroundSecondary },
+          selectedValue === SECTIONS.SIM && { backgroundColor: colors.white },
         ]}
         onPress={() => dispatch(setProduct(SECTIONS.SIM))}
       >
@@ -47,7 +48,9 @@ export default function FilterMenu() {
           allowFontScaling={false}
           style={[
             styles.menuText,
-            selectedValue === SECTIONS.SIM && { color: colors.primaryText },
+            selectedValue === SECTIONS.SIM
+              ? { color: '#000000' }
+              : { color: colors.secondaryText },
           ]}
         >
           SIMs
@@ -57,7 +60,7 @@ export default function FilterMenu() {
       <TouchableOpacity
         style={[
           styles.menuItem,
-          selectedValue === SECTIONS.PHONE && { backgroundColor: colors.backgroundSecondary },
+          selectedValue === SECTIONS.PHONE && { backgroundColor: colors.white },
         ]}
         onPress={() => dispatch(setProduct(SECTIONS.PHONE))}
       >
@@ -65,7 +68,9 @@ export default function FilterMenu() {
           allowFontScaling={false}
           style={[
             styles.menuText,
-            selectedValue === SECTIONS.PHONE && { color: colors.primaryText },
+            selectedValue === SECTIONS.PHONE
+              ? { color: '#000000' }
+              : { color: colors.secondaryText },
           ]}
         >
           {t('pages.home-tab.cellPhone')}
@@ -78,22 +83,21 @@ export default function FilterMenu() {
 const styles = StyleSheet.create({
   menuContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
     columnGap: 10,
     borderRadius: 40,
     paddingVertical: 15,
-    paddingHorizontal: 50,
+    paddingHorizontal: 18,
   },
   menuItem: {
-    height: 60,
+    height: 50,
     width: 110,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
   },
   menuText: {
-    color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
   },

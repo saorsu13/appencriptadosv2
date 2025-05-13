@@ -80,6 +80,7 @@ const theme = createTheme({
     },
   },
   colors: {
+    blue: palette.blue,
     blueDark: palette.blueDark,
     iconDefault: palette.iconDefault,
     greenLight: palette.greenLight,
