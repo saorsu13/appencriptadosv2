@@ -1,5 +1,5 @@
 // src/components/organisms/ProductsSimSection/ProductsSimSection.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooksStoreRedux';
@@ -22,6 +22,8 @@ import { useTheme } from '@shopify/restyle';
 import { ThemeCustomType } from '@/config/theme2';
 import type { FAQItem } from '@/components/molecules/FAQAccordion/FAQAccordion';
 import { Product } from '@/features/product/types';
+import CategorySimSelect from '@/components/molecules/CategorySimSelect/CategorySimSelect';
+import FilterTabs from '@/components/molecules/FilterTabs/FilterTabs';
 
 
 export default function ProductsSimSection() {
@@ -29,6 +31,12 @@ export default function ProductsSimSection() {
   const currentLanguage = useAppSelector(state => state.settings.lang);
   const { t } = useTranslation();
   const { colors } = useTheme<ThemeCustomType>();
+
+   // Estados para categorías y filtros
+  const categoriesList = ['SIM Encriptados', 'Otra Categoría'];
+  const [simCategory, setSimCategory] = useState<string>(categoriesList[0]);
+  const filterOptions = ['Recargar', 'Minutos', 'eSIM', 'SIM', 'IMSI'];
+  const [filter, setFilter] = useState<string>(filterOptions[0]);
 
  const { data: faqs } = useQuery<string[]>({
     queryKey: ['faqs', currentLanguage],
@@ -100,7 +108,20 @@ const faqItems: FAQItem[] = Array.isArray(faqs)
 
   return (
     <>
-      <View style={{ marginBottom: 40 }}>
+    {/* Category dropdown */}
+      <CategorySimSelect
+        selected={simCategory}
+        onChange={setSimCategory}
+      />
+
+      {/* Filter tabs */}
+      <FilterTabs
+        label={t('pages.home-tab.whatAreYouLooking')}
+        options={filterOptions}
+        selected={filter}
+        onSelect={setFilter}
+      />
+      {/* <View style={{ marginBottom: 40 }}>
         <WelcomeProducts
           title={t('pages.home-tab.encryptedSim')} 
           description={t('pages.home-tab.communicate')}
@@ -111,16 +132,16 @@ const faqItems: FAQItem[] = Array.isArray(faqs)
           }
           background={BannerWelcome}
         />
-      </View>
+      </View> */}
 
-      <View style={{ marginBottom: 40 }}>
+      {/* <View style={{ marginBottom: 40 }}>
         <Text style={{ color: colors.primaryText, fontWeight: '700', textAlign: 'center', fontSize: 18, marginBottom: 7 }}>
           {t('pages.home-tab.encryptedSim')}
         </Text>
         <Text style={{ color: colors.secondaryText, textAlign: 'center', fontSize: 14, width: 300, alignSelf: 'center' }}>
         {t('pages.home-tab.securityPrivacy')}
         </Text>
-      </View>
+      </View> */}
 
       <View>
         {isFetching ? (

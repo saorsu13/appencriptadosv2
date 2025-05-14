@@ -127,7 +127,8 @@
       "offers": "Offres",
       "offerdescription": "Découvrez nos offres et obtenez jusqu'à 25% de solde en plus sur votre achat.",
       "versiontitle": "Nouvelle version disponible",
-      "versiondescription": "Une nouvelle version est disponible. Souhaitez-vous mettre à jour"
+      "versiondescription": "Une nouvelle version est disponible. Souhaitez-vous mettre à jour",
+      "whatAreYouLooking": "Que recherchez-vous ?"
     },
     "login": {
       "header": {

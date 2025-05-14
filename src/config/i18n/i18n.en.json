@@ -129,7 +129,8 @@
       "offers": "Offers",
       "offerdescription": "Check out our offers and get up to 25% more balance on your purchase.",
       "versiontitle": "New Version Available",
-      "versiondescription": "A new version is available. Would you like to update"
+      "versiondescription": "A new version is available. Would you like to update",
+      "whatAreYouLooking": "What are you looking for?"
     },
     "login": {
       "header": {
