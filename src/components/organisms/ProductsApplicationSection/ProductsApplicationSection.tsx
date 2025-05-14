@@ -1,6 +1,6 @@
 // src/components/organisms/ProductsApplicationSection/ProductsApplicationSection.tsx
-import React from 'react';
-import { View, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { useTheme } from '@shopify/restyle';
 import { useTranslation } from 'react-i18next';
@@ -16,10 +16,11 @@ import { Product } from '@/features/product/types';
  * Sección de Productos de Aplicación
  */
 export default function ProductsApplicationSection() {
-
   const { colors } = useTheme<ThemeCustomType>();
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
+
+  const [period, setPeriod] = useState<'1' | '6' | '12'>('1');
 
   // Query de productos categoría 'app'
   const { data: productsApp, isFetching } = useQuery<Product[]>({
@@ -65,6 +66,7 @@ export default function ProductsApplicationSection() {
                 type="product"
                 widthImage={70}
                 heightImage={70}
+                showPeriodSelector={true}
               />
             </View>
           )

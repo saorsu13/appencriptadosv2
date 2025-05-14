@@ -11,6 +11,7 @@ export interface ListOfProductCardsProps {
   type: TypeOfProduct;
   widthImage: number;
   heightImage: number;
+  showPeriodSelector?: boolean;
 }
 
 const ListOfProductCards: React.FC<ListOfProductCardsProps> = ({
@@ -18,6 +19,7 @@ const ListOfProductCards: React.FC<ListOfProductCardsProps> = ({
   type,
   widthImage,
   heightImage,
+  showPeriodSelector = false,
 }) => {
   const isOdd = list.length % 2 !== 0;
   const updatedList = isOdd ? [list[list.length - 1], ...list.slice(0, -1)] : list;
@@ -32,6 +34,7 @@ const ListOfProductCards: React.FC<ListOfProductCardsProps> = ({
           type={type}
           product={product}
           isFirstItem={isOdd && index === 0}
+          showPeriodSelector={showPeriodSelector}
         />
       ))}
     </View>

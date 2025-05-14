@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: '#000',
     fontSize: 13,
     fontWeight: 'bold',
   },
@@ -61,6 +61,7 @@ export const styles = StyleSheet.create({
 },
   productNameText: {
     marginTop: 15,
+    fontSize: 18,
     fontWeight: '700',
     alignItems: 'flex-start',
   },
@@ -100,5 +101,28 @@ export const styles = StyleSheet.create({
   moreInfoText: {
     color: theme.colors.mainActionState,
     fontSize: 14,
+  },
+  // === estilos para los selectores 1/6/12 meses ===
+  radioContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 12,
+  },
+  radioOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 20,
+  },
+  radioCircle: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: theme.colors.secondaryText,
+    marginRight: 6,
+  },
+  radioLabel: {
+    fontSize: 14,
+    fontWeight: '500',
   },
 });

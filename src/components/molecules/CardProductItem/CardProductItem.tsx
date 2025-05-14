@@ -1,5 +1,5 @@
 // src/components/molecules/CardProductItem/CardProductItem.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import { SvgUri } from 'react-native-svg';
 import { useTheme } from '@shopify/restyle';
@@ -8,8 +8,6 @@ import { useModalPayment } from '@/context/modalpayment';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { ProductTabParamList } from '@/navigation/types';
-import Button from '@/components/atoms/Button/Button';
-import IconSvg from '@/components/molecules/IconSvg/IconSvg';
 import { useDarkModeTheme } from '@/hooks/useDarkModeTheme';
 import { t } from 'i18next';
 import { Product } from '@/features/product/types';
@@ -24,6 +22,8 @@ export interface CardProductItemProps {
   widthImage: number;
   heightImage: number;
   isFirstItem: boolean;
+  showCartButton?: boolean;
+  showPeriodSelector?: boolean;
 }
 
 const navigation = () => useNavigation<NativeStackNavigationProp<ProductTabParamList>>();
@@ -35,12 +35,17 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
   widthImage,
   heightImage,
   isFirstItem,
+  showCartButton = false,
+  showPeriodSelector = false,
 }) => {
   const { openModalWithParams } = useModalPayment();
   const { colors } = useTheme<ThemeCustomType>();
   const { themeMode } = useDarkModeTheme();
   const nav = navigation();
 
+  const [period, setPeriod] = useState<'1' | '6' | '12'>('1');
+
+  const buyWidth = showCartButton ? '48%' : '100%';
 
   const renderImage = () => {
     if (product.image.endsWith('.svg')) {
@@ -121,6 +126,46 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
           {t('pages.home-tab.from')} ${product.price} {product.currency}
         </Text>
 
+        {/* ——— RADIO-GROUP DE 1/6/12 MESES ——— */}
+        {showPeriodSelector && (
+          <View style={styles.radioContainer}>
+            {[
+              { label: '1 Meses', value: '1' },
+              { label: '6 Meses', value: '6' },
+              { label: '12 Meses', value: '12' },
+            ].map(opt => {
+              const selected = period === opt.value;
+              return (
+                <TouchableOpacity
+                  key={opt.value}
+                  style={styles.radioOption}
+                  onPress={() => setPeriod(opt.value as any)}
+                >
+                  <View
+                    style={[
+                      styles.radioCircle,
+                      selected && {
+                        borderColor: colors.blue,
+                        backgroundColor: colors.blue,
+                      },
+                    ]}
+                  />
+                  <Text
+                    style={[
+                      styles.radioLabel,
+                      selected
+                        ? { color: colors.secondaryText }
+                        : { color: colors.secondaryText },
+                    ]}
+                  >
+                    {opt.label}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        )}
+
         <View style={styles.separator} />
 
         <View style={styles.productButtonWrapper}>
@@ -131,6 +176,7 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
               {
                 paddingVertical: 10,
                 borderRadius: 10,
+                width: buyWidth,
                 backgroundColor: colors.primaryColor,
                 alignItems: 'center',
               },
@@ -141,28 +187,29 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
               {t('pages.home-tab.buy')}
             </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={[
-              styles.cartButton,
-              {
-                flexDirection: 'row',      // para alinear icono + texto
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingVertical: 10,
-                borderRadius: 10,
-                borderWidth: 1,
-                backgroundColor: colors.white,
-              },
-            ]}
-            onPress={() => console.log('Añadir a carrito', product.id)}
-          >
-            <AddCart width={20} height={22} color={colors.background} />
-            <Text style={[styles.buttonText, { color: colors.background, marginLeft: 5 }]}>
-              Añadir a carrito
-            </Text>
-          </TouchableOpacity>
+          {showCartButton && (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={[
+                styles.cartButton,
+                {
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingVertical: 10,
+                  borderRadius: 10,
+                  borderWidth: 1,
+                  backgroundColor: colors.white,
+                },
+              ]}
+              onPress={() => console.log('Añadir a carrito', product.id)}
+            >
+              <AddCart width={20} height={22} color={colors.background} />
+              <Text style={[styles.buttonText, { color: colors.background, marginLeft: 5 }]}>
+                Añadir a carrito
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         <View style={styles.infoContainer}>

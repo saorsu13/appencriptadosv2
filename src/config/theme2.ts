@@ -41,6 +41,7 @@ export const lightTheme = createTheme({
     danger: palette.danger,
     blueLight: palette.blueLight,
     success: palette.success,
+    blue: palette.backgroundAlternate2Light,
   },
   spacing: {
     none: 0,
@@ -71,6 +72,7 @@ export const darkTheme = {
     danger: palette.danger,
     blueLight: palette.blueLight,
     success: palette.success,
+    blue: palette.backgroundAlternate2Light,
   },
 };
 
