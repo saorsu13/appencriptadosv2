@@ -2,15 +2,17 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  bannerContainer: {
-    marginBottom: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
+  categorySelectorContainer: {
+    width: '50%',
+    marginBottom: 10,
+    borderRadius: 15,
+    overflow: 'hidden',
+    alignSelf: 'flex-end',
   },
-  bannerImage: {
-    borderRadius: 10,
-    width: '95%',
-    height: 200,
+  categoryPicker: {
+    height: 60,
+    paddingHorizontal: 12,
+    fontSize: 10,
   },
   loaderContainer: {
     flex: 1,
