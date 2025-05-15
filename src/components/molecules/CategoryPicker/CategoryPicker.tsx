@@ -98,14 +98,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   trigger: {
-    height: 60,
+    height: 50,
     paddingHorizontal: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   triggerText: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 500,
     marginLeft: 8,
   },
