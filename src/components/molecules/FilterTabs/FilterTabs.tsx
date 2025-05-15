@@ -50,8 +50,7 @@ const FilterTabs: React.FC<FilterTabsProps> = ({ options, selected, onSelect, la
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginVertical: 16,
-    width: '100%',
+    width: '96%',
   },
   label: {
     fontSize: 14,

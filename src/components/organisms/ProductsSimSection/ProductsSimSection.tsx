@@ -1,5 +1,5 @@
 // src/components/organisms/ProductsSimSection/ProductsSimSection.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooksStoreRedux';
@@ -10,8 +10,6 @@ import SafeCommunityBanner from '@/components/organisms/SafeCommunityBanner/Safe
 import FAQAccordion from '@/components/molecules/FAQAccordion/FAQAccordion';
 import ListOfProductCards from '@/components/molecules/ListOfProductCards/ListOfProductCards';
 import SkeletonGrid from '@/components/molecules/SkeletonContent/SkeletonGrid';
-import WelcomeProducts from '@/components/organisms/WelcomeProducts/WelcomeProducts';
-import IconSvg from '@/components/molecules/IconSvg/IconSvg';
 import ActiveVector from '@/components/molecules/Stepper/icons/ActiveVector';
 import PricingVector from '@/components/molecules/Stepper/icons/PricingVector';
 import ManVector from '@/components/molecules/Stepper/icons/ManVector';
@@ -35,8 +33,19 @@ export default function ProductsSimSection() {
    // Estados para categorías y filtros
   const categoriesList = ['SIM Encriptados', 'Otra Categoría'];
   const [simCategory, setSimCategory] = useState<string>(categoriesList[0]);
-  const filterOptions = ['Recargar', 'Minutos', 'eSIM', 'SIM', 'IMSI'];
-  const [filter, setFilter] = useState<string>(filterOptions[0]);
+  
+  const defaultOptions = ['Recargar', 'Minutos', 'eSIM', 'SIM', 'IMSI'];
+  const onlyRechargeEsim = ['Recarga', 'Recarga + eSIM', 'SIM'];
+  const [filter, setFilter] = useState(defaultOptions[0]);
+
+  const filterOptions =
+    simCategory === 'SIM Encriptada' ? defaultOptions : onlyRechargeEsim;
+
+  useEffect(() => {
+    if (!filterOptions.includes(filter)) {
+      setFilter(filterOptions[0]);
+    }
+  }, [simCategory]);
 
  const { data: faqs } = useQuery<string[]>({
     queryKey: ['faqs', currentLanguage],
@@ -50,8 +59,6 @@ const faqItems: FAQItem[] = Array.isArray(faqs)
       content: t('pages.home-tab.defaultAnswer') || 'Pronto añadiremos respuesta.', // <-- 👈
     }))
   : [];
-
-
 
   const { data: productsSim, isFetching } = useQuery<Product[]>({
     queryKey: ['productsSim', currentLanguage],
@@ -143,6 +150,8 @@ const faqItems: FAQItem[] = Array.isArray(faqs)
         </Text>
       </View> */}
 
+      <View style={styles.separator} />
+
       <View>
         {isFetching ? (
           <View style={{ flex: 1, alignSelf: 'center' }}>
@@ -214,4 +223,13 @@ const faqItems: FAQItem[] = Array.isArray(faqs)
 const styles = StyleSheet.create({
   container: { alignItems: 'center', justifyContent: 'center' },
   image: { width: 50, height: 50 },
+
+  separator: {
+    width: "100%",
+    height: 1,
+    backgroundColor: "#2A2A2A",
+    marginVertical: 10,
+    marginTop: 13,
+    marginBottom: 12,
+  },
 });

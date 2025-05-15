@@ -3,7 +3,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export const SECTIONS = {
   SIM: "sim",
   APPLICATION: "application",
-  PHONE: "phone",
+  // PHONE: "phone",
+  SYSTEMS:     "systems",
+  ROUTERS:     "routers",
 } as const;
 
 type SectionType = (typeof SECTIONS)[keyof typeof SECTIONS];

@@ -1,6 +1,6 @@
 // src/components/organisms/ProductsApplicationSection/ProductsApplicationSection.tsx
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useQuery } from '@tanstack/react-query';
 import { useTheme } from '@shopify/restyle';
@@ -12,6 +12,7 @@ import SkeletonGrid from '@/components/molecules/SkeletonContent/SkeletonGrid';
 import { getProducts } from '@/api/productsTab';
 import { styles } from './ProductsApplicationSectionStyles';
 import { Product } from '@/features/product/types';
+import CategoryPicker from '@/components/molecules/CategoryPicker/CategoryPicker';
 
 /**
  * Sección de Productos de Aplicación
@@ -61,27 +62,12 @@ export default function ProductsApplicationSection() {
   return (
     <>
       {/* ——— SELECT DE CATEGORÍAS ——— */}
-      <View style={styles.categorySelectorContainer}>
-        <Picker
-          selectedValue={category}
-          onValueChange={val => setCategory(val)}
-          style={[
-            styles.categoryPicker,
-            {
-              backgroundColor: colors.backgroundSecondary,
-              color: colors.primaryText,
-            },
-          ]}
-          dropdownIconColor={colors.primaryText}
-        >
-          <Picker.Item label="Categoría" value="all" />
-          {categories
-            .filter(c => c !== 'all')
-            .map(cat => (
-              <Picker.Item key={cat} label={cat} value={cat} />
-            ))}
-        </Picker>
-      </View>
+      < CategoryPicker
+        options={categories.filter(c => c !== 'all')}
+        selected={category === 'all' ? '' : category}
+        placeholder={t('pages.home-tab.category')}
+        onSelect={setCategory}
+      />
 
       {/* ——— GRID O SKELETON ——— */}
       {isFetching ? (
