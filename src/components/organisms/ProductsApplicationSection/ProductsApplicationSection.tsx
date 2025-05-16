@@ -1,6 +1,6 @@
 // src/components/organisms/ProductsApplicationSection/ProductsApplicationSection.tsx
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useQuery } from '@tanstack/react-query';
 import { useTheme } from '@shopify/restyle';
@@ -12,6 +12,7 @@ import SkeletonGrid from '@/components/molecules/SkeletonContent/SkeletonGrid';
 import { getSecureProductsByCategory, ProductSecure } from '@/api/productsSecure';
 import { styles } from './ProductsApplicationSectionStyles';
 import { Product } from '@/features/product/types';
+import CategoryPicker from '@/components/molecules/CategoryPicker/CategoryPicker';
 
 export default function ProductsApplicationSection() {
   const { colors } = useTheme<ThemeCustomType>();

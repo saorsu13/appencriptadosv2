@@ -11,7 +11,9 @@ import HeaderEncrypted from '@/components/molecules/HeaderEncrypted/HeaderEncryp
 import FilterMenu from '@/components/molecules/FilterMenu/FilterMenu';
 import ProductsSimSection from '@/components/organisms/ProductsSimSection/ProductsSimSection';
 import ProductsAplicationSection from '@/components/organisms/ProductsApplicationSection/ProductsApplicationSection';
-import ProductsPhoneSection from '@/components/organisms/ProductsPhoneSection/ProductsPhoneSection';
+import ProductsSystemsSection from '@/components/organisms/ProductsSystemsSection/ProductsSystemsSection';
+import ProductsRoutersSection from '@/components/organisms/ProductsRoutersSection/ProductsRoutersSection';
+// import ProductsPhoneSection from '@/components/organisms/ProductsPhoneSection/ProductsPhoneSection';
 import { useAppSelector } from '@/hooks/hooksStoreRedux';
 import { SECTIONS } from '@/features/menuCurrentProduct/menuCurrentProductSlice';
 import SearchBar from '@/components/molecules/SearchBar/SearchBar';
@@ -47,9 +49,15 @@ export default function StoreScreen() {
   } else if (currentSection === SECTIONS.APPLICATION) {
     console.log('🛑 [StoreScreen] Showing ProductsAplicationSection');
     SectionComponent = <ProductsAplicationSection />;
-  } else if (currentSection === SECTIONS.PHONE) {
-    console.log('🛑 [StoreScreen] Showing ProductsPhoneSection');
-    SectionComponent = <ProductsPhoneSection />;
+  } else if (currentSection === SECTIONS.SYSTEMS) {
+   SectionComponent = <ProductsSystemsSection />;
+   console.log('🛑 [StoreScreen] Showing ProductsSystemsSection');
+ } else if (currentSection === SECTIONS.ROUTERS) {
+   SectionComponent = <ProductsRoutersSection />;
+   console.log('🛑 [StoreScreen] Showing ProductsRoutersSection');
+  // } else if (currentSection === SECTIONS.PHONE) {
+  //   console.log('🛑 [StoreScreen] Showing ProductsPhoneSection');
+  //   SectionComponent = <ProductsPhoneSection />;
   } else {
     console.log('🛑 [StoreScreen] No Section matched');
   }

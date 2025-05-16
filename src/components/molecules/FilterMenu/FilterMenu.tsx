@@ -32,6 +32,7 @@ export default function FilterMenu() {
 
   return (
     <View style={[styles.menuContainer, { backgroundColor: colors.backgroundAlternate }]}>
+      {/* Apps */}
       <TouchableOpacity
         style={[
           styles.menuItem,
@@ -39,40 +40,25 @@ export default function FilterMenu() {
         ]}
         onPress={() => handlePress(SECTIONS.APPLICATION)}
       >
-        <Text
-          allowFontScaling={false}
-          style={[
-            styles.menuText,
-            selectedValue === SECTIONS.APPLICATION
-              ? { color: '#000000' }
-              : { color: colors.secondaryText },
-          ]}
-        >
+        <Text style={[styles.menuText, selectedValue === SECTIONS.APPLICATION ? { color: '#000' } : { color: colors.secondaryText }]}>
           Apps
         </Text>
       </TouchableOpacity>
 
+      {/* SIMs */}
       <TouchableOpacity
         style={[
           styles.menuItem,
           selectedValue === SECTIONS.SIM && { backgroundColor: colors.white },
         ]}
-        onPress={() => handlePress(SECTIONS.SIM)}
+        onPress={() => dispatch(setProduct(SECTIONS.SIM))}
       >
-        <Text
-          allowFontScaling={false}
-          style={[
-            styles.menuText,
-            selectedValue === SECTIONS.SIM
-              ? { color: '#000000' }
-              : { color: colors.secondaryText },
-          ]}
-        >
+        <Text style={[styles.menuText, selectedValue === SECTIONS.SIM ? { color: '#000' } : { color: colors.secondaryText }]}>
           SIMs
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[
           styles.menuItem,
           selectedValue === SECTIONS.PHONE && { backgroundColor: colors.white },
@@ -90,29 +76,50 @@ export default function FilterMenu() {
         >
           {t('pages.home-tab.cellPhone')}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+
+      {/* Sistemas */}
+     <TouchableOpacity
+       style={[styles.menuItem, selectedValue === SECTIONS.SYSTEMS && { backgroundColor: colors.white }]}
+       onPress={() => dispatch(setProduct(SECTIONS.SYSTEMS))}
+     >
+       <Text style={[styles.menuText, selectedValue === SECTIONS.SYSTEMS ? { color: '#000' } : { color: colors.secondaryText }]}>
+         Sistemas
+       </Text>
+     </TouchableOpacity>
+
+     {/* Routers */}
+     <TouchableOpacity
+       style={[styles.menuItem, selectedValue === SECTIONS.ROUTERS && { backgroundColor: colors.white }]}
+       onPress={() => dispatch(setProduct(SECTIONS.ROUTERS))}
+     >
+       <Text style={[styles.menuText, selectedValue === SECTIONS.ROUTERS ? { color: '#000' } : { color: colors.secondaryText }]}>
+         Routers
+       </Text>
+     </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   menuContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    columnGap: 10,
-    borderRadius: 40,
-    paddingVertical: 15,
-    paddingHorizontal: 18,
-  },
+   flexDirection: 'row',
+   justifyContent: 'space-between',
+   alignItems: 'center',
+   borderRadius: 40,
+   paddingVertical: 15,
+   paddingHorizontal: 18,
+ },
   menuItem: {
-    height: 50,
-    width: 110,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 30,
-  },
+   flex: 1,
+   marginHorizontal: 2,
+   height: 40,
+   justifyContent: 'center',
+   alignItems: 'center',
+   borderRadius: 30,
+ },
   menuText: {
+    fontSize: 12,
     textAlign: 'center',
     fontWeight: 'bold',
   },

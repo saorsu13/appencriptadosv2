@@ -16,6 +16,8 @@ import { useDarkModeTheme, ThemeMode } from '@/context/theme';
 import { ThemeCustom } from '@/config/theme2';
 import { useAppSelector } from '@/hooks/hooksStoreRedux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import MenuIcon from '@/assets/icons/MenuIcon';
+import UserCircleIcon from '@/assets/icons/UserCircleIcon';
 
 const rawOwner =
   Constants.manifest?.owner ||
@@ -123,7 +125,7 @@ export default function HeaderEncrypted({
         onPress={handleSettings}
         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
       >
-        <IconSvg type="settings" width={25} height={25} color={colors.white} />
+        <MenuIcon width={20} height={25} color={colors.white} />
       </TouchableOpacity>
     );
   }
@@ -153,7 +155,7 @@ export default function HeaderEncrypted({
         onPress={toggleTheme}
         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
       >
-        <IconSvg type="contrast" width={25} height={25} color={colors.white} />
+        <UserCircleIcon width={20} height={20} color={colors.white} />
       </TouchableOpacity>
     </View>
   );
@@ -170,7 +172,7 @@ const styles = StyleSheet.create({
   iconButton: {
     width: 40,
     height: 40,
-    borderRadius: 20,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
   },

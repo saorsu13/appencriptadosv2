@@ -1,5 +1,5 @@
 // src/components/molecules/CategorySimModal.tsx
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -24,6 +24,10 @@ export default function CategorySimModal({ selected, onChange }: CategorySimModa
   const { colors } = useTheme<ThemeCustomType>();
   const [visible, setVisible] = useState(false);
 
+  useEffect(() => {
+    onChange(OPTIONS[0]);
+  }, []);
+
   return (
     <>
       {/* Botón que abre el modal */}
@@ -31,7 +35,7 @@ export default function CategorySimModal({ selected, onChange }: CategorySimModa
         style={[styles.trigger, { backgroundColor: colors.backgroundSecondary }]}
         onPress={() => setVisible(true)}
       >
-        <Text style={{ color: colors.primaryText, fontSize: 14 }}>
+        <Text style={{ color: colors.primaryText, fontSize: 14, fontWeight: 700, }}>
           {selected}
         </Text>
         <AntDesign name="down" size={16} color={colors.primaryText} />
@@ -55,7 +59,7 @@ export default function CategorySimModal({ selected, onChange }: CategorySimModa
                   <TouchableOpacity
                     style={[
                       styles.option,
-                      isActive && { backgroundColor: colors.white }
+                      isActive && { backgroundColor: colors.backgroundAlternate }
                     ]}
                     onPress={() => {
                       onChange(item);
@@ -64,7 +68,7 @@ export default function CategorySimModal({ selected, onChange }: CategorySimModa
                   >
                     <Text style={[
                       styles.optionText,
-                      { color: isActive ? colors.background : colors.primaryText }
+                      { color: isActive ? colors.white : colors.primaryText }
                     ]}>
                       {item}
                     </Text>
@@ -85,8 +89,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 10,
     borderRadius: 26,
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingHorizontal: 26,
+    paddingVertical: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -108,6 +112,6 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: '600',
   },
 });
