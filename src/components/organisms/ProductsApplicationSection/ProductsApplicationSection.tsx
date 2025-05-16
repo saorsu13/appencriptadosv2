@@ -9,58 +9,49 @@ import { ThemeCustomType } from '@/config/theme2';
 
 import ListOfProductCards from '@/components/molecules/ListOfProductCards/ListOfProductCards';
 import SkeletonGrid from '@/components/molecules/SkeletonContent/SkeletonGrid';
-import { getProducts } from '@/api/productsTab';
+import { getSecureProductsByCategory, ProductSecure } from '@/api/productsSecure';
 import { styles } from './ProductsApplicationSectionStyles';
 import { Product } from '@/features/product/types';
 
-/**
- * Sección de Productos de Aplicación
- */
 export default function ProductsApplicationSection() {
   const { colors } = useTheme<ThemeCustomType>();
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
 
-  // Estado para el periodo (1/6/12 meses)
   const [period, setPeriod] = useState<'1' | '6' | '12'>('1');
 
-  // Query de productos categoría 'app'
-  const { data: productsApp, isFetching } = useQuery<Product[]>({
-    queryKey: ['productsApp', currentLanguage],
-    queryFn: () => getProducts('app', currentLanguage),
+  const { data: productsAppSecure, isFetching } = useQuery<ProductSecure[]>({
+    queryKey: ['productsAppSecure', 38],
+    queryFn: () => getSecureProductsByCategory(38),
     staleTime: 0,
   });
 
-  // Formateamos la lista de productos
-  const listFormatted: Product[] = productsApp?.map(product => ({
-    id: product.id,
-    title: product.title,
-    price: Number(product.price) ?? 0,
-    currency: product.currency ?? '',
-    image: product.image ?? '',
-    description: product.description ?? '',
-    category: product.category ?? 'app',
+  const listFormatted: Product[] = productsAppSecure?.map(p => ({
+    id: p.id,
+    title: p.name,
+    price: parseFloat(p.price),
+    currency: 'USD',                     
+    image: p.images[0]?.src || '',
+    description: p.short_description,
+    category: p.categories[0]?.name || '',
   })) ?? [];
 
-  // Estado y valores para el filtro de categoría
+
   const [category, setCategory] = useState<string>('all');
   const categories = [
     'all',
     ...Array.from(new Set(listFormatted.map(p => p.category))),
   ];
 
-  // Filtramos según la categoría seleccionada
   const filteredList =
     category === 'all'
       ? listFormatted
       : listFormatted.filter(p => p.category === category);
 
-  // Banner de aplicaciones (si lo necesitas más abajo)
   const AppBanner = require('@/assets/img/appban.png');
 
   return (
     <>
-      {/* ——— SELECT DE CATEGORÍAS ——— */}
       <View style={styles.categorySelectorContainer}>
         <Picker
           selectedValue={category}
@@ -83,7 +74,6 @@ export default function ProductsApplicationSection() {
         </Picker>
       </View>
 
-      {/* ——— GRID O SKELETON ——— */}
       {isFetching ? (
         <View style={styles.loaderContainer}>
           <SkeletonGrid

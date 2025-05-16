@@ -11,6 +11,7 @@ import ListOfProductCards from '@/components/molecules/ListOfProductCards/ListOf
 import SkeletonGrid from '@/components/molecules/SkeletonContent/SkeletonGrid';
 import { getProducts } from '@/api/productsTab';
 import { styles } from './ProductsPhoneSectionStyles';
+import { getSecureProductsByCategory, ProductSecure } from '@/api/productsSecure';
 
 /**
  * Sección de Productos para teléfono
@@ -21,12 +22,12 @@ export default function ProductsPhoneSection() {
   const { colors } = useTheme<ThemeCustomType>();
 
   // Query de productos categoría 'mobile'
-  const { data: productsPhone, isFetching } = useQuery<Product[]>({
-    queryKey: ['productsPhone', lang],
-    queryFn: () => getProducts('mobile', lang),
+
+  const { data: productsSim, isFetching } = useQuery<ProductSecure[]>({
+    queryKey: ['productsSimSecure', 35], 
+    queryFn: () => getSecureProductsByCategory(35),
     staleTime: 0,
   });
-
   const PhoneBanner = require('@/assets/img/phoneban.png');
 
   return (
@@ -53,12 +54,27 @@ export default function ProductsPhoneSection() {
             />
           </View>
         ) : (
-          productsPhone && productsPhone.length > 0 && (
+          productsSim && productsSim.length > 0 && (
             <ListOfProductCards
-              list={productsPhone}
-              type="phone"
-              widthImage={150}
-              heightImage={150}
+              heightImage={70}
+              widthImage={70}
+              list={productsSim.map(p => ({
+                id: p.id,
+                title: p.name,
+                price: parseFloat(p.price) || 0,
+                currency: 'USD', // O leerlo de meta_data si quieres
+                image: p.images[0]?.src || '',
+                category: p.categories[0]?.name || '',
+                description: p.short_description || '', // ✅ ahora sí
+                banner: '', // 🧹 no viene en ProductSecure, le ponemos string vacío
+                features: [], // 🧹 si quieres luego parseamos de meta_data
+                advantages: [], // 🧹 igual
+                generaltitle: '', // 🧹 igual
+                generaldescription: '', // 🧹 igual
+                faqs: [], // 🧹 igual
+              }))}
+
+              type="product"
             />
           )
         )}

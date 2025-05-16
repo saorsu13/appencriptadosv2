@@ -7,6 +7,13 @@ import { useDarkModeTheme, ThemeMode } from '@/context/theme';
 import { ThemeCustom } from '@/config/theme2';
 import { t } from 'i18next';
 
+const SECTION_IDS: Record<string, number> = {
+  [SECTIONS.APPLICATION]: 38,
+  [SECTIONS.SIM]: 40,
+  [SECTIONS.PHONE]: 35,
+  [SECTIONS.ROUTERS]: 36,
+};
+
 export default function FilterMenu() {
   const { themeMode } = useDarkModeTheme();
   const isDark = themeMode === ThemeMode.Dark;
@@ -15,6 +22,14 @@ export default function FilterMenu() {
   const selectedValue = useAppSelector(state => state.menuCurrentProduct.currentProduct);
   const dispatch = useAppDispatch();
 
+  const handlePress = (section: string) => {
+    dispatch(setProduct(section));
+    
+    const sectionId = SECTION_IDS[section];
+    console.log(`🛑 [FilterMenu] Selected section: ${section}, with ID: ${sectionId}`);
+
+  };
+
   return (
     <View style={[styles.menuContainer, { backgroundColor: colors.backgroundAlternate }]}>
       <TouchableOpacity
@@ -22,7 +37,7 @@ export default function FilterMenu() {
           styles.menuItem,
           selectedValue === SECTIONS.APPLICATION && { backgroundColor: colors.white },
         ]}
-        onPress={() => dispatch(setProduct(SECTIONS.APPLICATION))}
+        onPress={() => handlePress(SECTIONS.APPLICATION)}
       >
         <Text
           allowFontScaling={false}
@@ -42,7 +57,7 @@ export default function FilterMenu() {
           styles.menuItem,
           selectedValue === SECTIONS.SIM && { backgroundColor: colors.white },
         ]}
-        onPress={() => dispatch(setProduct(SECTIONS.SIM))}
+        onPress={() => handlePress(SECTIONS.SIM)}
       >
         <Text
           allowFontScaling={false}
@@ -62,7 +77,7 @@ export default function FilterMenu() {
           styles.menuItem,
           selectedValue === SECTIONS.PHONE && { backgroundColor: colors.white },
         ]}
-        onPress={() => dispatch(setProduct(SECTIONS.PHONE))}
+        onPress={() => handlePress(SECTIONS.PHONE)}
       >
         <Text
           allowFontScaling={false}

@@ -24,7 +24,7 @@ import type { FAQItem } from '@/components/molecules/FAQAccordion/FAQAccordion';
 import { Product } from '@/features/product/types';
 import CategorySimSelect from '@/components/molecules/CategorySimSelect/CategorySimSelect';
 import FilterTabs from '@/components/molecules/FilterTabs/FilterTabs';
-
+import { getSecureProductsByCategory, ProductSecure } from '@/api/productsSecure';
 
 export default function ProductsSimSection() {
   const dispatch = useAppDispatch();
@@ -38,27 +38,24 @@ export default function ProductsSimSection() {
   const filterOptions = ['Recargar', 'Minutos', 'eSIM', 'SIM', 'IMSI'];
   const [filter, setFilter] = useState<string>(filterOptions[0]);
 
- const { data: faqs } = useQuery<string[]>({
-    queryKey: ['faqs', currentLanguage],
-    queryFn: () => getFaqs(currentLanguage),
+  const { data: faqs } = useQuery<string[]>({
+      queryKey: ['faqs', currentLanguage],
+      queryFn: () => getFaqs(currentLanguage),
+      staleTime: 0,
+    });
+
+  const faqItems: FAQItem[] = Array.isArray(faqs)
+    ? faqs.map((question: string) => ({
+        title: question,
+        content: t('pages.home-tab.defaultAnswer') || 'Pronto añadiremos respuesta.',
+      }))
+    : [];
+
+  const { data: productsSim, isFetching } = useQuery<ProductSecure[]>({
+    queryKey: ['productsSimSecure', 40], 
+    queryFn: () => getSecureProductsByCategory(40),
     staleTime: 0,
   });
-
-const faqItems: FAQItem[] = Array.isArray(faqs)
-  ? faqs.map(question => ({
-      title: typeof question === 'string' ? question : 'Pregunta desconocida', 
-      content: t('pages.home-tab.defaultAnswer') || 'Pronto añadiremos respuesta.', // <-- 👈
-    }))
-  : [];
-
-
-
-  const { data: productsSim, isFetching } = useQuery<Product[]>({
-    queryKey: ['productsSim', currentLanguage],
-    queryFn: () => getProducts('sim', currentLanguage),
-    staleTime: 0,
-  });
-
 
   // Banner images
   const BannerWelcome = require('@/assets/img/comunicate-banner.png');
@@ -161,7 +158,22 @@ const faqItems: FAQItem[] = Array.isArray(faqs)
             <ListOfProductCards
               heightImage={70}
               widthImage={70}
-              list={productsSim} // ✅ Directo, sin `as []`
+              list={productsSim.map(p => ({
+                id: p.id,
+                title: p.name,
+                price: parseFloat(p.price) || 0,
+                currency: 'USD', // O leerlo de meta_data si quieres
+                image: p.images[0]?.src || '',
+                category: p.categories[0]?.name || '',
+                description: p.short_description || '', // ✅ ahora sí
+                banner: '', // 🧹 no viene en ProductSecure, le ponemos string vacío
+                features: [], // 🧹 si quieres luego parseamos de meta_data
+                advantages: [], // 🧹 igual
+                generaltitle: '', // 🧹 igual
+                generaldescription: '', // 🧹 igual
+                faqs: [], // 🧹 igual
+              }))}
+
               type="product"
             />
           )
@@ -204,9 +216,9 @@ const faqItems: FAQItem[] = Array.isArray(faqs)
         />
       </View>
 
-      <View style={{ backgroundColor: '#101010', minHeight: '100%' }}>
+      {/* <View style={{ backgroundColor: '#101010', minHeight: '100%' }}>
         {faqItems.length > 0 && <FAQAccordion data={faqItems} />}
-      </View>
+      </View> */}
     </>
   );
 }
