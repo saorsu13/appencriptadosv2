@@ -41,7 +41,7 @@ export default function HeaderEncrypted({
 }: HeaderEncryptedProps) {
   const navigation = useNavigation<any>();
   const route = useRoute<RouteProp<Record<string, { simId?: string }>, string>>();
-  const { themeMode, toggleThemeMode: toggleTheme } = useDarkModeTheme();
+  const { themeMode } = useDarkModeTheme();
   const isDark = themeMode === ThemeMode.Dark;
   const theme = ThemeCustom[themeMode];
   const { colors } = theme;
@@ -104,6 +104,10 @@ export default function HeaderEncrypted({
     }
   };
 
+  const goToLoginStore = () => {
+     navigation.navigate('LoginStore');
+   };
+
   // Decidir qué botón mostrar y si mostrarlo
   let LeftButton: React.ReactNode = null;
   if (iconBack) {
@@ -152,7 +156,7 @@ export default function HeaderEncrypted({
 
       <TouchableOpacity
         style={[styles.iconButton, { backgroundColor: buttonBg }]}
-        onPress={toggleTheme}
+        onPress={goToLoginStore}
         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
       >
         <UserCircleIcon width={20} height={20} color={colors.white} />

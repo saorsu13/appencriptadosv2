@@ -8,6 +8,7 @@ import ProductInfoScreen from "@/screens/Store/ProductScreen";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@shopify/restyle";
 import { ThemeCustomType } from "@/config/theme2";
+import LoginStoreScreen from "@/screens/Store/LoginStoreScreen";
 
 const Stack = createNativeStackNavigator<ProductTabParamList>();
 

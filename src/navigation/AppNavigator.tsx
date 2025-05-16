@@ -13,6 +13,7 @@ import DeleteAccessPassword from "@/screens/Settings/DeleteAccessPassword";
 import LanguageConf from "@/screens/Settings/LanguageConf";
 
 import type { RootStackParamList } from "./types";
+import LoginStoreScreen from "@/screens/Store/LoginStoreScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -29,6 +30,11 @@ export default function AppNavigator() {
         <Stack.Screen name="CreateAccessPassword" component={CreateAccessPassword} />
         <Stack.Screen name="DeleteAccessPassword" component={DeleteAccessPassword} />
         <Stack.Screen name="LanguageConf" component={LanguageConf} />
+        <Stack.Screen
+          name="LoginStore"
+          component={LoginStoreScreen}
+          options={{ presentation: 'modal', title: 'Acceder' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

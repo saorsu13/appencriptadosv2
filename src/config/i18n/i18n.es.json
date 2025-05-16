@@ -324,7 +324,10 @@
       "language": "Idioma",
       "es": "Español",
       "en": "Inglés",
-      "fr": "Francés"
+      "fr": "Francés",
+      "theme": "Tema color",
+      "darkMode": "Tema oscuro",
+      "lightMode": "Tema claro"
     },
     "language": {
       "title": "Seleccionar idioma"

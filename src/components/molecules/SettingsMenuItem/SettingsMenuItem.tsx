@@ -16,27 +16,30 @@ import theme from '@/config/theme';
 type Props = {
   title: string;
   value?: string;
-  /** 
-   * This should be a screen name in your navigator, e.g. 
-   * "LaguageConf" or "AccessPassword"
-   */
-  path: string;
+  path?: string;         // ahora opcional, porque usaremos onPress directo
+  onPress?: () => void; // prop para callback personalizado
 };
 
 export default function SettingsMenuItem({
   title,
   value,
   path,
+  onPress: customOnPress,
 }: Props) {
   const { themeMode } = useDarkModeTheme();
   const isDark = themeMode === ThemeMode.Dark;
   const navigation = useNavigation<NavigationProp<any>>();
 
-  const onPress = () => {
-    navigation.navigate(path);
+  // decide qué hacer al pulsar: tu onPress o navegar a path
+  const handlePress = () => {
+    if (customOnPress) {
+      customOnPress();
+    } else if (path) {
+      navigation.navigate(path);
+    }
   };
 
-  // dynamic styles
+  // estilos dinámicos
   const containerBodyStyle: ViewStyle = {
     ...styles.containerBody,
     backgroundColor: isDark
@@ -69,7 +72,7 @@ export default function SettingsMenuItem({
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
       <View style={containerBodyStyle}>
         <Text allowFontScaling={false} style={titleStyle}>
           {title}
