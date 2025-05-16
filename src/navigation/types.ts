@@ -32,4 +32,5 @@ export type RootStackParamList = {
   CreateAccessPassword: undefined;
   DeleteAccessPassword: undefined;
   LanguageConf: undefined;
+  LoginStore: undefined;
 };

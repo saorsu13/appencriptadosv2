@@ -15,7 +15,7 @@ import theme from '@/config/theme';
 const baseMsg = 'pages.settings';
 
 export default function SettingsMain() {
-  const { themeMode } = useDarkModeTheme();
+  const { themeMode, toggleThemeMode } = useDarkModeTheme();
   const { t } = useTranslation();
   const currentLang = useAppSelector((state) => state.settings.lang);
   const navigation = useNavigation<
@@ -48,6 +48,15 @@ export default function SettingsMain() {
         <SettingsMenuItem
           title={t('pages.home.requiredpassword')}
           path="AccessPassword"
+        />
+         <SettingsMenuItem
+          title={t(`${baseMsg}.theme`)}
+          value={
+            themeMode === ThemeMode.Light
+              ? t(`${baseMsg}.lightMode`)
+              : t(`${baseMsg}.darkMode`)
+          }
+          onPress={toggleThemeMode}
         />
       </View>
     </ScrollView>
