@@ -37,7 +37,7 @@ export default function ProductsApplicationSection() {
     category: p.categories[0]?.name || '',
   })) ?? [];
 
-
+  // Estado y valores para el filtro de categoría
   const [category, setCategory] = useState<string>('all');
   const categories = [
     'all',
@@ -53,27 +53,12 @@ export default function ProductsApplicationSection() {
 
   return (
     <>
-      <View style={styles.categorySelectorContainer}>
-        <Picker
-          selectedValue={category}
-          onValueChange={val => setCategory(val)}
-          style={[
-            styles.categoryPicker,
-            {
-              backgroundColor: colors.backgroundSecondary,
-              color: colors.primaryText,
-            },
-          ]}
-          dropdownIconColor={colors.primaryText}
-        >
-          <Picker.Item label="Categoría" value="all" />
-          {categories
-            .filter(c => c !== 'all')
-            .map(cat => (
-              <Picker.Item key={cat} label={cat} value={cat} />
-            ))}
-        </Picker>
-      </View>
+        < CategoryPicker
+        options={categories.filter(c => c !== 'all')}
+        selected={category === 'all' ? '' : category}
+        placeholder={t('pages.home-tab.category')}
+        onSelect={setCategory}
+      />
 
       {isFetching ? (
         <View style={styles.loaderContainer}>

@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '@shopify/restyle';
 import { ThemeCustomType } from '@/config/theme2';
 import UserCircleIcon from '@/assets/icons/UserCircleIcon';
+import HeaderEncrypted from '@/components/molecules/HeaderEncrypted/HeaderEncrypted';
 
 export default function LoginStoreScreen() {
   const navigation = useNavigation<any>();
@@ -13,7 +14,8 @@ export default function LoginStoreScreen() {
   const handleRegister = () => navigation.navigate('Register');
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>      
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}> 
+    <HeaderEncrypted iconBack={() => navigation.goBack()} />     
       <View style={styles.content}>
         <View style={styles.iconWrapper}>
           <UserCircleIcon width={48} height={48} color={colors.white} />
