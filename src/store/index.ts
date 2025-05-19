@@ -5,6 +5,9 @@ import { menuCurrentProductReducer } from '@/features/menuCurrentProduct/menuCur
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import simReducer from '@/features/sims/simSlice';
 import settingsReducer from './settingsSlice';
+import simAuthReducer from '@/features/simAuth/simAuthSlice';
+import networkProfileReducer from '@/features/networkProfile/networkProfileSlice';
+
 
 // import {
 //   settingsReducer,
@@ -15,7 +18,9 @@ import { activePasswordRequiredReducer } from '@/features/activePasswordRequired
 
 const rootReducer = combineReducers({
   sims: simReducer,
+  simAuth: simAuthReducer,
   settings: settingsReducer,
+  networkProfile: networkProfileReducer,
   menuCurrentProduct: menuCurrentProductReducer,
   // settings:        settingsReducer,
   // modalReset:      modalResetStateReducer,

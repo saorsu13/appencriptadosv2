@@ -11,7 +11,7 @@ import ProductTabsNavigator from "./ProductTabsNavigator";
 import ActivityIcon from "@assets/icons/HomeIconMenu";
 import ShopIconMenu from "@assets/icons/ShopIconMenu";
 import styles from "../styles/TabNavigatorStyles";
-import SimTabsNavigator from "./SimTabsNavigator";
+import SimStackNavigator from './SimStackNavigator';
 import Sim from "@/assets/icons/Sim";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -64,7 +64,7 @@ export default function TabNavigator() {
 
       <Tab.Screen
         name="Sims"
-        component={SimTabsNavigator}
+        component={SimStackNavigator}
         options={{
           tabBarLabel: "SIM’s",
           tabBarIcon: ({ color, size }) => (

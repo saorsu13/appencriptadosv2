@@ -52,9 +52,9 @@ export default function StoreScreen() {
   } else if (currentSection === SECTIONS.SYSTEMS) {
    SectionComponent = <ProductsSystemsSection />;
    console.log('🛑 [StoreScreen] Showing ProductsSystemsSection');
- } else if (currentSection === SECTIONS.ROUTERS) {
-   SectionComponent = <ProductsRoutersSection />;
-   console.log('🛑 [StoreScreen] Showing ProductsRoutersSection');
+//  } else if (currentSection === SECTIONS.ROUTERS) {
+//    SectionComponent = <ProductsRoutersSection />;
+//    console.log('🛑 [StoreScreen] Showing ProductsRoutersSection');
   // } else if (currentSection === SECTIONS.PHONE) {
   //   console.log('🛑 [StoreScreen] Showing ProductsPhoneSection');
   //   SectionComponent = <ProductsPhoneSection />;

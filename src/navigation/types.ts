@@ -1,6 +1,6 @@
 // src/navigation/types.ts
 import type { NavigatorScreenParams } from "@react-navigation/native";
-
+import type { SimStackParamList } from "./SimStackNavigator";
 
 export type HomeTabParamList = {
   HomeMain: undefined;
@@ -22,15 +22,14 @@ export type ProductTabParamList = {
 export type RootTabParamList = {
   Home: NavigatorScreenParams<HomeTabParamList>;
   Store: NavigatorScreenParams<ProductTabParamList>;
-  Sims: undefined;
+  Sims: NavigatorScreenParams<SimStackParamList>;
 };
 
 export type RootStackParamList = {
+  Login: undefined;
+  Settings: undefined;
   RootTabs: undefined;
-  SettingsMain: undefined;
-  AccessPassword: undefined;
-  CreateAccessPassword: undefined;
-  DeleteAccessPassword: undefined;
-  LanguageConf: undefined;
   LoginStore: undefined;
 };
+
+export type { SimStackParamList };

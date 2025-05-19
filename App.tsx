@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ModalPaymentProvider } from '@/context/modalpayment';
 import ModalPaymentController from '@/components/molecules/ModalPayment/ModalPaymentController';
+import { ModalProvider } from '@/context/modal';
 
 // Este componente interno lee el modo y aplica el theme correcto
 function Root() {
@@ -37,7 +38,9 @@ export default function App() {
       <DarkModeProvider>
         <Provider store={store}>
           <ModalPaymentProvider> 
-            <Root />
+            <ModalProvider>
+              <Root />
+            </ModalProvider>
           </ModalPaymentProvider>
         </Provider>
       </DarkModeProvider>

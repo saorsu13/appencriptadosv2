@@ -27,15 +27,37 @@ export default function ProductsApplicationSection() {
     staleTime: 0,
   });
 
-  const listFormatted: Product[] = productsAppSecure?.map(p => ({
+  // const listFormatted: Product[] = productsAppSecure?.map(p => ({
+  //   id: p.id,
+  //   title: p.name,
+  //   price: parseFloat(p.price),
+  //   currency: 'USD',                     
+  //   image: p.images[0]?.src || '',
+  //   description: p.short_description,
+  //   category: p.categories[0]?.name || '',
+  //   periodOptions:
+  //     p.attributes
+  //     .find(attr => attr.name.toLowerCase() === 'Licencia')
+  //     ?.options || []
+  // })) ?? [];
+
+  const listFormatted: Product[] = productsAppSecure?.map(p => {
+  const opts = p.attributes
+    .find(attr => attr.name.toLowerCase() === 'licencia')
+    ?.options || [];
+  console.log(`[Products] ${p.name} → periodOptions:`, opts);
+
+   return {
     id: p.id,
     title: p.name,
     price: parseFloat(p.price),
-    currency: 'USD',                     
+    currency: 'USD',
     image: p.images[0]?.src || '',
     description: p.short_description,
     category: p.categories[0]?.name || '',
-  })) ?? [];
+    periodOptions: opts,
+  }
+}) ?? []
 
   // Estado y valores para el filtro de categoría
   const [category, setCategory] = useState<string>('all');
@@ -80,7 +102,7 @@ export default function ProductsApplicationSection() {
               type="product"
               widthImage={70}
               heightImage={70}
-              showPeriodSelector={true}
+              // showPeriodSelector={true}
             />
           </View>
         )

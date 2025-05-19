@@ -24,6 +24,7 @@ export interface CardProductItemProps {
   isFirstItem: boolean;
   showCartButton?: boolean;
   showPeriodSelector?: boolean;
+  periodOptions?: string[]
 }
 
 const navigation = () => useNavigation<NativeStackNavigationProp<ProductTabParamList>>();
@@ -37,13 +38,15 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
   isFirstItem,
   showCartButton = false,
   showPeriodSelector = false,
+  periodOptions = []
 }) => {
+  console.log(`[Card] ${product.title} → showPeriodSelector:`, showPeriodSelector, 'periodOptions:', periodOptions);
   const { openModalWithParams } = useModalPayment();
   const { colors } = useTheme<ThemeCustomType>();
   const { themeMode } = useDarkModeTheme();
   const nav = navigation();
 
-  const [period, setPeriod] = useState<'1' | '6' | '12'>('1');
+  const [period, setPeriod] = useState<string>(periodOptions[0] || '')
 
   const buyWidth = showCartButton ? '48%' : '100%';
 
@@ -129,7 +132,7 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
         {/* ——— RADIO-GROUP DE 1/6/12 MESES ——— */}
         {showPeriodSelector && (
           <View style={styles.radioContainer}>
-            {[
+            {/* {[
               { label: '1 Meses', value: '1' },
               { label: '6 Meses', value: '6' },
               { label: '12 Meses', value: '12' },
@@ -162,7 +165,30 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
                   </Text>
                 </TouchableOpacity>
               );
-            })}
+            })} */}
+            {periodOptions.map(optionLabel => {
+        const selected = period === optionLabel;
+        return (
+          <TouchableOpacity
+            key={optionLabel}
+            style={styles.radioOption}
+            onPress={() => setPeriod(optionLabel)}
+          >
+            <View
+              style={[
+                styles.radioCircle,
+                selected && {
+                  borderColor: colors.blue,
+                  backgroundColor: colors.blue,
+                },
+              ]}
+            />
+            <Text style={[styles.radioLabel, { color: colors.secondaryText }]}>
+              {optionLabel}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
           </View>
         )}
 

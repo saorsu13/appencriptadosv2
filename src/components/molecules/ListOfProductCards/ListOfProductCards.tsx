@@ -26,17 +26,21 @@ const ListOfProductCards: React.FC<ListOfProductCardsProps> = ({
 
   return (
     <View style={[styles.gridContainer, type === 'phone' && styles.phoneGrid]}>      
-      {updatedList.map((product, index) => (
-       <CardProductItem
+      {updatedList.map((product, index) => {
+       console.log(`[List] ${product.title} → showRadio:${Boolean(product.periodOptions?.length)}, options:`, product.periodOptions);
+      return (
+        <CardProductItem
           key={product.id.toString()}
           widthImage={widthImage}
           heightImage={heightImage}
           type={type}
-          product={product}
+          showPeriodSelector={Boolean(product.periodOptions?.length)}
+          periodOptions={product.periodOptions ?? []}
           isFirstItem={isOdd && index === 0}
-          showPeriodSelector={showPeriodSelector}
+          product={product}
         />
-      ))}
+      )
+    })}
     </View>
   );
 };

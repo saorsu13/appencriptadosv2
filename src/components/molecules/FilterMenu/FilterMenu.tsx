@@ -11,7 +11,7 @@ const SECTION_IDS: Record<string, number> = {
   [SECTIONS.APPLICATION]: 38,
   [SECTIONS.SIM]: 40,
   [SECTIONS.PHONE]: 35,
-  [SECTIONS.ROUTERS]: 36,
+  // [SECTIONS.ROUTERS]: 36,
 };
 
 export default function FilterMenu() {
@@ -89,14 +89,14 @@ export default function FilterMenu() {
      </TouchableOpacity>
 
      {/* Routers */}
-     <TouchableOpacity
+     {/* <TouchableOpacity
        style={[styles.menuItem, selectedValue === SECTIONS.ROUTERS && { backgroundColor: colors.white }]}
        onPress={() => dispatch(setProduct(SECTIONS.ROUTERS))}
      >
        <Text style={[styles.menuText, selectedValue === SECTIONS.ROUTERS ? { color: '#000' } : { color: colors.secondaryText }]}>
          Routers
        </Text>
-     </TouchableOpacity>
+     </TouchableOpacity> */}
     </View>
   );
 }

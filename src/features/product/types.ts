@@ -16,5 +16,5 @@ export interface Product {
   generaldescription?: string;
   generaltitle?: string;
   faqs?: FAQItem[];
-
+  periodOptions?: string[]
 }

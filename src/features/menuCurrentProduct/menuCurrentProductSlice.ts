@@ -5,7 +5,7 @@ export const SECTIONS = {
   APPLICATION: "application",
   // PHONE: "phone",
   SYSTEMS:     "systems",
-  ROUTERS:     "routers",
+  // ROUTERS:     "routers",
 } as const;
 
 type SectionType = (typeof SECTIONS)[keyof typeof SECTIONS];

@@ -4,10 +4,10 @@ import { useDarkModeTheme } from "@/hooks/useDarkModeTheme";
 import { StyleSheet, View } from "react-native";
 
 type props = {
-  precentage: number;
+  perecentage: number;
 };
 
-const ProgressBar = ({ precentage }: props) => {
+const ProgressBar = ({ perecentage }: props) => {
   const { themeMode } = useDarkModeTheme();
   return (
     <View
@@ -18,7 +18,7 @@ const ProgressBar = ({ precentage }: props) => {
               ...styles.progressBar,
               backgroundColor: theme.lightMode.colors.blueDark,
             },
-        { width: `${precentage}%` },
+        { width: `${perecentage}%` },
       ]}
     ></View>
   );
