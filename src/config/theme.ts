@@ -73,7 +73,6 @@ const theme = createTheme({
       yellowLight: palette.yellowLight,
       graySoft: palette.graySoft,
       darkBlack: palette.darkBlack,
-      
       textContrast: palette.smoot,         
       contrast: palette.black,            
       secondaryText: palette.grayWhite,
@@ -133,6 +132,7 @@ const theme = createTheme({
     warningText: palette.warningText,
     warningIcon: palette.warningIcon,
     warningbg: palette.warningbg,
+    cyanSuperLight: palette.cyanSuperLight,
   },
   spacing: {
     xs: 4,

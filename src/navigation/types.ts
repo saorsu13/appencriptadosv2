@@ -1,6 +1,8 @@
 // src/navigation/types.ts
 import type { NavigatorScreenParams } from "@react-navigation/native";
 import type { SimStackParamList } from "./SimStackNavigator";
+import type { SettingsStackParamList } from "./SettingsStack";
+
 
 export type HomeTabParamList = {
   HomeMain: undefined;
@@ -27,7 +29,7 @@ export type RootTabParamList = {
 
 export type RootStackParamList = {
   Login: undefined;
-  Settings: undefined;
+  Settings: NavigatorScreenParams<SettingsStackParamList>;
   RootTabs: undefined;
   LoginStore: undefined;
 };

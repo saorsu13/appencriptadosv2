@@ -100,7 +100,9 @@ export default function HeaderEncrypted({
   // Handler de settings
   const handleSettings = () => {
     if (settingsLink) {
-      navigation.navigate(settingsLink);
+      navigation.navigate('Settings', {
+        screen: 'SettingsMain',
+      });
     }
   };
 

@@ -30,7 +30,7 @@ export default function SimOptions({ imsiChangesAvailable }: SimOptionsProps) {
 
   const bgColor = isDark
     ? theme.colors.darkBlack01
-    : theme.lightMode.colors.cyanSuperLight;
+    : theme.colors.cyanSuperLight;
   const iconColor = isDark
     ? theme.colors.contrast
     : "#093448";

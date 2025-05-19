@@ -19,7 +19,7 @@ export default function SettingsMain() {
   const { t } = useTranslation();
   const currentLang = useAppSelector((state) => state.settings.lang);
   const navigation = useNavigation<
-    NativeStackNavigationProp<RootStackParamList, 'SettingsMain'>
+    NativeStackNavigationProp<RootStackParamList, 'Settings'>
   >();
 
   const backgroundColor =

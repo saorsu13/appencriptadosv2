@@ -31,7 +31,7 @@ export default function AccessPassword() {
   const backgroundColor = theme.colors.background;
   const { colors } = theme;
 
-  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList, 'SettingsMain'>>();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Settings'>>();
   const { getPassword } = useLocalPassword();
 
   const [password, setPassword] = useState<string | null>(null);

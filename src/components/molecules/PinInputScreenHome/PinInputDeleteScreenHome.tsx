@@ -52,7 +52,7 @@ export default function PinInputDeleteScreenHome({ mode = 'delete' }: { mode?: '
 
   const { savePassword } = useLocalPassword();
 
-  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList, 'SettingsMain'>>();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Settings'>>();
 
   // Ocultamos menú desplegable
   useEffect(() => {
@@ -87,17 +87,17 @@ export default function PinInputDeleteScreenHome({ mode = 'delete' }: { mode?: '
           deleteCurrentPassword();
           dispatch(disablePasswordRequired());
           closeModal();
-          nav.navigate('SettingsMain');
+          nav.navigate('Settings');
         },
         onCancel: () => {
           closeModal();
-          nav.navigate('SettingsMain');
+          nav.navigate('Settings');
         },
       });
       } else if (mode === 'create') {
         await savePassword(pin);
         dispatch(enablePasswordRequired());
-        nav.navigate('SettingsMain');
+        nav.navigate('Settings');
       }
     }else {
       setIncorrectPasswordMessage(true);

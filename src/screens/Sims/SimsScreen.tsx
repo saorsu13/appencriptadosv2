@@ -154,7 +154,7 @@ export default function SimScreen() {
             />
           </View>
 
-          {/* {isTottoli && (
+          {isTottoli && (
             balanceLoading ? (
               <Skeleton2x2
                 layout={[
@@ -174,7 +174,7 @@ export default function SimScreen() {
             ) : (
               <BalanceDetails data={balanceData} />
             )
-          )} */}
+          )}
 
           <NetworkProfile />
 
@@ -191,7 +191,7 @@ export default function SimScreen() {
             variant="semiBold"
           />
 
-          {/* <SimOptions imsiChangesAvailable={imsiChangesAvailable} /> */}
+          <SimOptions imsiChangesAvailable={imsiChangesAvailable} />
 
           <DeleteSimButton
             onPress={() => {

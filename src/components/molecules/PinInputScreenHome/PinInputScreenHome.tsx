@@ -56,7 +56,7 @@ export default function PinInputScreen() {
   const { showModal } = useModalAll();
   const dispatch = useAppDispatch();
   const { isMenuVisible, setIsMenuVisible } = useMenu();
-  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList, 'SettingsMain'>>();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Settings'>>();
 
   // Load existing password
   useEffect(() => {
