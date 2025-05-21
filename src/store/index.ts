@@ -7,6 +7,9 @@ import simReducer from '@/features/sims/simSlice';
 import settingsReducer from './settingsSlice';
 import simAuthReducer from '@/features/simAuth/simAuthSlice';
 import networkProfileReducer from '@/features/networkProfile/networkProfileSlice';
+import { callbackReducer } from '@/features/callback/callbackSlice'
+import { voiceReducer } from '@/features/voice/voiceSlice';
+import { substituteReducer } from '@/features/substitute/substituteSlice';
 
 
 // import {
@@ -21,6 +24,9 @@ const rootReducer = combineReducers({
   simAuth: simAuthReducer,
   settings: settingsReducer,
   networkProfile: networkProfileReducer,
+  voiceFilter: voiceReducer,
+  callback: callbackReducer,
+  substitute: substituteReducer,
   menuCurrentProduct: menuCurrentProductReducer,
   // settings:        settingsReducer,
   // modalReset:      modalResetStateReducer,

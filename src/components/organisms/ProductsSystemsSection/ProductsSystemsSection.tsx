@@ -29,13 +29,13 @@ export default function ProductsSystemsSection() {
 
   return (
     <>
-      <View style={styles.bannerContainer}>
-        {/* <Image
+      {/* <View style={styles.bannerContainer}>
+        <Image
           source={SystemsBanner}
           resizeMode="cover"
           style={styles.bannerImage}
-        /> */}
-      </View>
+        />
+      </View> */}
 
       <View style={styles.listContainer}>
         {isFetching ? (

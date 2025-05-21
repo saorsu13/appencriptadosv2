@@ -5,14 +5,19 @@ import { useAppSelector } from '@/hooks/hooksStoreRedux';
 
 import SimLogin from '@/screens/Login/SignIn';         
 import SimsScreen from '@/screens/Sims/SimsScreen';     
-// import SimScreen from '@/screens/Sim/SimScreen';      
-// import NewSimTottoli from '@/screens/Sim/NewSimTottoli';
-// import EditSimTottoli from '@/screens/Sim/EditSimTottoli';
+import NewSimTottoli from '@/screens/Sims/NewSimTottoli';
+import EditSimTottoli from '@/screens/Sims/EditSimTottoli';
+import VoiceFilter from '@/screens/Sims/VoiceFilter';
+import Substitute from '@/screens/Sims/Substitute';
+import Callback from '@/screens/Sims/Callback';
   
 export type SimStackParamList = {
   SimLogin: undefined;
   SimsList: undefined;
   SimDetails: { idSim: string };
+  VoiceFilter: undefined;
+  Substitute: undefined;
+  Callback: undefined;
   BalanceScreen: { idSim: string };
   NewSimTottoli: undefined;
   EditSimTottoli: { idSim: string };
@@ -32,10 +37,11 @@ export default function SimStackNavigator() {
       ) : (
         <>
           <Stack.Screen name="SimsList" component={SimsScreen} />
-          {/* <Stack.Screen name="SimDetails" component={SimScreen} />
           <Stack.Screen name="NewSimTottoli" component={NewSimTottoli} />
-          <Stack.Screen name="EditSimTottoli" component={EditSimTottoli} /> */}
-          {/* … demás pantallas … */}
+          <Stack.Screen name="EditSimTottoli" component={EditSimTottoli} />
+          <Stack.Screen name="Substitute" component={Substitute}/>
+          <Stack.Screen name="VoiceFilter" component={VoiceFilter} />
+          <Stack.Screen name="Callback" component={Callback} />
         </>
       )}
     </Stack.Navigator>

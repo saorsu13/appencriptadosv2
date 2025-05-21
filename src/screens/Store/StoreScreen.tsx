@@ -63,7 +63,6 @@ export default function StoreScreen() {
   }
 
   const handleSearch = () => {
-    // lanzar búsqueda o filtrado con `query`
     console.log('Buscando:', query);
   };
   
