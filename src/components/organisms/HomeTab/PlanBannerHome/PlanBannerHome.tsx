@@ -121,6 +121,6 @@ const styles = StyleSheet.create({
   businessGuyImage: {
     width: 200,
     height: 250,
-    marginBottom: -10,
+    marginBottom: -5,
   },
 });

@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
+import Svg, { Defs, LinearGradient, Stop, Rect } from "react-native-svg";
 import { useTheme } from "@shopify/restyle";
 import { ThemeCustomType } from "@/config/theme2";
 import GradientText from "@/components/atoms/GradientText/GradientText";
@@ -16,7 +17,17 @@ const AboutEncriptados = () => {
             <Text style={[styles.subtitle, { color: colors.primaryText }]}>
                 Somos especialistas en soluciones de{"\n"}comunicación segura:
             </Text>
-
+            <View style={styles.gradientSeparatorWrap}>
+                <Svg height="1" width="100">
+                    <Defs>
+                        <LinearGradient id="separatorGradient" x1="0" y1="0" x2="1" y2="0">
+                            <Stop offset="0" stopColor="#12b4e7" />
+                            <Stop offset="1" stopColor="#abebfe" />
+                        </LinearGradient>
+                    </Defs>
+                    <Rect x="0" y="0" width="100" height="2" fill="url(#separatorGradient)" />
+                </Svg>
+            </View>
             <View style={styles.list}>
                 {[
                     "Celulares Seguros",
@@ -40,11 +51,9 @@ export default AboutEncriptados;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#000",
-        borderRadius: 16,
+        backgroundColor: "#101010",
         padding: 24,
         alignItems: "center",
-        marginVertical: 20,
     },
     logo: {
         width: 160,
@@ -56,6 +65,11 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginBottom: 20,
         fontWeight: "400",
+    },
+    gradientSeparatorWrap: {
+        marginTop: 8,
+        marginBottom: 16,
+        alignItems: "center",
     },
     list: {
         width: "100%",

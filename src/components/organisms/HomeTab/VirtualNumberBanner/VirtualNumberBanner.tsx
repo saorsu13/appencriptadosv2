@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     overflow: "hidden",
-    marginBottom: 20,
   },
   backgroundImage: {
     position: "absolute",
