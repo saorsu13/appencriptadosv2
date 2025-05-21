@@ -75,12 +75,12 @@ export default function ProductsApplicationSection() {
 
   return (
     <>
-        < CategoryPicker
+        {/* < CategoryPicker
         options={categories.filter(c => c !== 'all')}
         selected={category === 'all' ? '' : category}
         placeholder={t('pages.home-tab.category')}
         onSelect={setCategory}
-      />
+      /> */}
 
       {isFetching ? (
         <View style={styles.loaderContainer}>
