@@ -78,9 +78,12 @@
   },
   "pages": {
     "home-tab": {
-      "welcomebanner-title": "Welcome to secure communication",
+      "welcomebanner-badge": "Security from start to finish",
+      "welcomebanner-title-part1": "Connect ",
+      "welcomebanner-title-part2": "anywhere in the world with ",
+      "welcomebanner-title-part3": "total security",
       "welcomebanner-description": "Products and services that protect all your communications",
-      "goToStore": "Go to the store",
+      "goToStore": "Go to store",
       "encryptedOffers": "Encrypted offers",
       "encryptedSim": "Encrypted SIM Card",
       "protectYourself": "Protect yourself from cybercriminals and keep your personal information secure",
@@ -131,7 +134,12 @@
       "versiontitle": "New Version Available",
       "versiondescription": "A new version is available. Would you like to update",
       "whatAreYouLooking": "What are you looking for?",
-      "category": "Category"
+      "category": "Category",
+      "virtualnumber-title": "Activate APPs via SMS\nwith Encriptados",
+      "virtualnumber-subtitle": "Register in any application with a",
+      "virtualnumber-highlight": "virtual phone number",
+      "virtualnumber-button": "Buy now",
+      "virtualnumber-note": "*A Colombian number is generated"
     },
     "login": {
       "header": {

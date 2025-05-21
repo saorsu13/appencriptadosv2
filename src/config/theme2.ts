@@ -19,6 +19,7 @@ export const palette = {
   backgroundAlternateDark: "#222222",
   backgroundAlternate2Light: "#10B4E7",
   backgroundAlternate2Dark: "#032029",
+  deepBlue: "#13566a",
   danger: "#CB0808",
   blueLight: "#CCEFFF",
   success: "#31BE0E",
@@ -42,6 +43,7 @@ export const lightTheme = createTheme({
     blueLight: palette.blueLight,
     success: palette.success,
     blue: palette.backgroundAlternate2Light,
+    deepBlue: palette.deepBlue,
   },
   spacing: {
     none: 0,
@@ -73,6 +75,7 @@ export const darkTheme = {
     blueLight: palette.blueLight,
     success: palette.success,
     blue: palette.backgroundAlternate2Light,
+    deepBlue: palette.deepBlue,
   },
 };
 
