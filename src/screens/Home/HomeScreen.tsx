@@ -20,6 +20,7 @@ import { ThemeCustom } from '@/config/theme2';
 import { t } from "i18next";
 import VirtualNumberBanner from '@/components/organisms/HomeTab/VirtualNumberBanner/VirtualNumberBanner';
 import AboutEncriptados from '@/components/organisms/HomeTab/AboutEncriptados/AboutEncriptados';
+import SilentCircleBanner from '@/components/organisms/HomeTab/SilentCircleBanner/SilentCircleBanner';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -43,11 +44,9 @@ export default function HomeScreen() {
         />
         <OfferBannerHome />
         <PlanBannerHome />
+        <SilentCircleBanner />
         <VirtualNumberBanner />
-        {/* <DistributorsHome /> */}
-        {/* <BlogEncriptados /> */}
         <AboutEncriptados/>
-        {/* <AboutUsHome /> */}
         <PaymentsHome />
         <SocialNetworks />
       </ScrollView>
