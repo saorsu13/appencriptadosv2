@@ -4,7 +4,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { menuCurrentProductReducer } from '@/features/menuCurrentProduct/menuCurrentProductSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import simReducer from '@/features/sims/simSlice';
-import settingsReducer from './settingsSlice';
 import simAuthReducer from '@/features/simAuth/simAuthSlice';
 import networkProfileReducer from '@/features/networkProfile/networkProfileSlice';
 import { callbackReducer } from '@/features/callback/callbackSlice'
@@ -12,10 +11,10 @@ import { voiceReducer } from '@/features/voice/voiceSlice';
 import { substituteReducer } from '@/features/substitute/substituteSlice';
 
 
-// import {
-//   settingsReducer,
-//   modalResetStateReducer
-// } from '@/features/settingsSlice/settingsSlice';
+import {
+  settingsReducer,
+  modalResetStateReducer
+} from '@/features/settingsSlice/settingsSlice';
 import { activePasswordRequiredReducer } from '@/features/activePasswordRequired/activePasswordRequiredSlice'; 
 
 
@@ -28,8 +27,7 @@ const rootReducer = combineReducers({
   callback: callbackReducer,
   substitute: substituteReducer,
   menuCurrentProduct: menuCurrentProductReducer,
-  // settings:        settingsReducer,
-  // modalReset:      modalResetStateReducer,
+  modalReset:      modalResetStateReducer,
   activePasswordRequired: activePasswordRequiredReducer,
 
 });

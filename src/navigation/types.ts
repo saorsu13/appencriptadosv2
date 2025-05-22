@@ -2,6 +2,7 @@
 import type { NavigatorScreenParams } from "@react-navigation/native";
 import type { SimStackParamList } from "./SimStackNavigator";
 import type { SettingsStackParamList } from "./SettingsStack";
+import type { BalanceStackParamList } from './BalanceStackNavigator';
 
 
 export type HomeTabParamList = {
@@ -30,8 +31,9 @@ export type RootTabParamList = {
 export type RootStackParamList = {
   Login: undefined;
   Settings: NavigatorScreenParams<SettingsStackParamList>;
-  RootTabs: undefined;
+  RootTabs: NavigatorScreenParams<RootTabParamList>;
   LoginStore: undefined;
+  BalanceStack: NavigatorScreenParams<BalanceStackParamList>;
 };
 
 export type { SimStackParamList };

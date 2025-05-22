@@ -29,7 +29,7 @@ import { updateSimCurrency } from '@/features/sims/simSlice';
 import { updateSim } from '@/features/sims/simService';
 import { useBalance } from '@/hooks/useBalance';
 import { useTranslation } from 'react-i18next';
-
+import { CommonActions } from '@react-navigation/native';
 
 type SimNavProp = NativeStackNavigationProp<SimStackParamList>;
 type RootNavProp = NativeStackNavigationProp<RootStackParamList>;
@@ -44,7 +44,6 @@ export default function SimScreen() {
   const { restoreSimFromStorage, changeSim, deleteSimAndRedirect } = useSimManager();
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState(false);
-  const [redirectToLogin, setRedirectToLogin] = useState(false);
 
 
   const navigationSim = useNavigation<SimNavProp>();
@@ -88,33 +87,46 @@ export default function SimScreen() {
 
   const handleSimChange = async (newId: string) => {
     const selectedSim = sims.find(sim => sim.idSim === newId);
-    if (selectedSim) {
-      await changeSim(selectedSim);
+    if (!selectedSim) return;
+
+    console.log('[SIM] SIM seleccionada:', selectedSim.idSim);
+    await changeSim(selectedSim);
+
+    if (selectedSim.provider === 'telco-vision') {
+      console.log('[SimScreen] Redirigiendo a BalanceMain');
+      navigationRoot.navigate('BalanceStack', {
+        screen: 'BalanceMain',
+      });
+    } else {
+      console.log('[SimScreen] Redirigiendo a SimsList');
+      navigationRoot.navigate('RootTabs', {
+        screen: 'Sims',
+        params: {
+          screen: 'SimsList',
+        },
+      });
     }
   };
+
+
 
   const handleDelete = async () => {
     if (currentSim) {
       const success = await deleteSimAndRedirect(currentSim, sims);
-      if (success) setShowModal(false);
-      else setRedirectToLogin(true);
+      if (success) {
+        setShowModal(false);
+      }
     }
   };
 
   useEffect(() => {
-    if (sims.length > 0 && !redirectToLogin) {
+    if (sims.length > 0 && !currentSim) {
+      console.log('[SimScreen] Restaurando SIM desde AsyncStorage...');
       restoreSimFromStorage(sims);
     }
-  }, [sims]);
+  }, [sims, currentSim]);
 
-  useEffect(() => {
-    if (redirectToLogin) {
-      navigationRoot.reset({
-        index: 0,
-        routes: [{ name: 'Login' }],
-      });
-    }
-  }, [redirectToLogin]);
+
 
   return (
     <ScrollView

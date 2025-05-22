@@ -22,8 +22,11 @@ export const simAuthSlice = createSlice({
       state.isSimAuthenticated = false;
       delete state.iccid;
     },
+    restoreSimAuth(state, action: PayloadAction<boolean>) {
+      state.isSimAuthenticated = action.payload;
+    },
   },
 });
 
-export const { loginSim, logoutSim } = simAuthSlice.actions;
+export const { loginSim, logoutSim, restoreSimAuth } = simAuthSlice.actions;
 export default simAuthSlice.reducer;

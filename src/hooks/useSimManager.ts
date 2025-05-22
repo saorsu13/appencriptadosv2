@@ -1,12 +1,13 @@
 import { useAppDispatch } from '@/hooks/hooksStoreRedux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/navigation/types';
 import { useAuth } from '@/context/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { updateCurrentSim, deleteSim } from '@/features/sims/simSlice';
+import { updateCurrentSim, deleteSim, setSims } from '@/features/sims/simSlice';
 import { deleteSim as deleteSimFromStorage } from '@/features/sims/simService';
 import { Sim } from '@/features/sims/simTypes';
+import { logoutSim as logoutSimAuth } from '@/features/simAuth/simAuthSlice';
 
 
 export function useSimManager() {
@@ -29,14 +30,70 @@ export function useSimManager() {
       dispatch(updateCurrentSim(sim.idSim));
       await AsyncStorage.setItem('currentICCID', sim.idSim);
       console.log('[SIM] SIM seleccionada:', sim.idSim);
-  
+
       if (sim.provider === 'tottoli') {
-        navigation.reset({ index: 0, routes: [{ name: 'Home' }] });
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'RootTabs',
+                state: {
+                  index: 2, // Sims tab
+                  routes: [
+                    {
+                      name: 'Sims',
+                      state: {
+                        routes: [{ name: 'SimsList' }],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          })
+        );
       } else if (sim.provider === 'telco-vision') {
-        navigation.reset({ index: 0, routes: [{ name: 'Balance' }] });
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'BalanceStack',
+                state: {
+                  routes: [{ name: 'BalanceMain' }],
+                },
+              },
+            ],
+          })
+        );
       }
     };
+
   
+    const logoutSimGlobal = async () => {
+      console.log('[SimManager] 🔒 Cerrando sesión global de SIM...');
+      await AsyncStorage.removeItem('currentICCID');
+      dispatch(updateCurrentSim(null));
+      dispatch(setSims([]));
+      dispatch(logoutSimAuth());
+
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'RootTabs',
+              state: {
+                index: 2,
+                routes: [{ name: 'Sims', state: { routes: [{ name: 'SimLogin' }] } }],
+              },
+            },
+          ],
+        })
+      );
+    };
+
     const deleteSimAndRedirect = async (
       sim: Sim,
       sims: Sim[]
@@ -51,9 +108,8 @@ export function useSimManager() {
         await changeSim(nextSim);
         return true;
       } else {
-        dispatch(updateCurrentSim(null)); 
-        await AsyncStorage.removeItem('currentICCID');
-        return false;
+      await logoutSimGlobal();
+      return false;
       }
     };
   
@@ -61,6 +117,8 @@ export function useSimManager() {
       restoreSimFromStorage,
       changeSim,
       deleteSimAndRedirect,
+      logoutSimGlobal,
+
     };
   }
   

@@ -19,14 +19,19 @@ import HeaderEncrypted from "@/components/molecules/HeaderEncrypted/HeaderEncryp
 import InputField from "@/components/molecules/InputField/InputField";
 import Button from "@/components/atoms/Button/Button";
 import IconSvg from "@/components/molecules/IconSvg/IconSvg";
-import { BalanceStackParamList } from "@/navigation/BalanceTypes";
+import { BalanceStackParamList } from "@/navigation/BalanceStackNavigator";
 import { useEditSim } from "@/hooks/useEditSim";
 import { useTheme } from "@shopify/restyle";
 import { ThemeCustom } from "@/config/theme2";
 import styles from "@/styles/BalanceStyles/EditSimEncryptedStyles";
+import { useNavigation, CommonActions } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SimStackParamList } from '@/navigation/SimStackNavigator';
+import { useSimManager } from '@/hooks/useSimManager';
 
 // Define route prop type
 type EditSimRouteProp = RouteProp<BalanceStackParamList, "EditSimEncrypted">;
+type SimNavProp = NativeStackNavigationProp<SimStackParamList>;
 
 const EditSimTottoli = () => {
   const { t } = useTranslation();
@@ -36,7 +41,10 @@ const EditSimTottoli = () => {
   const { editSim } = useEditSim();
   const { themeMode } = useDarkModeTheme();
   const isDark = themeMode === ThemeMode.Dark;
-  const { colors } = useTheme<ThemeCustom>();
+  const theme = ThemeCustom[themeMode];
+  const { colors } = theme;
+  const navigation = useNavigation<SimNavProp>();
+  const { changeSim } = useSimManager();
 
   const allSims = useAppSelector((state) => state.sims.sims);
   const simToEdit = allSims.find((sim) => sim.idSim === idSim);
@@ -56,8 +64,36 @@ const EditSimTottoli = () => {
       if (!simToEdit) return;
       setIsLoading(true);
       await editSim(simToEdit, values.simName);
+      await changeSim({ ...simToEdit, simName: values.simName });
       setIsLoading(false);
-    },
+
+      if (simToEdit.provider === 'tottoli') {
+        navigation.navigate('SimsList');
+      } else {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [
+              {
+                name: 'RootTabs',
+                state: {
+                  index: 2,
+                  routes: [
+                    {
+                      name: 'BalanceStack',
+                      state: {
+                        routes: [{ name: 'BalanceMain' }],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          })
+        );
+      }
+    }
+
   });
 
   return (

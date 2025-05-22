@@ -24,6 +24,11 @@ import { useTheme } from '@shopify/restyle';
 import { ThemeCustom } from '@/config/theme2';
 import styles from '@/styles/BalanceStyles/NewSimEncryptedStyles';
 import { Sim } from '@/features/sims/simTypes';
+import { useAppSelector } from '@/hooks/hooksStoreRedux';
+import { useSimManager } from '@/hooks/useSimManager';
+import { useNavigation, CommonActions, NavigationProp } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@/navigation/types';
 
 // Trads base key
 const baseMsg = 'pages.newSim';
@@ -39,7 +44,10 @@ const NewSimTottoli = () => {
   const { colors } = theme;
   const { createSim, redirect } = useCreateSim();
   const [createdSim, setCreatedSim] = useState<Sim | null>(null);
+  const existingSims = useAppSelector(state => state.sims.sims);
+  const { changeSim } = useSimManager();
 
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const formik = useFormik({
     initialValues: { simNumber: '' },
@@ -49,6 +57,15 @@ const NewSimTottoli = () => {
         .test('valid-iccid', t(`${baseMsg}.fields.sim.invalidSim`), isValidIccid),
     }),
     onSubmit: async (values) => {
+      const alreadyExists = existingSims.some(sim => sim.iccid === values.simNumber);
+
+      if (alreadyExists) {
+        formik.setErrors({
+          simNumber: t('validators.simDuplicate') || 'SIM ya registrada',
+        });
+        return;
+      }
+
       setIsLoading(true);
       const { sim, success } = await createSim(values.simNumber);
       setIsLoading(false);
@@ -63,12 +80,56 @@ const NewSimTottoli = () => {
     setType(determineType(formik.values.simNumber));
   }, [formik.values.simNumber]);
 
-  const handleSuccessModalClose = () => {
-    if (createdSim) {
-      redirect(createdSim.provider);
-    }
+ const handleSuccessModalClose = async () => {
     setModalSuccessVisible(false);
+
+    if (!createdSim) return;
+
+    await changeSim(createdSim);
+
+    if (createdSim.provider === 'telco-vision') {
+  console.log('[NewSim] Redirigiendo a BalanceMain');
+  navigation.dispatch(
+    CommonActions.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'BalanceStack',
+          state: {
+            routes: [{ name: 'BalanceMain' }],
+          },
+        },
+      ],
+    })
+  );
+}
+ else {
+      console.log('[NewSim] Redirigiendo a SimsList');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'RootTabs',
+              state: {
+                index: 2, // Tab Sims
+                routes: [
+                  {
+                    name: 'Sims',
+                    state: {
+                      index: 0,
+                      routes: [{ name: 'SimsList' }],
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+        })
+      );
+    }
   };
+
 
   const simTypeMap: Record<string, string> = {
     'telco-vision': 'telcoVisionSim',

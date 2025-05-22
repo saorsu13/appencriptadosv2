@@ -53,10 +53,25 @@ export default function BalanceScreen() {
   };
   const handleSimChange = async (newId: string) => {
     const selectedSim = sims.find(sim => sim.idSim === newId);
-    if (selectedSim) {
-      await changeSim(selectedSim);
+    if (!selectedSim) return;
+
+    console.log('[BALANCE] SIM seleccionada:', selectedSim.idSim);
+    await changeSim(selectedSim);
+
+    if (selectedSim.provider === 'tottoli') {
+      console.log('[BalanceScreen] Redirigiendo a SimsList');
+      navigationRoot.navigate('RootTabs', {
+        screen: 'Sims',
+        params: { screen: 'SimsList' },
+      });
+    } else {
+      console.log('[BalanceScreen] Redirigiendo a BalanceMain');
+      navigationRoot.navigate('BalanceStack', {
+        screen: 'BalanceMain',
+      });
     }
   };
+
   useEffect(() => {
     if (sims.length && currentSim) {
       dispatch(updateCurrentSim(currentSim.idSim));

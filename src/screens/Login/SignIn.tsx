@@ -51,20 +51,26 @@ export default function SignIn() {
 
 
   const handleLogin = async (simNumber: string) => {
-    await login(simNumber);
-    if (!currentSim?.idSim) return;
+    const sim = await login(simNumber);
 
-    const simType = determineType(simNumber);
+    if (!sim?.idSim) {
+      console.log('[SignIn] SIM inválida después del login');
+      return;
+    }
+
+    console.log('[SignIn] SIM después de login:', sim);
+
+    const simType = determineType(sim.iccid);
 
     if (simType === 'telco-vision') {
     navigation.navigate('Sims', {
       screen: 'BalanceScreen',
-      params: { idSim: currentSim.idSim },
+      params: { idSim: sim.idSim },
     });
   } else {
     navigation.navigate('Sims', {
       screen: 'SimDetails',
-      params: { idSim: currentSim.idSim },
+      params: { idSim: sim.idSim },
     });
   }
   };
