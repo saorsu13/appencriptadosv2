@@ -6,6 +6,7 @@ export const HomeStyles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    padding: 16,
+    paddingTop: 16,
+    paddingBottom: 32,
   },
 });

@@ -18,6 +18,9 @@ import SocialNetworks from '../../components/organisms/HomeTab/SocialNetworks/So
 import { useDarkModeTheme } from '@/context/theme';
 import { ThemeCustom } from '@/config/theme2';
 import { t } from "i18next";
+import VirtualNumberBanner from '@/components/organisms/HomeTab/VirtualNumberBanner/VirtualNumberBanner';
+import AboutEncriptados from '@/components/organisms/HomeTab/AboutEncriptados/AboutEncriptados';
+import SilentCircleBanner from '@/components/organisms/HomeTab/SilentCircleBanner/SilentCircleBanner';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -32,15 +35,18 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={HomeStyles.scrollContent}>
         <IconSvg name="menu" onPress={() => navigation.toggleDrawer()} />
         <WelcomeBanner
-          title={t("pages.home-tab.welcomebanner-title")}
+        badgeText={t("pages.home-tab.welcomebanner-badge")}
+          titlePart1={t("pages.home-tab.welcomebanner-title-part1")}
+          titlePart2={t("pages.home-tab.welcomebanner-title-part2")}
+          titlePart3={t("pages.home-tab.welcomebanner-title-part3")}
           description={t("pages.home-tab.welcomebanner-description")}
           buttonText={t("pages.home-tab.goToStore")}
         />
         <OfferBannerHome />
         <PlanBannerHome />
-        <DistributorsHome />
-        <BlogEncriptados />
-         <AboutUsHome />
+        <SilentCircleBanner />
+        <VirtualNumberBanner />
+        <AboutEncriptados/>
         <PaymentsHome />
         <SocialNetworks />
       </ScrollView>

@@ -78,13 +78,16 @@
   },
   "pages": {
     "home-tab": {
-      "welcomebanner-title": "Bienvenido a la comunicación segura",
+      "welcomebanner-badge": "Seguridad en inicio a fin",
+      "welcomebanner-title-part1": "Conéctate ",
+      "welcomebanner-title-part2": "en todo el mundo ",
+      "welcomebanner-title-part3": "con total seguridad",
       "welcomebanner-description": "Productos y servicios que protegen todas tus comunicaciones",
-      "goToStore": "Ir a la tienda",
+      "goToStore": "Ir a tienda",
       "encryptedOffers": "Ofertas encriptadas",
       "encryptedSim": "SIM Card Encriptada",
       "protectYourself": "Protégete de los ciberdelincuentes y mantén tu información personal segura",
-      "buy": "Comprar",
+      "buy": "Comprar aquí",
       "moreInfo": "Más información",
       "freeEsim": "eSIM gratis",
       "withYourPurchase": "por tu compra",
@@ -131,7 +134,12 @@
       "versiontitle": "Nueva versión disponible",
       "versiondescription": "Hay una nueva versión disponible. ¿Desea actualizar",
       "whatAreYouLooking": "¿Qué estás buscando?",
-      "category": "Categoría"
+      "category": "Categoría",
+      "virtualnumber-title": "Activa APPs por SMS\ncon Encriptados",
+      "virtualnumber-subtitle": "Regístrate en cualquier aplicación con un",
+      "virtualnumber-highlight": "número de teléfono virtual",
+      "virtualnumber-button": "Comprar ahora",
+      "virtualnumber-note": "*Se genera un número colombiano"
 
     },
     "login": {

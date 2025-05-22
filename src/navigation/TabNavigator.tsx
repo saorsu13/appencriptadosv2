@@ -34,6 +34,7 @@ export default function TabNavigator() {
           ...styles.tabBar,
           height: styles.tabBar.height + insets.bottom,
           paddingBottom: insets.bottom + 10,
+          borderTopWidth: 0,
         },
         tabBarItemStyle: styles.tabBarItem,
         tabBarLabelStyle: styles.tabBarLabel,
