@@ -13,7 +13,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ModalPaymentProvider } from '@/context/modalpayment';
 import ModalPaymentController from '@/components/molecules/ModalPayment/ModalPaymentController';
 import { ModalProvider } from '@/context/modal';
-
+import  ModalController  from '@/context/ModalController'
 // Este componente interno lee el modo y aplica el theme correcto
 function Root() {
   const { themeMode } = useDarkModeTheme();
@@ -27,6 +27,7 @@ function Root() {
           <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} />
           <AppNavigator />
           <ModalPaymentController />
+          <ModalController /> 
       </RestyleProvider>
     </QueryClientProvider>
   );
