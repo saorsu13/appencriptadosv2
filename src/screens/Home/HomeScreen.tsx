@@ -21,6 +21,7 @@ import { t } from "i18next";
 import VirtualNumberBanner from '@/components/organisms/HomeTab/VirtualNumberBanner/VirtualNumberBanner';
 import AboutEncriptados from '@/components/organisms/HomeTab/AboutEncriptados/AboutEncriptados';
 import SilentCircleBanner from '@/components/organisms/HomeTab/SilentCircleBanner/SilentCircleBanner';
+import EncryptedPhonesBanner from '@/components/organisms/HomeTab/EncryptedPhonesBanner/EncryptedPhonesBanner';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -46,6 +47,7 @@ export default function HomeScreen() {
         <PlanBannerHome />
         <SilentCircleBanner />
         <VirtualNumberBanner />
+        <EncryptedPhonesBanner />
         <AboutEncriptados/>
         <PaymentsHome />
         <SocialNetworks />
