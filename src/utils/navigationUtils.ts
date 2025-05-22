@@ -1,4 +1,4 @@
-import { NavigationProp } from '@react-navigation/native';
+import { CommonActions, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '@/navigation/types';
 
 export function redirectBasedOnProvider(
@@ -6,14 +6,42 @@ export function redirectBasedOnProvider(
   navigation: NavigationProp<RootStackParamList>
 ) {
   if (provider === 'tottoli') {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Home' }],
-    });
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'RootTabs',
+            state: {
+              index: 0,
+              routes: [
+                {
+                  name: 'Sims',
+                  state: {
+                    index: 0,
+                    routes: [{ name: 'SimsList' }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      })
+    );
   } else if (provider === 'telco-vision') {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Balance' }],
-    });
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'BalanceStack',
+            state: {
+              index: 0,
+              routes: [{ name: 'BalanceMain' }],
+            },
+          },
+        ],
+      })
+    );
   }
 }

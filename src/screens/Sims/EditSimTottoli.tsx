@@ -62,30 +62,28 @@ const EditSimTottoli = () => {
     }),
     onSubmit: async (values) => {
       if (!simToEdit) return;
+
       setIsLoading(true);
       await editSim(simToEdit, values.simName);
-      await changeSim({ ...simToEdit, simName: values.simName });
+
+      const updatedSim = { ...simToEdit, simName: values.simName };
+      await changeSim(updatedSim);
+
       setIsLoading(false);
 
-      if (simToEdit.provider === 'tottoli') {
+      if (updatedSim.provider === 'tottoli') {
+        console.log('[EditSim] Redirigiendo a SimsList');
         navigation.navigate('SimsList');
       } else {
+        console.log('[EditSim] Redirigiendo a BalanceMain');
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
             routes: [
               {
-                name: 'RootTabs',
+                name: 'BalanceStack',
                 state: {
-                  index: 2,
-                  routes: [
-                    {
-                      name: 'BalanceStack',
-                      state: {
-                        routes: [{ name: 'BalanceMain' }],
-                      },
-                    },
-                  ],
+                  routes: [{ name: 'BalanceMain' }],
                 },
               },
             ],
@@ -93,7 +91,6 @@ const EditSimTottoli = () => {
         );
       }
     }
-
   });
 
   return (
