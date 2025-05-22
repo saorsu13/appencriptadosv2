@@ -57,7 +57,7 @@ const SilentCircleBanner = () => {
             <Text style={[styles.title, { color: colors.white }]}>Silent Phone</Text>
 
             <Text style={[styles.subtitle, { color: colors.secondaryText }]}>
-                Desarrollada por expertos en tecnología móvil, esta app{"\n"}
+                Desarrollada por expertos en tecnología móvil, esta app
                 protege tus datos con máxima seguridad en todo{" "}
                 momento.
             </Text>
