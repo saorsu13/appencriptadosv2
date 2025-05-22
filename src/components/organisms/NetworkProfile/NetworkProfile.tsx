@@ -34,25 +34,50 @@ export default function NetworkProfile() {
   const currentNetwork = useAppSelector(state => state.networkProfile.networkProfile);
   const recommendedNetwork = useAppSelector(state => state.networkProfile.recommendedNetwork);
 
+  
+  console.log('[NetworkProfile] render');
+  console.log('[NetworkProfile] currentSim:', currentSim);
+  console.log('[NetworkProfile] currentNetwork:', currentNetwork);
+  console.log('[NetworkProfile] recommendedNetwork:', recommendedNetwork);
+
   const simType = determineSimType(currentSim?.iccid ?? '') ?? SIM_TYPES.ELECTRONIC;
   const options = getSimNetworkProfiles(simType, currentNetwork);
+
+  console.log('[NetworkProfile] simType:', simType);
+  console.log('[NetworkProfile] options:', options);
 
   const [selected, setSelected] = useState(currentNetwork || 'r1');
 
   useEffect(() => {
+        console.log('[NetworkProfile] useEffect -> currentNetwork changed:', currentNetwork);
     setSelected(currentNetwork);
   }, [currentNetwork]);
 
   const handleSelect = (val: string) => {
-    if (!currentSim?.idSim) return;
+    console.log('[NetworkProfile] 🔔 handleSelect START, valor recibido:', val);
+    if (!currentSim?.idSim){
+      console.log('[NetworkProfile] ⚠️ SIM inválida, abortando.');
+       return;
+      }
+    console.log('[NetworkProfile] 👉 Seteando estado local “selected” a:', val);
 
     setSelected(val);
+        console.log('[NetworkProfile] dispatch(updateCurrentNetwork) con:', val);
+
     dispatch(updateCurrentNetwork(val));
+    console.log('[NetworkProfile] mutation.mutate con:', {
+      simId: currentSim.iccid,
+      profile: val,
+    });
     mutation.mutate({ simId: currentSim.iccid, profile: val });
+
+    console.log('[NetworkProfile] Iniciando cooldown de 45s');
 
     setCooldown(45);
     setTimerVisible(true);
     setButtonsDisabled(true);
+        console.log('[NetworkProfile] 🔔 handleSelect END');
+
   };
 
   useEffect(() => {
@@ -62,12 +87,13 @@ export default function NetworkProfile() {
       return;
     }
 
-    const interval = setInterval(() => {
-      setCooldown((prev) => prev - 1);
+    const timeout = setTimeout(() => {
+      setCooldown(cooldown - 1);
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timeout);
   }, [cooldown]);
+
 
   const infoIconColor = isDark
     ? colors.darkGray
@@ -96,9 +122,13 @@ export default function NetworkProfile() {
         defaultValue={selected}
         recommendedValue={recommendedNetwork}
         suggestText={t('helpMessages.recommended')}
-        onValueChange={handleSelect}
+        onValueChange={(val) => {
+            console.log('[NetworkProfile] 🎯 onValueChange fired with:', val);
+            handleSelect(val);
+          }}
         disabled={buttonsDisabled}
       />
+
 
       {timerVisible && (
         <View style={styles.countdownContainer}>

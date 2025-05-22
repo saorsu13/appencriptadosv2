@@ -40,6 +40,7 @@ export default function ButtonGroup({
 
   const handlePress = (val: string) => {
     if (disabled) return;
+      console.log('[ButtonGroup] 🕵️‍♂️ handlePress recibió:', val, 'showModal:', showModal);
     showModal({
       type: 'alert',
       title: t('pages.home.networkProfile'),

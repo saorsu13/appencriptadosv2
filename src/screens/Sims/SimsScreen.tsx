@@ -188,7 +188,7 @@ export default function SimScreen() {
             )
           )}
 
-          <NetworkProfile />
+          {isTottoli && <NetworkProfile />}
 
           <Alert
             message={t('pages.home.profileWarning.title')}
