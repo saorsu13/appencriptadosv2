@@ -99,7 +99,7 @@
       "blog": "Blog Encriptados",
       "aboutUs": "About Us",
       "aboutUsDescription": "We specialize in secure communication equipment and software, such as cell phones, applications, and SIM cards. We aim to bring digital security to anyone or any company looking to protect their information and privacy. We work with the most secure and recognized systems around the world, which have been tested over the years and have proven to be impenetrable.",
-      "paySecure": "Secure payment",
+      "paySecure": "Payment Methods",
       "shipping": "Shipping",
       "initMenu": "Home",
       "productsMenu": "Products",
@@ -139,7 +139,8 @@
       "virtualnumber-subtitle": "Register in any application with a",
       "virtualnumber-highlight": "virtual phone number",
       "virtualnumber-button": "Buy now",
-      "virtualnumber-note": "*A Colombian number is generated"
+      "virtualnumber-note": "*A Colombian number is generated",
+      "followUs": "Follow us"
     },
     "login": {
       "header": {

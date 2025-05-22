@@ -96,7 +96,7 @@
       "blog": "Blog Encriptados",
       "aboutUs": "Nous",
       "aboutUsDescription": "Nous sommes spécialisés dans les équipements et les logiciels de communication sécurisée tels que les téléphones portables, les applications et les cartes SIM. Nous cherchons à rapprocher la sécurité numérique de toute personne ou entreprise souhaitant protéger ses informations et sa vie privée. Nous travaillons avec les systèmes les plus sécurisés et reconnus à travers le monde, qui ont été testés pendant des années et se sont révélés impénétrables.",
-      "paySecure": "Paiement sécurisé",
+      "paySecure": "Méthodes de paiement",
       "shipping": "Expéditions",
       "initMenu": "Accueil",
       "productsMenu": "Produits",
@@ -136,7 +136,8 @@
       "virtualnumber-subtitle": "Register in any application with a",
       "virtualnumber-highlight": "virtual phone number",
       "virtualnumber-button": "Buy now",
-      "virtualnumber-note": "*A Colombian number is generated"
+      "virtualnumber-note": "*A Colombian number is generated",
+      "followUs": "Suivre est"
     },
     "login": {
       "header": {

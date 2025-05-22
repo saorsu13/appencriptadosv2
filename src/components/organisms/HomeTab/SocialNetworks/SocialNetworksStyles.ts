@@ -3,16 +3,19 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   contentSocialNetworks: {
-    width: "100%",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
+    gap: 12,
     marginVertical: 20,
   },
   logoContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 65,
-    height: 65,
-    borderRadius: 12,
-  },
+  width: 50,
+  height: 50,
+  borderWidth: 1,
+  borderColor: '#12b4e7',
+  borderRadius: 12,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#000000',
+  }
 });

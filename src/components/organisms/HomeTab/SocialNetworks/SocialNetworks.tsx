@@ -1,11 +1,13 @@
 // src/components/organisms/HomeTab/SocialNetworks/SocialNetworks.tsx
+
 import React from "react";
-import { View, TouchableOpacity, Linking, Alert } from "react-native";
+import { View, TouchableOpacity, Linking, Alert, Text } from "react-native";
 import { useTheme } from "@shopify/restyle";
+import { t } from "i18next";
 
 import { useAppSelector } from "@/hooks/hooksStoreRedux";
 import { ThemeCustom } from "@/config/theme2";
-import { useDarkModeTheme, ThemeMode } from '@/context/theme';
+import { useDarkModeTheme, ThemeMode } from "@/context/theme";
 import IconSvg from "@/components/molecules/IconSvg/IconSvg";
 
 import { styles } from "./SocialNetworksStyles";
@@ -19,31 +21,29 @@ const LANGUAGES = {
 type LanguageCode = keyof typeof LANGUAGES;
 
 interface SocialNetwork {
-  type: string;
-  component: React.ReactNode;
+  type:
+    | "x"
+    | "telegram"
+    | "linkedin"
+    | "instagram"
+    | "youtube";
   urls: Record<LanguageCode | string, string>;
 }
 
 const SocialNetworks: React.FC = () => {
-    const { themeMode } = useDarkModeTheme();
-    const isDark = themeMode === ThemeMode.Dark;
-    const theme = ThemeCustom[themeMode];
-    const { colors } = theme;
-    const { lang } = useAppSelector((state) => state.settings);
+  const { themeMode } = useDarkModeTheme();
+  const { colors } = ThemeCustom[themeMode];
+  const { lang } = useAppSelector((state) => state.settings);
+
+  const iconProps = {
+    width: 24,
+    height: 24,
+    color: "#12b4e7",
+  };
 
   const socialNetworksData: SocialNetwork[] = [
     {
-      type: "x",
-      component: <IconSvg color={colors.white} type="x" />,
-      urls: {
-        en: "https://x.com/encriptados_io",
-        es: "https://x.com/encriptados_io",
-        fr: "https://x.com/encriptados_io",
-      },
-    },
-    {
       type: "telegram",
-      component: <IconSvg color={colors.white} type="telegram" />,
       urls: {
         en: "https://t.me/encriptados_english",
         es: "https://t.me/Encriptadosio",
@@ -52,7 +52,6 @@ const SocialNetworks: React.FC = () => {
     },
     {
       type: "linkedin",
-      component: <IconSvg color={colors.white} type="linkedin" />,
       urls: {
         en: "https://www.linkedin.com/company/encriptados-english/",
         es: "https://linkedin.com/company/encriptados",
@@ -60,17 +59,7 @@ const SocialNetworks: React.FC = () => {
       },
     },
     {
-      type: "instagram",
-      component: <IconSvg color={colors.white} type="instagram" />,
-      urls: {
-        en: "https://www.instagram.com/encriptados_english/",
-        es: "https://www.instagram.com/encriptados.io/",
-        fr: "https://www.instagram.com/encriptados_francais/",
-      },
-    },
-    {
       type: "youtube",
-      component: <IconSvg color={colors.white} type="youtube" />,
       urls: {
         en: "https://www.youtube.com/@encriptados_io",
         es: "https://www.youtube.com/@encriptados_io",
@@ -81,7 +70,6 @@ const SocialNetworks: React.FC = () => {
 
   const handlePress = async (urls: Record<string, string>) => {
     const selectedUrl = urls[lang] || urls.en;
-
     try {
       const supported = await Linking.canOpenURL(selectedUrl);
       if (supported) {
@@ -95,19 +83,22 @@ const SocialNetworks: React.FC = () => {
   };
 
   return (
-    <View style={styles.contentSocialNetworks}>
-      {socialNetworksData.map((social, index) => (
-        <TouchableOpacity key={index} onPress={() => handlePress(social.urls)}>
-          <View
-            style={[
-              styles.logoContainer,
-              { backgroundColor: colors.backgroundAlternate },
-            ]}
+    <View style={{ alignItems: "center" }}>
+      <Text style={{ fontSize: 22, fontWeight: "700", color: colors.primaryText, marginBottom: 12 }}>
+        {t("pages.home-tab.followUs")}
+      </Text>
+
+      <View style={styles.contentSocialNetworks}>
+        {socialNetworksData.map((social, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => handlePress(social.urls)}
+            style={styles.logoContainer}
           >
-            {social.component}
-          </View>
-        </TouchableOpacity>
-      ))}
+            <IconSvg type={social.type} {...iconProps} />
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 };

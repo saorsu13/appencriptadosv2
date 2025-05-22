@@ -99,7 +99,7 @@
       "blog": "Blog Encriptados",
       "aboutUs": "Nosotros",
       "aboutUsDescription": "Somos especialistas en equipos y softwares de comunicación segura como celulares, aplicaciones y sim cards. Buscamos acercar la seguridad digital a cualquier persona o empresa que desee proteger su información y privacidad. Trabajamos con los sistemas más seguros y reconocidos alrededor del mundo, los cuales han sido puestos a prueba durante años y han probado ser impenetrables.",
-      "paySecure": "Pago seguro",
+      "paySecure": "Métodos de pago",
       "shipping": "Envíos",
       "initMenu": "Inicio",
       "productsMenu": "Productos",
@@ -139,8 +139,8 @@
       "virtualnumber-subtitle": "Regístrate en cualquier aplicación con un",
       "virtualnumber-highlight": "número de teléfono virtual",
       "virtualnumber-button": "Comprar ahora",
-      "virtualnumber-note": "*Se genera un número colombiano"
-
+      "virtualnumber-note": "*Se genera un número colombiano",
+      "followUs": "Síguenos"
     },
     "login": {
       "header": {

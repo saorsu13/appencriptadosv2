@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 20,
     marginBottom: 30,
+    marginTop: 10,
   },
   iconsContainer: {
     width: "100%",

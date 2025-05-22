@@ -36,26 +36,29 @@ const PaymentsHome: React.FC = () => {
     const theme = ThemeCustom[themeMode];
     const { colors } = theme;
 
+    const ICON_SIZE = 40;
+
   const iconData: IconData[] = [
-    { component: <Bancolombia height={50} width={50} />, key: "bancolombia" },
-    {
-      component:
-        themeMode === ThemeMode.Dark
-          ? <Visa height={50} width={50} />
-          : <VisaDark height={50} width={50} />,
-      key: "visa",
-    },
-    { component: <MasterCard height={50} width={50} />, key: "mastercard" },
-    { component: <PSE height={50} width={50} />, key: "pse" },
-    { component: <AmericanExpress height={50} width={50} />, key: "americanexpress" },
-    { component: <Unknown height={50} width={50} />, key: "unknown" },
-    { component: <BitCoin height={50} width={50} />, key: "bitcoin" },
-    { component: <TLogo height={50} width={50} />, key: "tlogo" },
-    { component: <Piramid height={50} width={50} />, key: "piramid" },
-    { component: <MoneyBlue height={50} width={50} />, key: "moneyblue" },
-    { component: <DLogo height={50} width={50} />, key: "dlogo" },
-    { component: <LLogo height={50} width={50} />, key: "llogo" },
-  ];
+  { component: <Bancolombia height={ICON_SIZE} width={ICON_SIZE} />, key: "bancolombia" },
+  {
+    component:
+      isDark
+        ? <Visa height={ICON_SIZE} width={ICON_SIZE} />
+        : <VisaDark height={ICON_SIZE} width={ICON_SIZE} />,
+    key: "visa",
+  },
+  { component: <MasterCard height={ICON_SIZE} width={ICON_SIZE} />, key: "mastercard" },
+  { component: <PSE height={ICON_SIZE} width={ICON_SIZE} />, key: "pse" },
+  { component: <AmericanExpress height={ICON_SIZE} width={ICON_SIZE} />, key: "americanexpress" },
+  { component: <Unknown height={ICON_SIZE} width={ICON_SIZE} />, key: "unknown" },
+  { component: <BitCoin height={ICON_SIZE} width={ICON_SIZE} />, key: "bitcoin" },
+  { component: <TLogo height={ICON_SIZE} width={ICON_SIZE} />, key: "tlogo" },
+  { component: <Piramid height={ICON_SIZE} width={ICON_SIZE} />, key: "piramid" },
+  { component: <MoneyBlue height={ICON_SIZE} width={ICON_SIZE} />, key: "moneyblue" },
+  { component: <DLogo height={ICON_SIZE} width={ICON_SIZE} />, key: "dlogo" },
+  { component: <LLogo height={ICON_SIZE} width={ICON_SIZE} />, key: "llogo" },
+];
+
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -64,7 +67,7 @@ const PaymentsHome: React.FC = () => {
       </Text>
 
       <View style={styles.iconsContainer}>
-        {chunkArray(iconData, 4).map((row, rowIndex) => (
+        {chunkArray(iconData, 6).map((row, rowIndex) => (
           <View key={rowIndex} style={styles.row}>
             {row.map((item) => (
               <CenteredIcon key={item.key}>{item.component}</CenteredIcon>
