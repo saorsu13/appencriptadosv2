@@ -29,11 +29,10 @@ export default function SimOptions({ imsiChangesAvailable }: SimOptionsProps) {
   const [showImsi, setShowImsi] = useState(false);
 
   const bgColor = isDark
-    ? theme.colors.darkBlack01
+    ? '#262626'
     : theme.colors.cyanSuperLight;
-  const iconColor = isDark
-    ? theme.colors.contrast
-    : "#093448";
+  const iconColor = isDark ? '#FFFFFF' : '#093448';
+
   // Text color based on theme
   const buttonTextColor = isDark ? '#CCCCCC' : '#093448';                      
 

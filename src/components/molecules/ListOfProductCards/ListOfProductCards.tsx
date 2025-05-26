@@ -12,6 +12,7 @@ export interface ListOfProductCardsProps {
   widthImage: number;
   heightImage: number;
   showPeriodSelector?: boolean;
+  showMoreInfo?: boolean;
 }
 
 const ListOfProductCards: React.FC<ListOfProductCardsProps> = ({
@@ -20,6 +21,7 @@ const ListOfProductCards: React.FC<ListOfProductCardsProps> = ({
   widthImage,
   heightImage,
   showPeriodSelector = false,
+  showMoreInfo = true,
 }) => {
   const isOdd = list.length % 2 !== 0;
   const updatedList = isOdd ? [list[list.length - 1], ...list.slice(0, -1)] : list;
@@ -38,6 +40,7 @@ const ListOfProductCards: React.FC<ListOfProductCardsProps> = ({
           periodOptions={product.periodOptions ?? []}
           isFirstItem={isOdd && index === 0}
           product={product}
+          showMoreInfo={showMoreInfo}
         />
       )
     })}

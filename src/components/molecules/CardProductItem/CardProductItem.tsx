@@ -24,7 +24,8 @@ export interface CardProductItemProps {
   isFirstItem: boolean;
   showCartButton?: boolean;
   showPeriodSelector?: boolean;
-  periodOptions?: string[]
+  periodOptions?: string[];
+  showMoreInfo?: boolean;
 }
 
 const navigation = () => useNavigation<NativeStackNavigationProp<ProductTabParamList>>();
@@ -38,7 +39,8 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
   isFirstItem,
   showCartButton = false,
   showPeriodSelector = false,
-  periodOptions = []
+  periodOptions = [],
+  showMoreInfo = true,
 }) => {
   console.log(`[Card] ${product.title} → showPeriodSelector:`, showPeriodSelector, 'periodOptions:', periodOptions);
   const { openModalWithParams } = useModalPayment();
@@ -167,28 +169,28 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
               );
             })} */}
             {periodOptions.map(optionLabel => {
-        const selected = period === optionLabel;
-        return (
-          <TouchableOpacity
-            key={optionLabel}
-            style={styles.radioOption}
-            onPress={() => setPeriod(optionLabel)}
-          >
-            <View
-              style={[
-                styles.radioCircle,
-                selected && {
-                  borderColor: colors.blue,
-                  backgroundColor: colors.blue,
-                },
-              ]}
-            />
-            <Text style={[styles.radioLabel, { color: colors.secondaryText }]}>
-              {optionLabel}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
+              const selected = period === optionLabel;
+              return (
+                <TouchableOpacity
+                  key={optionLabel}
+                  style={styles.radioOption}
+                  onPress={() => setPeriod(optionLabel)}
+                >
+                  <View
+                    style={[
+                      styles.radioCircle,
+                      selected && {
+                        borderColor: colors.blue,
+                        backgroundColor: colors.blue,
+                      },
+                    ]}
+                  />
+                  <Text style={[styles.radioLabel, { color: colors.secondaryText }]}>
+                    {optionLabel}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         )}
 
@@ -237,19 +239,20 @@ const CardProductItem: React.FC<CardProductItemProps> = ({
             </TouchableOpacity>
           )}
         </View>
-
-        <View style={styles.infoContainer}>
-          <TouchableOpacity
-            onPress={() => nav.navigate('ProductInfo', { id: product.id.toString() })}
-          >
-            <Text
-              allowFontScaling={false}
-              style={[styles.moreInfoText]}
+        {showMoreInfo && (
+          <View style={styles.infoContainer}>
+            <TouchableOpacity
+              onPress={() => nav.navigate('ProductInfo', { id: product.id.toString() })}
             >
-              {t('pages.home-tab.moreInfo')}
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <Text
+                allowFontScaling={false}
+                style={[styles.moreInfoText]}
+              >
+                {t('pages.home-tab.moreInfo')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );

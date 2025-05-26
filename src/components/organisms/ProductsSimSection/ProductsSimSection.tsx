@@ -184,7 +184,7 @@ export default function ProductsSimSection() {
                 generaldescription: '', // 🧹 igual
                 faqs: [], // 🧹 igual
               }))}
-
+              showMoreInfo={false}
               type="product"
             />
           )
