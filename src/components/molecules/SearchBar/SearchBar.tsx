@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '@shopify/restyle';
 import { ThemeCustomType } from '@/config/theme2';
 import SearchIcon from '@/assets/icons/SearchIcon';
+import { useTranslation } from 'react-i18next';
 
 interface SearchBarProps {
   value: string;
@@ -14,10 +15,11 @@ interface SearchBarProps {
 export default function SearchBar({
   value,
   onChangeText,
-  placeholder = 'Buscar producto',
+  placeholder,
   onSubmit,
 }: SearchBarProps) {
   const { colors } = useTheme<ThemeCustomType>();
+  const { t } = useTranslation();
 
   return (
     <View
@@ -31,7 +33,7 @@ export default function SearchBar({
     >
       <TextInput
         style={[styles.input, { color: colors.primaryText }]}
-        placeholder={placeholder}
+        placeholder={placeholder ?? t('pages.home-tab.searchPlaceholder')}
         placeholderTextColor={colors.secondaryText}
         value={value}
         onChangeText={onChangeText}
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 14,
-    fontWeight: 600,
+    fontWeight: '600',
     paddingVertical: 0,
     marginRight: 8,
   },

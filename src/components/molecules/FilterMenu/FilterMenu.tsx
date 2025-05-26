@@ -1,4 +1,3 @@
-// src/components/molecules/FilterMenu/FilterMenu.tsx
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useAppSelector, useAppDispatch } from '@/hooks/hooksStoreRedux';
@@ -7,14 +6,7 @@ import { useDarkModeTheme, ThemeMode } from '@/context/theme';
 import { ThemeCustom } from '@/config/theme2';
 import { t } from 'i18next';
 
-const SECTION_IDS: Record<string, number> = {
-  [SECTIONS.APPLICATION]: 38,
-  [SECTIONS.SIM]: 40,
-  [SECTIONS.PHONE]: 35,
-  // [SECTIONS.ROUTERS]: 36,
-};
-
-export default function FilterMenu() {
+const FilterMenu = () => {
   const { themeMode } = useDarkModeTheme();
   const isDark = themeMode === ThemeMode.Dark;
   const theme = ThemeCustom[themeMode];
@@ -22,105 +14,64 @@ export default function FilterMenu() {
   const selectedValue = useAppSelector(state => state.menuCurrentProduct.currentProduct);
   const dispatch = useAppDispatch();
 
-  const handlePress = (section: string) => {
-    dispatch(setProduct(section));
-    
-    const sectionId = SECTION_IDS[section];
-    console.log(`🛑 [FilterMenu] Selected section: ${section}, with ID: ${sectionId}`);
-
-  };
+  const menuItems = [
+    { label: t('filterMenu.apps'), value: SECTIONS.APPLICATION },
+    { label: t('filterMenu.simCards'), value: SECTIONS.SIM },
+    { label: t('filterMenu.systems'), value: SECTIONS.SYSTEMS },
+    // { label: t('pages.home-tab.routers'), value: SECTIONS.ROUTERS },
+  ];
 
   return (
     <View style={[styles.menuContainer, { backgroundColor: colors.backgroundAlternate }]}>
-      {/* Apps */}
-      <TouchableOpacity
-        style={[
-          styles.menuItem,
-          selectedValue === SECTIONS.APPLICATION && { backgroundColor: colors.white },
-        ]}
-        onPress={() => handlePress(SECTIONS.APPLICATION)}
-      >
-        <Text style={[styles.menuText, selectedValue === SECTIONS.APPLICATION ? { color: '#000' } : { color: colors.secondaryText }]}>
-          Apps
-        </Text>
-      </TouchableOpacity>
-
-      {/* SIMs */}
-      <TouchableOpacity
-        style={[
-          styles.menuItem,
-          selectedValue === SECTIONS.SIM && { backgroundColor: colors.white },
-        ]}
-        onPress={() => dispatch(setProduct(SECTIONS.SIM))}
-      >
-        <Text style={[styles.menuText, selectedValue === SECTIONS.SIM ? { color: '#000' } : { color: colors.secondaryText }]}>
-          SIMs
-        </Text>
-      </TouchableOpacity>
-
-      {/* <TouchableOpacity
-        style={[
-          styles.menuItem,
-          selectedValue === SECTIONS.PHONE && { backgroundColor: colors.white },
-        ]}
-        onPress={() => handlePress(SECTIONS.PHONE)}
-      >
-        <Text
-          allowFontScaling={false}
-          style={[
-            styles.menuText,
-            selectedValue === SECTIONS.PHONE
-              ? { color: '#000000' }
-              : { color: colors.secondaryText },
-          ]}
-        >
-          {t('pages.home-tab.cellPhone')}
-        </Text>
-      </TouchableOpacity> */}
-
-      {/* Sistemas */}
-     <TouchableOpacity
-       style={[styles.menuItem, selectedValue === SECTIONS.SYSTEMS && { backgroundColor: colors.white }]}
-       onPress={() => dispatch(setProduct(SECTIONS.SYSTEMS))}
-     >
-       <Text style={[styles.menuText, selectedValue === SECTIONS.SYSTEMS ? { color: '#000' } : { color: colors.secondaryText }]}>
-         Sistemas
-       </Text>
-     </TouchableOpacity>
-
-     {/* Routers */}
-     {/* <TouchableOpacity
-       style={[styles.menuItem, selectedValue === SECTIONS.ROUTERS && { backgroundColor: colors.white }]}
-       onPress={() => dispatch(setProduct(SECTIONS.ROUTERS))}
-     >
-       <Text style={[styles.menuText, selectedValue === SECTIONS.ROUTERS ? { color: '#000' } : { color: colors.secondaryText }]}>
-         Routers
-       </Text>
-     </TouchableOpacity> */}
+      {menuItems.map(({ label, value }) => {
+        const isSelected = selectedValue === value;
+        return (
+          <TouchableOpacity
+            key={value}
+            style={[
+              styles.menuItem,
+              isSelected && { backgroundColor: colors.white }
+            ]}
+            onPress={() => dispatch(setProduct(value))}
+          >
+            <Text
+              allowFontScaling={false}
+              style={[
+                styles.menuText,
+                isSelected ? { color: '#000' } : { color: colors.secondaryText }
+              ]}
+            >
+              {label}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
-}
+};
+
+export default FilterMenu;
 
 const styles = StyleSheet.create({
   menuContainer: {
-   flexDirection: 'row',
-   justifyContent: 'space-between',
-   alignItems: 'center',
-   borderRadius: 40,
-   paddingVertical: 15,
-   paddingHorizontal: 18,
- },
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: 40,
+    paddingVertical: 15,
+    paddingHorizontal: 18,
+  },
   menuItem: {
-   flex: 1,
-   marginHorizontal: 2,
-   height: 40,
-   justifyContent: 'center',
-   alignItems: 'center',
-   borderRadius: 30,
- },
+    flex: 1,
+    marginHorizontal: 2,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
   menuText: {
     fontSize: 12,
-    textAlign: 'center',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

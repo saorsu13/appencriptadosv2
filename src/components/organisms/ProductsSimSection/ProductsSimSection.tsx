@@ -30,12 +30,23 @@ export default function ProductsSimSection() {
   const { t } = useTranslation();
   const { colors } = useTheme<ThemeCustomType>();
 
-   // Estados para categorías y filtros
+  // Estados para categorías y filtros
   const categoriesList = ['SIM Encriptados', 'Otra Categoría'];
   const [simCategory, setSimCategory] = useState<string>(categoriesList[0]);
-  
-  const defaultOptions = ['Recargar', 'Minutos', 'eSIM', 'SIM', 'IMSI'];
-  const onlyRechargeEsim = ['Recarga', 'Recarga + eSIM', 'SIM'];
+
+  const defaultOptions = [
+    t('simFilters.recharge'),
+    t('simFilters.minutes'),
+    t('simFilters.esim'),
+    t('simFilters.sim'),
+    t('simFilters.imsi'),
+  ];
+
+  const onlyRechargeEsim = [
+    t('simFilters.rechargeOnly'),
+    t('simFilters.rechargeEsim'),
+    t('simFilters.sim'),
+  ];
   const [filter, setFilter] = useState(defaultOptions[0]);
 
   const filterOptions =
@@ -48,20 +59,20 @@ export default function ProductsSimSection() {
   }, [simCategory]);
 
   const { data: faqs } = useQuery<string[]>({
-      queryKey: ['faqs', currentLanguage],
-      queryFn: () => getFaqs(currentLanguage),
-      staleTime: 0,
-    });
+    queryKey: ['faqs', currentLanguage],
+    queryFn: () => getFaqs(currentLanguage),
+    staleTime: 0,
+  });
 
   const faqItems: FAQItem[] = Array.isArray(faqs)
     ? faqs.map((question: string) => ({
-        title: question,
-        content: t('pages.home-tab.defaultAnswer') || 'Pronto añadiremos respuesta.',
-      }))
+      title: question,
+      content: t('pages.home-tab.defaultAnswer') || 'Pronto añadiremos respuesta.',
+    }))
     : [];
 
   const { data: productsSim, isFetching } = useQuery<ProductSecure[]>({
-    queryKey: ['productsSimSecure', 40], 
+    queryKey: ['productsSimSecure', 40],
     queryFn: () => getSecureProductsByCategory(40),
     staleTime: 0,
   });
@@ -114,7 +125,7 @@ export default function ProductsSimSection() {
 
   return (
     <>
-    {/* Category dropdown */}
+      {/* Category dropdown */}
       <CategorySimSelect
         selected={simCategory}
         onChange={setSimCategory}

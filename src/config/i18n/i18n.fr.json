@@ -74,6 +74,11 @@
       }
     }
   },
+  "tabs": {
+    "home": "Accueil",
+    "store": "Boutique",
+    "sims": "SIMs"
+  },
   "pages": {
     "home-tab": {
       "welcomebanner-badge": "Sécurité de bout en bout",
@@ -137,7 +142,27 @@
       "virtualnumber-highlight": "virtual phone number",
       "virtualnumber-button": "Buy now",
       "virtualnumber-note": "*A Colombian number is generated",
-      "followUs": "Suivre est"
+      "followUs": "Suivre est",
+      "searchPlaceholder": "Rechercher un produit",
+      "silentCircle": {
+        "badge": "Silent Circle",
+        "title": "Téléphone Silencieux",
+        "description": "Développée par des experts en technologie mobile, cette application protège vos données avec une sécurité maximale à tout moment.",
+        "cta": "Achetez votre Téléphone Silencieux ici\nfacilement et sans complications"
+      },
+      "encryptedPhonesBanner": {
+        "badge": "Sécurité de bout en bout",
+        "title": "Systèmes chiffrés"
+      },
+      "aboutEncriptados": {
+        "subtitle": "Nous sommes spécialistes des\nsolutions de communication sécurisées :",
+        "list": [
+          "Téléphones sécurisés",
+          "Cartes SIM chiffrées",
+          "Protection de niveau entreprise",
+          "Systèmes de sécurité éprouvés"
+        ]
+      }
     },
     "login": {
       "header": {
@@ -327,7 +352,10 @@
       "language": "Langue",
       "es": "Espagnol",
       "en": "Anglais",
-      "fr": "Français"
+      "fr": "Français",
+      "theme": "Couleur du thème",
+      "darkMode": "Mode sombre",
+      "lightMode": "Mode clair"
     },
     "language": {
       "title": "Sélectionner la langue"
@@ -354,5 +382,20 @@
     },
     "goToPanel": "Aller au panneau de configuration",
     "changeNameSimTitle": "Le nom de votre SIM a été changé avec succès."
+  },
+  "filterMenu": {
+    "apps": "Applications",
+    "simCards": "Cartes SIM",
+    "systems": "Systèmes",
+    "routers": "Routeurs"
+  },
+  "simFilters": {
+    "recharge": "Recharger",
+    "minutes": "Minutes",
+    "esim": "eSIM",
+    "sim": "SIM",
+    "imsi": "IMSI",
+    "rechargeOnly": "Recharger",
+    "rechargeEsim": "Recharger + eSIM"
   }
 }

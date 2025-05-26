@@ -5,17 +5,21 @@ import { useTheme } from "@shopify/restyle";
 import { ThemeCustomType } from "@/config/theme2";
 import GradientText from "@/components/atoms/GradientText/GradientText";
 import CheckIcon from "@/assets/icons/CheckIcon";
+import { useTranslation } from "react-i18next";
 
 const Logo = require("@/assets/img/encriptados_logo_b.png");
 
 const AboutEncriptados = () => {
     const { colors } = useTheme<ThemeCustomType>();
+    const { t } = useTranslation();
+
+    const items = t("pages.home-tab.aboutEncriptados.list", { returnObjects: true }) as string[];
 
     return (
         <View style={styles.container}>
             <Image source={Logo} style={styles.logo} resizeMode="contain" />
             <Text style={[styles.subtitle, { color: colors.primaryText }]}>
-                Somos especialistas en soluciones de{"\n"}comunicación segura:
+                {t("pages.home-tab.aboutEncriptados.subtitle")}
             </Text>
             <View style={styles.gradientSeparatorWrap}>
                 <Svg height="1" width="100">
@@ -29,12 +33,7 @@ const AboutEncriptados = () => {
                 </Svg>
             </View>
             <View style={styles.list}>
-                {[
-                    "Celulares Seguros",
-                    "SIM Cards Encriptadas",
-                    "Protección de Nivel Empresarial",
-                    "Sistemas de Seguridad Probados",
-                ].map((item, index) => (
+                {items.map((item, index) => (
                     <View key={index} style={styles.item}>
                         <CheckIcon width={16} height={16} color={colors.primaryColor} />
                         <View style={{ marginLeft: 12 }}>

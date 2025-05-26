@@ -60,10 +60,14 @@ export default function EncryptedPhonesBanner() {
                 end={{ x: 1, y: 0 }}
                 style={styles.badgeWrap}
             >
-                <Text style={styles.badge}>Seguridad en inicio a fin</Text>
+                <Text style={styles.badge}>
+                    {t('pages.home-tab.encryptedPhonesBanner.badge')}
+                </Text>
             </LinearGradient>
 
-            <Text style={[styles.title, { color: colors.primaryText }]}>Sistemas encriptados</Text>
+            <Text style={[styles.title, { color: colors.primaryText }]}>
+                {t('pages.home-tab.encryptedPhonesBanner.title')}
+            </Text>
 
             {formattedList.length > 0 && (
                 <>

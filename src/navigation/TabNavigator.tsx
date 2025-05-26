@@ -13,12 +13,15 @@ import ShopIconMenu from "@assets/icons/ShopIconMenu";
 import styles from "../styles/TabNavigatorStyles";
 import SimStackNavigator from './SimStackNavigator';
 import Sim from "@/assets/icons/Sim";
+import { useTranslation } from "react-i18next";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export default function TabNavigator() {
-  const insets = useSafeAreaInsets();
   const { colors } = useTheme<ThemeCustomType>();
+  const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
+   
 
   return (
     <Tab.Navigator
@@ -45,7 +48,7 @@ export default function TabNavigator() {
         name="Home"
         component={HomeTabsNavigator}
         options={{
-          tabBarLabel: "Inicio",
+          tabBarLabel: t("tabs.home"),
           tabBarIcon: ({ color, size }) => (
             <ActivityIcon width={size} height={size} color={color} />
           ),
@@ -56,7 +59,7 @@ export default function TabNavigator() {
         name="Store"
         component={ProductTabsNavigator}
         options={{
-          tabBarLabel: "Comprar",
+          tabBarLabel: t("tabs.store"),
           tabBarIcon: ({ color, size }) => (
             <ShopIconMenu width={size} height={size} color={color} />
           ),
@@ -67,7 +70,7 @@ export default function TabNavigator() {
         name="Sims"
         component={SimStackNavigator}
         options={{
-          tabBarLabel: "SIM’s",
+          tabBarLabel: t("tabs.sims"),
           tabBarIcon: ({ color, size }) => (
             <Sim width={size} height={size} color={color} />
           ),

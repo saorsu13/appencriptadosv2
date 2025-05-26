@@ -76,6 +76,11 @@
       }
     }
   },
+  "tabs": {
+    "home": "Home",
+    "store": "Shop",
+    "sims": "SIMs"
+  },
   "pages": {
     "home-tab": {
       "welcomebanner-badge": "Security from start to finish",
@@ -140,7 +145,27 @@
       "virtualnumber-highlight": "virtual phone number",
       "virtualnumber-button": "Buy now",
       "virtualnumber-note": "*A Colombian number is generated",
-      "followUs": "Follow us"
+      "followUs": "Follow us",
+      "searchPlaceholder": "Search product",
+      "silentCircle": {
+        "badge": "Silent Circle",
+        "title": "Silent Phone",
+        "description": "Developed by mobile technology experts, this app protects your data with maximum security at all times.",
+        "cta": "Buy your Silent Phone here\neasily and hassle-free"
+      },
+      "encryptedPhonesBanner": {
+        "badge": "End-to-end security",
+        "title": "Encrypted systems"
+      },
+      "aboutEncriptados": {
+        "subtitle": "We specialize in secure\ncommunication solutions:",
+        "list": [
+          "Secure Phones",
+          "Encrypted SIM Cards",
+          "Enterprise-Level Protection",
+          "Proven Security Systems"
+        ]
+      }
     },
     "login": {
       "header": {
@@ -332,7 +357,10 @@
       "language": "Language",
       "es": "Spanish",
       "en": "English",
-      "fr": "French"
+      "fr": "French",
+      "theme": "Theme color",
+      "darkMode": "Dark mode",
+      "lightMode": "Light mode"
     },
     "language": {
       "title": "Select language"
@@ -359,5 +387,20 @@
     },
     "goToPanel": "Go to the control panel",
     "changeNameSimTitle": "Your SIM name has been changed successfully."
+  },
+  "filterMenu": {
+    "apps": "Apps",
+    "simCards": "SIM Cards",
+    "systems": "Systems",
+    "routers": "Routers"
+  },
+  "simFilters": {
+    "recharge": "Top-up",
+    "minutes": "Minutes",
+    "esim": "eSIM",
+    "sim": "SIM",
+    "imsi": "IMSI",
+    "rechargeOnly": "Top-up",
+    "rechargeEsim": "Top-up + eSIM"
   }
 }

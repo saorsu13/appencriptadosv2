@@ -15,11 +15,13 @@ import { useNavigation } from "@react-navigation/native";
 import { getSecureProductsByCategory, ProductSecure } from '@/api/productsSecure';
 import CardProductItem from '@/components/molecules/CardProductItem/CardProductItem';
 import { Product } from '@/features/product/types';
+import { useTranslation } from "react-i18next";
 
 const BannerImage = require("@/assets/img/image 321.png");
 
 const SilentCircleBanner = () => {
     const { colors } = useTheme<ThemeCustomType>();
+    const { t } = useTranslation();
     const navigation = useNavigation();
 
     const { data: products, isFetching } = useQuery<ProductSecure[]>({
@@ -51,22 +53,23 @@ const SilentCircleBanner = () => {
             style={styles.container}
         >
             <View style={styles.badge}>
-                <Text style={styles.badgeText}>Silent Circle</Text>
+                <Text style={styles.badgeText}>
+                    {t("pages.home-tab.silentCircle.badge")}
+                </Text>
             </View>
 
-            <Text style={[styles.title, { color: colors.white }]}>Silent Phone</Text>
+            <Text style={[styles.title, { color: colors.white }]}>
+                {t("pages.home-tab.silentCircle.title")}
+            </Text>
 
             <Text style={[styles.subtitle, { color: colors.secondaryText }]}>
-                Desarrollada por expertos en tecnología móvil, esta app
-                protege tus datos con máxima seguridad en todo{" "}
-                momento.
+                {t("pages.home-tab.silentCircle.description")}
             </Text>
 
             <Image source={BannerImage} style={styles.image} resizeMode="contain" />
 
             <Text style={styles.ctaText}>
-                Compra aquí tu Silente Phone{"\n"}
-                fácil y sin complicaciones
+                {t("pages.home-tab.silentCircle.cta")}
             </Text>
             {silentProduct && (
                 <CardProductItem

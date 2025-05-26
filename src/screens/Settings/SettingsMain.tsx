@@ -14,6 +14,7 @@ import theme from '@/config/theme';
 
 const baseMsg = 'pages.settings';
 
+
 export default function SettingsMain() {
   const { themeMode, toggleThemeMode } = useDarkModeTheme();
   const { t } = useTranslation();
@@ -58,6 +59,7 @@ export default function SettingsMain() {
           }
           onPress={toggleThemeMode}
         />
+        
       </View>
     </ScrollView>
   );

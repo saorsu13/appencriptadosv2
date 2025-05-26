@@ -13,7 +13,6 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
   },
   listContainer: {
-    paddingHorizontal: 16,
     marginTop: 8,
   },
   loader: {

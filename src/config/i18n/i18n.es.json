@@ -76,6 +76,11 @@
       }
     }
   },
+  "tabs": {
+    "home": "Inicio",
+    "store": "Comprar",
+    "sims": "SIM’s"
+  },
   "pages": {
     "home-tab": {
       "welcomebanner-badge": "Seguridad en inicio a fin",
@@ -140,7 +145,27 @@
       "virtualnumber-highlight": "número de teléfono virtual",
       "virtualnumber-button": "Comprar ahora",
       "virtualnumber-note": "*Se genera un número colombiano",
-      "followUs": "Síguenos"
+      "followUs": "Síguenos",
+      "searchPlaceholder": "Buscar producto",
+      "silentCircle": {
+        "badge": "Silent Circle",
+        "title": "Silent Phone",
+        "description": "Desarrollada por expertos en tecnología móvil, esta app protege tus datos con máxima seguridad en todo momento.",
+        "cta": "Compra aquí tu Silent Phone\nfácil y sin complicaciones"
+      },
+      "encryptedPhonesBanner": {
+        "badge": "Seguridad en inicio a fin",
+        "title": "Sistemas encriptados"
+      },
+      "aboutEncriptados": {
+        "subtitle": "Somos especialistas en soluciones de\ncomunicación segura:",
+        "list": [
+          "Celulares Seguros",
+          "SIM Cards Encriptadas",
+          "Protección de Nivel Empresarial",
+          "Sistemas de Seguridad Probados"
+        ]
+      }
     },
     "login": {
       "header": {
@@ -362,5 +387,20 @@
     },
     "goToPanel": "Ir al panel de control",
     "changeNameSimTitle": "Tu SIM ha cambiado de nombre exitosamente."
+  },
+  "filterMenu": {
+    "apps": "Apps",
+    "simCards": "SIMs",
+    "systems": "Sistemas",
+    "routers": "Routers"
+  },
+  "simFilters": {
+    "recharge": "Recargar",
+    "minutes": "Minutos",
+    "esim": "eSIM",
+    "sim": "SIM",
+    "imsi": "IMSI",
+    "rechargeOnly": "Recarga",
+    "rechargeEsim": "Recarga + eSIM"
   }
 }
