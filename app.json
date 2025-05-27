@@ -12,18 +12,35 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
+      "package": "com.encriptados.app",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "permissions": [],
       "edgeToEdgeEnabled": true
+    },
+    "ios": {
+      "bundleIdentifier": "com.encriptados.app",
+      "buildNumber": "1.0.0",
+      "supportsTablet": true
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "c66cde12-8558-4fb8-b474-9305cad80eb3"
+      }
     }
   }
 }

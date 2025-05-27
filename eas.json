@@ -1,0 +1,15 @@
+{
+  "cli": {
+    "version": ">= 1.0.0"
+  },
+  "build": {
+    "apk-release": {
+      "developmentClient": false,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      }
+    }
+  }
+}
