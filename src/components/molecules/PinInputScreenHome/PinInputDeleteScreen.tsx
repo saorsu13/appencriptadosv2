@@ -32,7 +32,7 @@ const KEY_SIZE = Math.floor(SCREEN_WIDTH * 0.22);
 
 const MAX_ATTEMPTS = 5;
 
-export default function PinInputDeleteScreenHome({ mode = 'delete' }: { mode?: 'create' | 'delete' }) {
+export default function PinInputDeleteScreen({ mode = 'delete' }: { mode?: 'create' | 'delete' }) {
   const { themeMode } = useDarkModeTheme();
   const theme = ThemeCustom[themeMode];
   const { colors } = theme;

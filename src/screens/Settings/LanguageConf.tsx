@@ -49,7 +49,7 @@ export default function LanguageConf() {
     <ScrollView style={{ backgroundColor }}>
       <HeaderEncrypted
         title={t(`${baseMsg}.title`)}
-        iconBack="SettingsMain"
+        iconBack={() => navigation.goBack()}
       />
 
       <View style={styles.containerBody}>

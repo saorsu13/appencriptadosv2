@@ -7,7 +7,7 @@ import { ThemeCustom } from '@/config/theme2';
 import { useDarkModeTheme } from '@/context/theme';
 import { useMenu } from '@/context/menuprovider';
 import HeaderEncrypted from '@/components/molecules/HeaderEncrypted/HeaderEncrypted';
-import PinInputDeleteScreenHome from '@/components/molecules/PinInputScreenHome/PinInputDeleteScreenHome';
+import PinInputDeleteScreen from '@/components/molecules/PinInputScreenHome/PinInputDeleteScreen';
 
 export default function DeleteAccessPassword() {
   const { themeMode } = useDarkModeTheme();
@@ -20,7 +20,7 @@ export default function DeleteAccessPassword() {
       {isMenuVisible && (
         <HeaderEncrypted iconBack="SettingsMain" />
       )}
-      <PinInputDeleteScreenHome mode="delete"/>
+      <PinInputDeleteScreen mode="delete"/>
     </View>
   );
 }

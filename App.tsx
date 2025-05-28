@@ -1,20 +1,21 @@
 // App.tsx
 import 'src/config/i18n/i18n';
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { ThemeProvider as RestyleProvider } from '@shopify/restyle';
-import AppNavigator from './src/navigation/AppNavigator';
-import { DarkModeProvider, useDarkModeTheme } from './src/context/theme';
-import { ThemeCustom } from './src/config/theme2';
-import { Provider } from 'react-redux';
-import { store } from './src/store'; 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { MenuProvider } from '@/context/menuprovider';
+import { DarkModeProvider, useDarkModeTheme } from './src/context/theme';
+import { Provider } from 'react-redux';
+import { store } from './src/store';
 import { ModalPaymentProvider } from '@/context/modalpayment';
-import ModalPaymentController from '@/components/molecules/ModalPayment/ModalPaymentController';
 import { ModalProvider } from '@/context/modal';
-import  ModalController  from '@/context/ModalController'
-// Este componente interno lee el modo y aplica el theme correcto
+import AppNavigator from './src/navigation/AppNavigator';
+import ModalPaymentController from '@/components/molecules/ModalPayment/ModalPaymentController';
+import ModalController from '@/context/ModalController';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider as RestyleProvider } from '@shopify/restyle';
+import { ThemeCustom } from './src/config/theme2';
+import { StatusBar } from 'expo-status-bar';
+
 function Root() {
   const { themeMode } = useDarkModeTheme();
   const theme = ThemeCustom[themeMode];
@@ -24,10 +25,10 @@ function Root() {
   return (
     <QueryClientProvider client={queryClient}>
       <RestyleProvider theme={theme}>
-          <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} />
-          <AppNavigator />
-          <ModalPaymentController />
-          <ModalController /> 
+        <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} />
+        <AppNavigator />
+        <ModalPaymentController />
+        <ModalController />
       </RestyleProvider>
     </QueryClientProvider>
   );
@@ -35,16 +36,18 @@ function Root() {
 
 export default function App() {
   return (
-     <SafeAreaProvider>
-      <DarkModeProvider>
-        <Provider store={store}>
-          <ModalPaymentProvider> 
-            <ModalProvider>
-              <Root />
-            </ModalProvider>
-          </ModalPaymentProvider>
-        </Provider>
-      </DarkModeProvider>
+    <SafeAreaProvider>
+      <MenuProvider>
+        <DarkModeProvider>
+          <Provider store={store}>
+            <ModalPaymentProvider>
+              <ModalProvider>
+                <Root />
+              </ModalProvider>
+            </ModalPaymentProvider>
+          </Provider>
+        </DarkModeProvider>
+      </MenuProvider>
     </SafeAreaProvider>
   );
 }

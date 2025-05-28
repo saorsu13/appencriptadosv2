@@ -170,7 +170,7 @@ export default function HeaderEncrypted({
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
-    minHeight: 60,
+    minHeight: 100,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

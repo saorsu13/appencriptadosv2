@@ -23,6 +23,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@/navigation/types';
 import { useDarkModeTheme, ThemeMode } from '@/context/theme';
 import { HomeStyles } from '@/styles/Home/HomeStyles';
+import type { SettingsStackParamList } from '@/navigation/SettingsStack';
+
 
 export default function AccessPassword() {
   const { themeMode } = useDarkModeTheme();
@@ -30,8 +32,12 @@ export default function AccessPassword() {
   const isDark = themeMode === ThemeMode.Dark;
   const backgroundColor = theme.colors.background;
   const { colors } = theme;
+  const navigation = useNavigation<NavigationProp<any>>();
 
-  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Settings'>>();
+ const nav = useNavigation<
+    NativeStackNavigationProp<SettingsStackParamList, 'AccessPassword'>
+  >();
+
   const { getPassword } = useLocalPassword();
 
   const [password, setPassword] = useState<string | null>(null);
@@ -93,7 +99,7 @@ export default function AccessPassword() {
 
   return (
     <View style={[HomeStyles.container, { backgroundColor }]}>
-      <HeaderEncrypted owner="encriptados" iconBack="SettingsMain" />
+      <HeaderEncrypted owner="encriptados" iconBack={() => navigation.goBack()} />
 
       <View style={styles.container}>
         <ScrollView
@@ -181,19 +187,27 @@ export default function AccessPassword() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  scrollView: { flex: 1 },
+  container: { 
+    flex: 1,
+  },
+  scrollView: { 
+    flex: 1 
+  },
   contentContainer: {
     flex: 1,
     paddingVertical: 15,
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
     width: '90%',
     borderRadius: 10,
     alignSelf: 'center',
     marginBottom: 20,
   },
-  primaryText: { marginVertical: 10 },
-  secondaryText: { marginVertical: 10 },
+  primaryText: { 
+    marginVertical: 10 
+  },
+  secondaryText: { 
+    marginVertical: 10 
+  },
   underlineText: {
     marginVertical: 10,
     textDecorationLine: 'underline',
@@ -202,18 +216,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '90%',
+    width: '88%',
     alignSelf: 'center',
     marginBottom: 20,
   },
-  buttonContainer: { padding: 10, alignItems: 'center' },
+  buttonContainer: { 
+    padding: 10, 
+    alignItems: 'center' 
+  },
   button: {
-    width: '100%',
+    width: '92%',
     borderRadius: 8,
     paddingVertical: 15,
-    paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 100,
   },
-  buttonText: { fontSize: 16, fontWeight: 'bold' },
+  buttonText: { 
+    fontSize: 16, 
+    fontWeight: 'bold' 
+  },
 });

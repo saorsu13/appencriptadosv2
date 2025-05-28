@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useTheme } from '@shopify/restyle';
 import { ThemeCustom } from '@/config/theme2';
+import { useDarkModeTheme } from '@/context/theme';
 import IconSvg from '@/components/molecules/IconSvg/IconSvg';
 import useModalAll from '@/hooks/useModalAll';
 import useLocalPassword, { passwordKey } from '@/hooks/useLocalPassword';
@@ -25,11 +26,16 @@ import { useAuth } from '@/context/auth';
 import { t } from 'i18next';
 import { resetModalUpdate } from '@/features/settingsSlice/settingsSlice';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { BalanceStackParamList } from '@/navigation/BalanceTypes';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '@/navigation/types';
 
 const MAX_ATTEMPTS = 5;
 
 export default function PinInputScreen() {
+  const { themeMode } = useDarkModeTheme();
+  const theme = ThemeCustom[themeMode];
+  const { colors } = theme;
+  const backgroundColor = theme.colors.background;
   const [pin, setPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
   const [verifyActualPassword, setVerifyActualPassword] = useState('');
@@ -47,11 +53,10 @@ export default function PinInputScreen() {
   const isLoggedIn = !!token;
   const { savePassword, getPassword, deleteCurrentPassword } =
     useLocalPassword();
-  const { colors } = useTheme<ThemeCustom>();
   const { showModal } = useModalAll();
   const dispatch = useAppDispatch();
   const { isMenuVisible, setIsMenuVisible } = useMenu();
-  const navigation = useNavigation<NavigationProp<BalanceStackParamList>>();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Settings'>>();
 
   // Load existing password
   useEffect(() => {
@@ -86,7 +91,7 @@ export default function PinInputScreen() {
           dispatch(disablePasswordRequired());
           deleteCurrentPassword();
           closeModal();
-          navigation.navigate('BalanceMain');
+          nav.goBack();
           dispatch(resetModalUpdate(true));
         }
       } else {
@@ -108,13 +113,13 @@ export default function PinInputScreen() {
               savePassword(confirmPin);
               setIsConfirmed(true);
               dispatch(enablePasswordRequired());
-              navigation.navigate('AccessPassword');
+              nav.navigate('AccessPassword');
             },
             onCancel: () => {
               setPin('');
               setConfirmPin('');
               setIsConfirming(false);
-              navigation.navigate('AccessPassword');
+              nav.navigate('AccessPassword');
             },
           });
         }
@@ -132,7 +137,7 @@ export default function PinInputScreen() {
             setIsConfirming(false);
           },
           onCancel: () => {
-            navigation.navigate('AccessPassword');
+            nav.navigate('AccessPassword');
           },
         });
       }
@@ -178,7 +183,7 @@ export default function PinInputScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor }]}>
       <View style={styles.lockIconContainer}>
         <IconSvg type="userpassword" />
       </View>
@@ -247,7 +252,7 @@ export default function PinInputScreen() {
           >
             <Text
               allowFontScaling={false}
-              style={[styles.keyText, { color: colors.white }]}
+              style={[styles.keyText, { color: colors.background }]}
             >
               {item}
             </Text>
@@ -310,7 +315,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 40,
-    backgroundColor: "#fff", 
   },
   keyText: {
     fontSize: 24,
