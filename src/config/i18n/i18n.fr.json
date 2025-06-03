@@ -397,5 +397,25 @@
     "imsi": "IMSI",
     "rechargeOnly": "Recharger",
     "rechargeEsim": "Recharger + eSIM"
+  },
+  "modalPayment": {
+    "loadingProduct": "Chargement du produit...",
+    "purchaseDetails": "Détails de l'achat",
+    "unitPrice": "Prix unitaire",
+    "quantity": "Quantité",
+    "coupon": "Code promo",
+    "couponCode": "Code promo",
+    "apply": "Appliquer",
+    "discount": "Remise",
+    "totalToPay": "Total à payer",
+    "enterEmail": "Entrez votre email",
+    "telegramId": "ID Telegram",
+    "acceptTerms": "J'accepte les termes et conditions",
+    "methods": {
+      "creditCard": "Payer avec une carte de crédit",
+      "atm": "Payer avec un guichet automatique",
+      "bancolombia": "Payer avec Bancolombia",
+      "crypto": "Payer avec des cryptomonnaies"
+    }
   }
 }

@@ -25,6 +25,8 @@ import { PAYMENTS_METHODS, paymentOptions } from "@/constants/paymentOptions";
 import { paymentValidationSchema } from "@/validations/paymentValidation";
 import { initialFormValues } from "@/constants/initialFormValues"
 import EditableDividerSection from "./EditableDividerSection";
+import PayWithCrypto from "./PaymentMethodsView/PayWithCrypto";
+import { useTranslation } from "react-i18next";
 
 
 export interface FormValuesPayment {
@@ -35,6 +37,7 @@ export interface FormValuesPayment {
 
 
 const ModalPaymentView = () => {
+  const { t } = useTranslation();
   const { closeModal } = useModalPayment();
   const [activePaymentOption, setPaymentActiveOption] = useState<string | null>(
     null
@@ -57,7 +60,13 @@ const ModalPaymentView = () => {
 
   switch (activePaymentOption) {
     case PAYMENTS_METHODS.CREDIT_CARD:
-      component = <PayWithCreditCard />;
+      component = (
+        <PayWithCreditCard
+          productId={productid}
+          closeModal={goBack}
+          languageCode={values?.languageCode ?? "es"}
+        />
+      );
       break;
     case PAYMENTS_METHODS.ATM:
       component = <PayWithAtm />;
@@ -68,9 +77,11 @@ const ModalPaymentView = () => {
 
     case PAYMENTS_METHODS.CRYPTO:
       component = (
-        <Text allowFontScaling={false} style={{ color: "white" }}>
-          CRYPTO
-        </Text>
+        <PayWithCrypto
+          productId={productid}
+          closeModal={goBack}
+          languageCode={values?.languageCode ?? "es"}
+        />
       );
       break;
     default:
@@ -86,7 +97,7 @@ const ModalPaymentView = () => {
       <View style={styles.container}>
          {isLoading ? (
         <View style={styles.loaderContainer}>
-          <Text style={styles.loaderText}>Cargando producto...</Text>
+          <Text style={styles.loaderText}>{t('modalPayment.loadingProduct')}</Text>
           <ActivityIndicator size="large" color="#10B4E7" />
         </View>
       ) : (
@@ -108,7 +119,7 @@ const ModalPaymentView = () => {
             <View style={{ width: "100%" }}>
               <View style={styles.header}>
                 <Text allowFontScaling={false} style={styles.headerTitle}>
-                  Detalles de compra
+                  {t('modalPayment.purchaseDetails')}
                 </Text>
                 <TouchableOpacity onPress={goBack}>
                   <IconSvg type="closeicon" />
@@ -126,11 +137,11 @@ const ModalPaymentView = () => {
               activePaymentOption ===
                 PAYMENTS_METHODS.BANCOLOMBIA_PAY ? null : (
                 <View>
-                  <DividerSection label="Valor unidad" value={`${product?.price} USD`} />
-                  <EditableDividerSection label="Cantidad">
+                  <DividerSection label={t('modalPayment.unitPrice')} value={`${product?.price} USD`} />
+                  <EditableDividerSection label={t('modalPayment.quantity')}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <FormPaymentInput
-                      placeholder="Cantidad"
+                      placeholder={t('modalPayment.quantity')}
                       handleChange={(text) => {
                         const value = Number(text);
                         if (!isNaN(value)) {
@@ -144,10 +155,10 @@ const ModalPaymentView = () => {
                     </View>
                   </EditableDividerSection>
 
-                  <EditableDividerSection label="Cupón">
+                  <EditableDividerSection label={t('modalPayment.coupon')}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <FormPaymentInput
-                      placeholder="Código de cupón"
+                      placeholder={t('modalPayment.couponCode')}
                       handleChange={(text) => setCoupon(text)}
                       handleBlur={() => {}}
                       value={coupon}
@@ -164,15 +175,15 @@ const ModalPaymentView = () => {
                       style={{ marginLeft: 10 }}
                     >
                       <Text allowFontScaling={false} style={{ color: "#10B4E7", textDecorationLine: "underline", fontSize: 14 }}>
-                        Aplicar
+                        {t('modalPayment.apply')}
                       </Text>
                     </TouchableOpacity>
                   </View>
                 </EditableDividerSection>
 
 
-                  <DividerSection label="Descuento" value={`-${discount} USD`} />
-                  <DividerSection label="Total a pagar" value={`${totalPrice} USD`} />
+                  <DividerSection label={t('modalPayment.discount')} value={`-${discount} USD`} />
+                  <DividerSection label={t('modalPayment.totalToPay')} value={`${totalPrice} USD`} />
 
                 </View>
               )}
@@ -181,14 +192,14 @@ const ModalPaymentView = () => {
                 <View>
                   <View style={styles.inputContainer}>
                     <FormPaymentInput
-                      placeholder="Ingresa tu email"
+                      placeholder={t('modalPayment.enterEmail')}
                       handleChange={handleChange("email")}
                       handleBlur={handleBlur("email")}
                       value={values.email}
                       width="48%"
                     />
                     <FormPaymentInput
-                      placeholder="ID Telegram"
+                      placeholder={t('modalPayment.telegramId')}
                       handleChange={handleChange("telegramId")}
                       handleBlur={handleBlur("telegramId")}
                       value={values.telegramId ?? ""}
@@ -216,7 +227,7 @@ const ModalPaymentView = () => {
                       )}
                     </TouchableOpacity>
                     <Text allowFontScaling={false} style={{ color: "#FFFFFF" }}>
-                      Acepto los términos y condiciones
+                      {t('modalPayment.acceptTerms')}
                     </Text>
                   </View>
 

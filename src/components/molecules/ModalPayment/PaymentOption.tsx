@@ -1,4 +1,5 @@
 import React, { ComponentType } from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 
@@ -13,6 +14,7 @@ interface PaymentOptionProps {
 }
 
 const PaymentOption: React.FC<PaymentOptionProps> = ({ option, activeOption, setActiveOption }) => {
+  const { t } = useTranslation();
   return (
     <TouchableOpacity
       onPress={() => {
@@ -31,7 +33,7 @@ const PaymentOption: React.FC<PaymentOptionProps> = ({ option, activeOption, set
           marginTop: 7,
         }}
       >
-        {option.label}
+        {t(option.label)}
       </Text>
     </TouchableOpacity>
   );

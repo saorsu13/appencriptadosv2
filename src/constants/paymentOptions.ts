@@ -23,22 +23,22 @@ export interface PaymentOptionItem {
 
 export const paymentOptions = [
   {
-    label: "Paga con tarjeta de crédito",
+    label: "modalPayment.methods.creditCard",
     icon: CardMethodIcon,
     value: PAYMENTS_METHODS.CREDIT_CARD,
   },
   {
-    label: "Pagar con ATM",
+    label: "modalPayment.methods.atm",
     icon: ATMIcon,
     value: PAYMENTS_METHODS.ATM,
   },
   {
-    label: "Paga con Bancolombia",
+    label: "modalPayment.methods.bancolombia",
     icon: BancolombiaMethodIcon,
     value: PAYMENTS_METHODS.BANCOLOMBIA_PAY,
   },
   {
-    label: "Paga con Criptomonedas",
+    label: "modalPayment.methods.crypto",
     icon: CryptoIcon,
     value: PAYMENTS_METHODS.CRYPTO,
   },

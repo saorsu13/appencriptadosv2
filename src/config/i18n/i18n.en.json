@@ -402,5 +402,25 @@
     "imsi": "IMSI",
     "rechargeOnly": "Top-up",
     "rechargeEsim": "Top-up + eSIM"
+  },
+  "modalPayment": {
+    "loadingProduct": "Loading product...",
+    "purchaseDetails": "Purchase Details",
+    "unitPrice": "Unit price",
+    "quantity": "Quantity",
+    "coupon": "Coupon",
+    "couponCode": "Coupon code",
+    "apply": "Apply",
+    "discount": "Discount",
+    "totalToPay": "Total to pay",
+    "enterEmail": "Enter your email",
+    "telegramId": "Telegram ID",
+    "acceptTerms": "I accept the terms and conditions",
+    "methods": {
+      "creditCard": "Pay with credit card",
+      "atm": "Pay with ATM",
+      "bancolombia": "Pay with Bancolombia",
+      "crypto": "Pay with cryptocurrency"
+    }
   }
 }

@@ -15,6 +15,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider as RestyleProvider } from '@shopify/restyle';
 import { ThemeCustom } from './src/config/theme2';
 import { StatusBar } from 'expo-status-bar';
+import { STRIPE_PUBLISHABLE_KEY } from '@env';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 function Root() {
   const { themeMode } = useDarkModeTheme();
@@ -24,12 +26,14 @@ function Root() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RestyleProvider theme={theme}>
+     <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
+        <RestyleProvider theme={theme}>
         <StatusBar style={themeMode === 'dark' ? 'light' : 'dark'} />
         <AppNavigator />
         <ModalPaymentController />
         <ModalController />
       </RestyleProvider>
+      </StripeProvider>
     </QueryClientProvider>
   );
 }
