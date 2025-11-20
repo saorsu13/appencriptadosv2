@@ -6,7 +6,7 @@ import { ThemeCustom } from '@/config/theme2';
 import { useDarkModeTheme } from '@/context/theme';
 import { useMenu } from '@/context/menuprovider';
 import HeaderEncrypted from '@/components/molecules/HeaderEncrypted/HeaderEncrypted';
-import PinInputScreen from '@/components/molecules/PinInputScreen/PinInputScreen';
+// import PinInputScreen from '@/components/molecules/PinInputScreen/PinInputScreen';
 
 export default function CreateAccessPassword() {
   const { themeMode } = useDarkModeTheme();
@@ -19,7 +19,7 @@ export default function CreateAccessPassword() {
       {isMenuVisible && (
         <HeaderEncrypted iconBack="SettingsMain" />
       )}
-      <PinInputScreen mode="create"/>
+      {/* <PinInputScreen mode="create"/> */}
     </View>
   );
 }
